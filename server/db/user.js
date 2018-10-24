@@ -31,12 +31,12 @@ const User = conn.define('user', {
         }
     },
     email: {
-        //TO DO: Check email is valid
         type: conn.Sequelize.STRING,
         allowNull: false,
         unique: true,
         validate: {
-            notEmpty: true
+            notEmpty: true,
+            isEmail: true
         }
     },
     isAdmin: {
