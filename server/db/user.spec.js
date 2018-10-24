@@ -15,14 +15,14 @@ describe('User Model', () => {
         })
     });
 
-    it('Has 3 users and isAdmin is set to false by default', () => {
+    it('Has 3 users', () => {
         return User.findAll()
-            .then(users => {
-                expect(users.length).to.equal(3);
-                expect(users[0].isAdmin).to.equal(false);
-                expect(users[1].isAdmin).to.equal(false);
-                expect(users[2].isAdmin).to.equal(true);
-            });
+            .then(users => expect(users.length).to.equal(3));
+    });
+
+    it('isAdmin is set to false by default', () => {
+        return User.findOne({ where: { firstName: "Moe" } })
+            .then(user => expect(user.isAdmin).to.equal(false)); 
     });
 
     it('Throws error if firstName, lastName, username, password, email is null', () => {
