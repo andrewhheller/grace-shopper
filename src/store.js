@@ -4,7 +4,8 @@ import thunk from 'redux-thunk';
 import UserReducer from './reducers/UserReducer';
 
 const reducer = combineReducers({
-    users: UserReducer
+    users: UserReducer,
+    products: productReducer
 });
 
 const store = createStore(reducer, applyMiddleware(loggerMiddleware, thunk));
