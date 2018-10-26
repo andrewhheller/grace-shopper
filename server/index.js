@@ -1,5 +1,6 @@
 const db = require('./db');
 const app = require('./app');
+const faker = require('faker');
 
 const PORT = process.env.PORT || 3000;
 

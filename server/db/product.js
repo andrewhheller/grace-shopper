@@ -1,30 +1,49 @@
-const Sequelize = require('sequelize');
-const conn = new Sequelize(process.env.DATABASE_URL);
-const Op = Sequelize.Op;
+const conn = require('./conn');
+const Op = conn.Sequelize.Op;
 
 const Product = conn.define('product', {
+
   title: {
-    type: Sequelize.STRING,
+    type: conn.Sequelize.STRING,
+    unique: true,
     allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
+
   description: {
-    type: Sequelize.TEXT,
+    type: conn.Sequelize.TEXT,
     allowNull: false,
+    validate: {
+      notEmpty: true
+    }
   },
+
   price: {
-    type: Sequelize.DECIMAL,
+    type: conn.Sequelize.DECIMAL,
     allowNull: false,
+    validate: {
+      min: 0.01
+    }
   },
+
   inventory: {
-    type: Sequelize.INTEGER,
+    type: conn.Sequelize.INTEGER,
     defaultValue: 0,
+    validate: {
+      min: 0
+    }
   },
-  image: {
-    type: Sequelize.STRING,
-    defaultValue: '/jpgimage',
+
+  imageUrl: {
+    type: conn.Sequelize.STRING,
+    defaultValue: '/public/book-default-cover.jpg',
   },
+
   categories: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
+    type: conn.Sequelize.ARRAY(conn.Sequelize.STRING),
+    allowNull: false,
     validate: {
       notEmpty: true,
     },
@@ -40,4 +59,5 @@ Product.findByCategory = function(category) {
     },
   });
 };
+
 module.exports = Product;
