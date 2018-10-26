@@ -13,7 +13,7 @@ const Product = conn.define('product', {
   },
   price: {
     type: Sequelize.DECIMAL,
-    defaultValue: 0.0,
+    allowNull: false,
   },
   inventory: {
     type: Sequelize.INTEGER,

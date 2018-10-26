@@ -13,7 +13,7 @@ router.get('/:id', (req, res, next) => {
     .then(product => res.send(product))
     .catch(next);
 });
-router.use(require('body-parser').json());
+
 router.post('/', (req, res, next) => {
   Product.create(req.body)
     .then(product => res.send(product))
@@ -22,7 +22,6 @@ router.post('/', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   Product.findById(req.params.id)
     .then(product => product.destroy())
-    .then(() => res.sendStatus(200))
     .catch(next);
 });
 router.put('/:id', (req, res, next) => {
