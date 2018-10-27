@@ -5,7 +5,12 @@ import {getUserById} from './../reducers/UserReducer';
 class User extends Component {
 
     render() {
-        const {user} = this.props;
+        const { user } = this.props;
+
+        if(!user) {
+            return null;
+        }
+
         return (
             <div className='userContainer'>
                 <div >

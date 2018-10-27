@@ -4,11 +4,15 @@ import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux'
 import Users from './Users';
 import Nav from './Nav';
+import Users from './Users';
 import User from './User';
+import Products from './Products';
+import ProductDetails from './ProductDetails';
 import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
+
 
 class App extends Component {
     componentDidMount(){
