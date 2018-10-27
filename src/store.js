@@ -3,16 +3,21 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import { UserReducer, getUsers } from './reducers/UserReducer';
-import { productReducer } from './reducers/products';
-import { login, logout, authenticatedUserReducer, exchangeTokenForAuth } from './reducers/authenticatedUser'
+import { productReducer, getProducts } from './reducers/products';
+import {
+  login,
+  logout,
+  authenticatedUserReducer,
+  exchangeTokenForAuth,
+} from './reducers/authenticatedUser';
 
 const reducer = combineReducers({
-    users: UserReducer,
-    products: productReducer,
-    authenticatedUser: authenticatedUserReducer,
+  users: UserReducer,
+  products: productReducer,
+  authenticatedUser: authenticatedUserReducer,
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
 
 export default store;
-export { login, logout, exchangeTokenForAuth, getUsers };
+export { login, logout, exchangeTokenForAuth, getUsers, getProducts };
