@@ -14,32 +14,38 @@ class User extends Component {
     constructor() {
         super();
         this.state = {
-            userArea: '' // determines which Component is rendered in main area to the right
+            userArea: 'myaccount' // determines which Component is rendered in main area to the right
         }
 
         this.handleUserArea = this.handleUserArea.bind(this);
         this.selected = this.selected.bind(this);
     }
 
-    // componentDidUpdate(prevProps) {
-    //     const { location } = this.props;
-    //     const path = location.pathname;
-    //     const userArea = path.substr(path.lastIndexOf('/') + 1, path.length);
+    componentDidUpdate(prevProps) {
+        const { location } = this.props;
+        const path = location.pathname;
+        const url = path.substr(path.lastIndexOf('/') + 1, path.length);
 
-    //     if(prevProps !== this.props) {
-    //         this.setState({ userArea: 'UserInfo' })
-    //     }
-    // }
+        // loads correct user area on refresh depending on URL
+        if(prevProps !== this.props) {
+            if(url === 'myaccount'){
+                this.setState({ userArea: 'myaccount' })
+            }
+            else if(url === 'myorders') {
+                this.setState({ userArea: 'myorders' })
+            }
+        }
+    }
 
     // returns Component to render in main area (to the right) when user area button is clicked
     handleUserArea(userArea) {
         const { user } = this.props;
             
         switch(userArea) {
-            case 'UserInfo':
+            case 'myaccount':
                 return <UserInfo user={ user }/>
 
-            case 'UserOrders':
+            case 'myorders':
                 return <UserOrders />
         }
 
@@ -76,19 +82,19 @@ class User extends Component {
                     <List>
                     
                         <ListItem
-                            button onClick={ () => this.setState({ userArea: 'UserInfo' }) }
+                            button onClick={ () => this.setState({ userArea: 'myaccount' }) }
                             component={ Link } 
-                            to={`/users/${ user.id }/acount-info`}
-                            selected={ selected('/acount-info') }
+                            to={`/users/${ user.id }/myaccount`}
+                            selected={ selected('/myaccount') }
                         >
                             <ListItemText>My Account</ListItemText>
                         </ListItem>
 
                         <ListItem
-                            button onClick={ () => this.setState({ userArea: 'UserOrders' }) }
+                            button onClick={ () => this.setState({ userArea: 'myorders' }) }
                             component={ Link } 
-                            to={`/users/${ user.id }/orders`}
-                            selected={ selected('/orders') }
+                            to={`/users/${ user.id }/myorders`}
+                            selected={ selected('/myorders') }
                         >
                             <ListItemText>My Orders</ListItemText>
                         </ListItem>
