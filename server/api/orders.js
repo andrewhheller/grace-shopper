@@ -10,6 +10,7 @@ module.exports = router;
 // Gets all orders
 router.get('/', (req, res, next) => {
     Order.findAll({
+        where: { type: "ORDER" }, 
         include: [ LineItem ],
         order: [ ['createdAt', 'DESC'] ]
     }).then(orders => res.send(orders))
