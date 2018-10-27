@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Grid , List, ListItem, ListItemText} from '@material-ui/core'
+import Products from './Products';
 
 // TO DO: Need to be a connected component to get the categories list. For now, hard-coding test data
 class Home extends Component {
@@ -36,7 +37,7 @@ class Home extends Component {
                     </List>
                 </Grid>
                 <Grid item sm style={style.GridItem}> 
-                    Display Products belonging to Category {category}
+                    <Products category={category} products={fakeProducts()}/>
                 </Grid>
             </Grid>
         )
@@ -97,7 +98,7 @@ const fakeProducts = () => {
         inventory: 5545,
         imageUrl: "https://picsum.photos/200/300/?image=6",
         categories: [
-        "Thriller"
+        "Thriller", "Drama"
         ],
         createdAt: "2018-10-26T16:04:09.656Z",
         updatedAt: "2018-10-26T16:04:09.656Z"
