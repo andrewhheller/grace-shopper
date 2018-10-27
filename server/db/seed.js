@@ -53,7 +53,39 @@ const createProducts = () => {
     return products;
 }
 
+const createOrdersWithLineItems = () => {
+    const orders = [];  
+    orders.push(
+        { userId: 1, type: "ORDER", status: "COMPLETED", lineItems: [
+            { productId: 3, quantity: 2, price: 25},
+            { productId: 4, quantity: 1, price: 90}
+        ]},
+        { userId: 1, type: "ORDER", status: "CREATED", lineItems: [
+            { productId: 1, quantity: 50, price: 10},
+            { productId: 2, quantity: 5, price: 20}
+        ]},
+        { userId: 1, type: "CART", lineItems: [
+            { productId: 3, quantity: 2, price: 20},
+            { productId: 4, quantity: 1, price: 100}
+        ]},
+        { userId: 2, type: "ORDER", status: "CANCELLED", lineItems: [
+            { productId: 3, quantity: 2, price: 35},
+            { productId: 4, quantity: 1, price: 150}
+        ]},
+        { userId: 2, type: "ORDER", status: "PROCESSING", lineItems: [
+            { productId: 1, quantity: 50, price: 10},
+            { productId: 2, quantity: 5, price: 20}
+        ]},
+        { userId: 2, type: "CART", lineItems: [
+            { productId: 3, quantity: 2, price: 20},
+            { productId: 4, quantity: 1, price: 100}
+        ]},      
+    )
+    return orders;
+}
+
 module.exports = {
     createUsers,
-    createProducts
+    createProducts,
+    createOrdersWithLineItems
 }
