@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { getUsers, exchangeTokenForAuth } from '../store';
+import { getUsers, exchangeTokenForAuth, getProducts } from '../store';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from './Nav';
@@ -15,6 +15,7 @@ import AdminManagement from './AdminManagement';
 class App extends Component {
   componentDidMount() {
     this.props.getUsers();
+    this.props.getProducts();
     this.props.exchangeTokenForAuth();
   }
 
@@ -46,6 +47,7 @@ class App extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     getUsers: () => dispatch(getUsers()),
+    getProducts: () => dispatch(getProducts()),
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
   };
 };
