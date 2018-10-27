@@ -66,44 +66,42 @@ const getCategories = () => {
 };
 
 const fakeProducts = () => {
-    return [{
-        id: 3,
-        title: "sed quod eos",
-        description: "Aut ut quibusdam et aliquam et. Aliquam molestiae ipsa nesciunt minima a et suscipit cum vitae. Placeat est quaerat natus sunt quam in. Ducimus laborum ipsa. Dolores est nostrum placeat est doloremque aut distinctio minus. Asperiores velit vero neque ab a et est nihil.",
-        price: "122.00",
-        inventory: 7061,
-        imageUrl: "https://picsum.photos/200/300/?image=2",
-        categories: [
-        "Drama"
-        ],
-        createdAt: "2018-10-26T16:04:09.655Z",
-        updatedAt: "2018-10-26T16:04:09.655Z"
-        },
-        {
-        id: 6,
-        title: "vero voluptas recusandae",
-        description: "Provident est provident omnis laborum rerum nesciunt fugit labore. Nisi enim eum est rerum quia eos est. Corrupti alias natus. Quaerat officiis fuga labore commodi blanditiis nihil possimus dicta porro.",
-        price: "515.00",
-        inventory: 3978,
-        imageUrl: "https://picsum.photos/200/300/?image=5",
-        categories: [
-        "Science Fiction"
-        ],
-        createdAt: "2018-10-26T16:04:09.656Z",
-        updatedAt: "2018-10-26T16:04:09.656Z"
-        },
-        {
-        id: 7,
-        title: "error qui rem",
-        description: "Laborum illum labore iure nisi est qui consectetur et omnis. Eum nulla facilis. Vitae iusto quis. Quasi excepturi ut. Ut et quo deleniti rerum commodi ad.",
-        price: "474.00",
-        inventory: 5545,
-        imageUrl: "https://picsum.photos/200/300/?image=6",
-        categories: [
-        "Thriller", "Drama"
-        ],
-        createdAt: "2018-10-26T16:04:09.656Z",
-        updatedAt: "2018-10-26T16:04:09.656Z"
-        },
-    ]
-}
+  return [
+    {
+      id: 3,
+      title: 'sed quod eos',
+      description:
+        'Aut ut quibusdam et aliquam et. Aliquam molestiae ipsa nesciunt minima a et suscipit cum vitae. Placeat est quaerat natus sunt quam in. Ducimus laborum ipsa. Dolores est nostrum placeat est doloremque aut distinctio minus. Asperiores velit vero neque ab a et est nihil.',
+      price: '122.00',
+      inventory: 7061,
+      imageUrl: 'https://picsum.photos/200/300/?image=2',
+      categories: ['Drama'],
+      createdAt: '2018-10-26T16:04:09.655Z',
+      updatedAt: '2018-10-26T16:04:09.655Z',
+    },
+    {
+      id: 6,
+      title: 'vero voluptas recusandae',
+      description:
+        'Provident est provident omnis laborum rerum nesciunt fugit labore. Nisi enim eum est rerum quia eos est. Corrupti alias natus. Quaerat officiis fuga labore commodi blanditiis nihil possimus dicta porro.',
+      price: '515.00',
+      inventory: 3978,
+      imageUrl: 'https://picsum.photos/200/300/?image=5',
+      categories: ['Science Fiction'],
+      createdAt: '2018-10-26T16:04:09.656Z',
+      updatedAt: '2018-10-26T16:04:09.656Z',
+    },
+    {
+      id: 7,
+      title: 'error qui rem',
+      description:
+        'Laborum illum labore iure nisi est qui consectetur et omnis. Eum nulla facilis. Vitae iusto quis. Quasi excepturi ut. Ut et quo deleniti rerum commodi ad.',
+      price: '474.00',
+      inventory: 5545,
+      imageUrl: 'https://picsum.photos/200/300/?image=6',
+      categories: ['Thriller'],
+      createdAt: '2018-10-26T16:04:09.656Z',
+      updatedAt: '2018-10-26T16:04:09.656Z',
+    },
+  ];
+};
