@@ -63,15 +63,9 @@ class User extends Component {
     }
 
     render() {
-        const { handleUserArea, selected } = this;
         const { user } = this.props;
-        const { userArea } = this.state;
 
-        const style = {
-            GridItem: { padding: 10, marginTop: 10, height: "90vh" }
-        }
-        
-        if(!user){
+        if(!user) {
             return null;
         }
 
