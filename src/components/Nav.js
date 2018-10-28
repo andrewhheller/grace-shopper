@@ -48,7 +48,7 @@ class Nav extends Component {
                         <AccountCircleIcon />
                     </IconButton>
                     <Menu id="profile-menu" anchorEl={anchorEl} open={isOpen} onClick={handleProfileMenuClose} >
-                        <MenuItem to={`/users/${authenticatedUser.id}`} component={Link} onClick={handleProfileMenuClose} >Account</MenuItem>
+                        <MenuItem to={`/users/${authenticatedUser.id}/myaccount`} component={Link} onClick={handleProfileMenuClose} >Account</MenuItem>
                         {
                             authenticatedUser.isAdmin && 
                             <MenuItem to={`/adminManagement`} component={Link} onClick={handleProfileMenuClose} >Admin Management</MenuItem>
