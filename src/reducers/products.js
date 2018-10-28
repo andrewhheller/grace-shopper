@@ -49,7 +49,7 @@ const addProduct = (product) => {
   return (dispatch) => {
     return axios.post(`/api/products`, product)
       .then(res => res.data)
-      .then(product => dispatch(_addUser(product)))
+      .then(product => dispatch(_addProduct(product)))
       .catch(error => console.log(error))
   };
 };
@@ -74,6 +74,32 @@ const getProduct = (id, products) => {
   return products.find(product => product.id === id)
 }
 
+const getCategories = (products) => {
+  return products.reduce(
+    (result, product) => {
+      product.categories.forEach(category => {
+        if (!result.includes(category)) {
+          result.push(category);
+        }
+      });
+      return result;
+    },
+    ['All']
+  );
+};
+
+const getProductByCategory = (category, products) => {
+  if(category === 'All') { return products; }
+  return products.reduce(
+    (result, product) => {
+        if (product.categories.includes(category)) {
+          result.push(product);
+        }
+      return result;
+    },
+    []
+  );
+};
 
 // reducer
 const productReducer = (state = [], action) => {
@@ -109,5 +135,7 @@ export {
   addProduct,
   updateProduct,
   deleteProduct,
-  getProduct
+  getProduct,
+  getCategories,
+  getProductByCategory
 }

@@ -3,9 +3,10 @@ import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import { UserReducer, getUsers } from './reducers/UserReducer';
-import { productReducer, getProducts, getProduct } from './reducers/products';
+import { productReducer, getProducts, getProduct, getCategories, getProductByCategory } from './reducers/products';
 import { ordersReducer, getOrders, createCart, getCart, placeOrder, 
   createLineItemInCart, deleteLineItemFromCart, updateLineItemInCart } from './reducers/orders'
+
 import {
   login,
   logout,
@@ -37,5 +38,5 @@ const getCartWithItems = (orders, products) => {
 export default store;
 
 export { login, logout, exchangeTokenForAuth, getUsers, getProducts, getOrders, getCartWithItems, createCart, 
-  placeOrder, createLineItemInCart, deleteLineItemFromCart, updateLineItemInCart  };
+  placeOrder, createLineItemInCart, deleteLineItemFromCart, updateLineItemInCart, getCategories, getProductByCategory   };
 
