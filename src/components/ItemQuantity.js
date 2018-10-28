@@ -22,9 +22,9 @@ class ItemQuantity extends Component {
     }
 
     handleChange(quantity) {
-        const { updateQuantity, cartId, itemId, addToCart } = this.props
+        const { updateQuantity, cartId, itemId, price, addToCart } = this.props
         if(quantity && updateQuantity) {
-            updateQuantity(quantity, cartId, itemId)
+            updateQuantity(quantity, cartId, price, itemId)
             this.setState({ quantity })
         }
         else if(quantity >= 0 && addToCart) {

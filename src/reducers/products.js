@@ -70,6 +70,11 @@ const deleteProduct = (product, history) => {
   };
 };
 
+
+const getProduct = (id, products) => {
+  return products.find(product => product.id === id)
+}
+
 const getCategories = (products) => {
   return products.reduce(
     (result, product) => {
@@ -131,6 +136,7 @@ export {
   addProduct,
   updateProduct,
   deleteProduct,
+  getProduct,
   getCategories,
   getProductByCategory
 }

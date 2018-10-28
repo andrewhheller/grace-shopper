@@ -5,7 +5,6 @@ const _setAuthenticatedUser = (authenticatedUser) => ({ type: SET_AUTHENTICATED_
 
 const login = (credentials) => {
 
-    console.log(credentials)
     return (dispatch) => {
         return axios.post('/api/auth', credentials)
             .then(response => response.data)
@@ -32,7 +31,7 @@ const exchangeTokenForAuth = () => {
             .then(response => response.data)
             .then(auth => {
                 dispatch(_setAuthenticatedUser(auth))
-            }) 
+            })
             .catch(ex => window.localStorage.removeItem('token'))
     }
 }

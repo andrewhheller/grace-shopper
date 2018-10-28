@@ -3,11 +3,8 @@ import { connect } from 'react-redux'
 import { Typography, Grid, IconButton, Button } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
 import ItemQuantity from './ItemQuantity'
-//import { getCartWithItems, placeOrder, deleteLineItemFromCart, updateLineItemInCart } from '../store'
+import { getCartWithItems, placeOrder, deleteLineItemFromCart, updateLineItemInCart } from '../store'
 
-/** TO DO: Orders need to be added to store and then the comments uncommented. 
- * Using Fake Data because of pending merge on store.js to avoid conflicts
- **/
 class Cart extends Component {
 
     constructor() {
@@ -18,25 +15,24 @@ class Cart extends Component {
     }
 
    updateQuantity(quantity, cartId, price, itemId) {
-       //const { userId } = this.props
-        //this.props.updateLineItemInCart(cartId, quantity, itemId, price, userId)
+        const { userId } = this.props
+        this.props.updateLineItemInCart(cartId, quantity, itemId, price, userId)
     }
 
 
     handleRemoveFromCart(cartId, itemId) {
-        //const { userId } = this.props
-        //this.props.deleteLineItemFromCart(cartId, itemId, userId)
+        const { userId } = this.props
+        this.props.deleteLineItemFromCart(cartId, itemId, userId)
     }
 
     handlePlaceOrder() {
-        //const { id } = this.props.cart
-        //const { userId } = this.props
-        //this.props.placeOrder({ id, status: 'ORDER' }, userId)
+        const { id } = this.props.cart
+        const { userId } = this.props
+        this.props.placeOrder({ id, type: 'ORDER' }, userId)
     }
 
     render() {
-        //const { cart } = this.props
-        const cart = getFakeCart()
+        const { cart } = this.props
         const { handlePlaceOrder, handleRemoveFromCart, updateQuantity } = this
         const totalAmount = calculateTotalAmount(cart)
 
@@ -57,16 +53,20 @@ class Cart extends Component {
                                     <Grid container key={item.id} style={{marginTop: "5vh"}}>
                                         <Grid container justify="center" style={{display:"flex"}} spacing={0}>
                                             <Grid item xs>
-                                                <Typography variant="subheading">{item.product}</Typography>
+                                                <Typography variant="subheading">{item.product.title}</Typography>
                                             </Grid>
                                             <Grid item xs>
-                                                <img src={item.productImageUrl} style={{height: "20vh" }}/>
+                                                <img src={item.product.imageUrl} style={{height: "20vh" }}/>
                                             </Grid>
                                             <Grid item xs>
-                                                <ItemQuantity updateQuantity={updateQuantity} cartId={cart.id} itemId={item.id} quantity={item.quantity} />
+                                                <ItemQuantity updateQuantity={updateQuantity} cartId={cart.id} itemId={item.id} 
+                                                    quantity={item.quantity} price={item.product.price}/>
                                             </Grid>
                                             <Grid item xs>
-                                                <Typography variant="subheading">{`$ ${item.productPrice}`}</Typography>
+                                                <Typography variant="subheading">{`$ ${item.product.price}`}</Typography>
+                                            </Grid>
+                                            <Grid item xs>
+                                                <Typography variant="subheading">{`$ ${item.product.price * item.quantity}`}</Typography>
                                             </Grid>
                                             <Grid item xs>
                                                 <IconButton onClick={() => handleRemoveFromCart(cart.id, item.id)} variant="outlined" color="secondary">
@@ -101,64 +101,25 @@ class Cart extends Component {
 const calculateTotalAmount = (cart) => {
     let result = 0
     cart.line_items.forEach(item => {
-        result += item.quantity * parseFloat(item.productPrice).toFixed(2)
+        result += item.quantity * parseFloat(item.product.price).toFixed(2)
     })
     return result
 }
 
-const mapStateToProps = (state) => {
-    //const { orders, products, authenticatedUser } = state
+const mapStateToProps = ({ orders, products, authenticatedUser }) => {
     return {
-        //cart: getCartWithItems(orders, products),
-        //userId: authenticatedUser.id
+        cart: getCartWithItems(orders, products),
+        userId: authenticatedUser.id
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        //placeOrder: (order, userId) => dispatch(placeOrder(order, userId)),
-        //deleteLineItemFromCart: (cartId, itemId, userId) => dispatch(deleteLineItemFromCart(cartId, itemId, userId)),
-        //updateLineItemInCart: (cartId, quantity, itemId, price, userId) => 
-        //    dispatch(updateLineItemInCart(cartId, { quantity, price }, itemId, userId)),
+        placeOrder: (order, userId) => dispatch(placeOrder(order, userId)),
+        deleteLineItemFromCart: (cartId, itemId, userId) => dispatch(deleteLineItemFromCart(cartId, itemId, userId)),
+        updateLineItemInCart: (cartId, quantity, itemId, price, userId) => 
+            dispatch(updateLineItemInCart(cartId, { quantity, price }, itemId, userId)),
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
-
-/** This will be removed once connected to store */
-const getFakeCart = () => {
-    return {
-        "id": "218fe742-63d1-497b-a773-c1553c9446dc",
-        "type": "CART",
-        "status": "CREATED",
-        "createdAt": "2018-10-28T02:09:10.702Z",
-        "updatedAt": "2018-10-28T02:09:10.702Z",
-        "userId": 1,
-        "line_items": [
-        {
-        "id": 9,
-        "quantity": 2,
-        "price": "20",
-        "createdAt": "2018-10-28T02:09:10.775Z",
-        "updatedAt": "2018-10-28T02:09:10.775Z",
-        "orderId": "218fe742-63d1-497b-a773-c1553c9446dc",
-        "productId": 3,
-        "product": "Product # 3",
-        "productImageUrl": "https://picsum.photos/200/300/?image=3",
-        "productPrice": "20"
-        },
-        {
-        "id": 10,
-        "quantity": 1,
-        "price": "100",
-        "createdAt": "2018-10-28T02:09:10.775Z",
-        "updatedAt": "2018-10-28T02:09:10.775Z",
-        "orderId": "218fe742-63d1-497b-a773-c1553c9446dc",
-        "productId": 4,
-        "product": "Product # 4",
-        "productImageUrl": "https://picsum.photos/200/300/?image=4",
-        "productPrice": "20"
-        }
-        ]
-        }
-}

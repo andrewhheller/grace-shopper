@@ -5,9 +5,8 @@ import { AppBar, Toolbar, IconButton, Button, Badge, InputBase, Menu, MenuItem }
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
-import { logout } from '../store'
+import { logout, getCartWithItems } from '../store'
 
-// TO DO: Get items in cart  (once store is ready)
 class Nav extends Component {
 
     constructor() {
@@ -35,10 +34,11 @@ class Nav extends Component {
     }
 
     render() {
-        const { authenticatedUser } = this.props
+        const { authenticatedUser, cart } = this.props
         const { anchorEl } = this.state
         const { handleProfileMenu, handleProfileMenuClose, handleLogout } = this
         const isOpen = Boolean(anchorEl)
+        const itemsInCart = cart.line_items.reduce((result, input) => (result + input.quantity), 0)
 
         const loggedInUserSettings = () => {
             return (
@@ -73,9 +73,13 @@ class Nav extends Component {
                             </IconButton>
                         </div>
                         <IconButton to="/cart" component={Link}>
-                            <Badge badgeContent="TBD" color="secondary">
-                                <ShoppingCartIcon />
-                            </Badge>
+                        {
+                            itemsInCart ? 
+                                <Badge badgeContent={`${itemsInCart}`} color="secondary">
+                                    <ShoppingCartIcon />
+                                </Badge>
+                                : <ShoppingCartIcon />
+                        }              
                         </IconButton>                
                         { 
                             !authenticatedUser.id 
@@ -89,9 +93,10 @@ class Nav extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ orders, products, authenticatedUser }) => {
     return {
-        authenticatedUser: state.authenticatedUser
+        cart: getCartWithItems(orders, products),
+        authenticatedUser
     }
 }
 
