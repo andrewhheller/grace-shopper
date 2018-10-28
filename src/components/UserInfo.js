@@ -63,14 +63,15 @@ handleSubmit(event) {
 }
 
 // confirmPassword() {
-//     const password1 = document.getElementById('password1').value;
-//     const password2 = document.getElementById('password2').value;
+//     const password = document.getElementById('password').value;
+//     // const password1 = document.getElementById('password1').value;
+//     // const password2 = document.getElementById('password2').value;
 
-//     if(password1 === password2) {
-//        this.setState({ password: 'test' })
-//     console.log(password1)
-//     };
-
+//     // if(password1 === password2) {
+//     //    this.setState({ password: 'test' })
+//     //     console.log(password1)
+//     // };
+//     console.log(password === this.state.user.password)
 // }
 
 render() {
@@ -161,8 +162,9 @@ render() {
 
         <TextField
             required
+            id="password"
             name="password"
-            label="password"
+            label="current password"
             type="password"
             margin="normal"
             variant="filled"
