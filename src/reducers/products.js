@@ -70,6 +70,7 @@ const deleteProduct = (product, history) => {
   };
 };
 
+
 const getProduct = (id, products) => {
   return products.find(product => product.id === id)
 }
