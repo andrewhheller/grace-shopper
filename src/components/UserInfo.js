@@ -23,7 +23,7 @@ class UserInfo extends Component {
             userName: '',
             password: ''
         },
-        status: ''
+        status: '',
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -90,12 +90,12 @@ render() {
         My Account
       </Typography>
 
+      <Typography variant="subtitle1" style={{ color: 'green' }}gutterBottom>{ status }</Typography>
+
       <br />
       <br />
 
       <Typography variant="h4" gutterBottom>Profile</Typography>
-      <Typography variant="subtitle1" style={{ color: 'green' }}gutterBottom>{ status }</Typography>
-
 
       <form onSubmit={ handleSubmit } >
 
