@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { getUsers, exchangeTokenForAuth, getProducts } from '../store';
+import { getUsers, exchangeTokenForAuth, getProducts, getOrders } from '../store';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from './Nav';
@@ -11,16 +11,23 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
+import Cart from './Cart'
 
 class App extends Component {
   componentDidMount() {
     this.props.getUsers();
     this.props.getProducts();
-    this.props.exchangeTokenForAuth();
+    this.props.exchangeTokenForAuth()
+  }
+
+  componentDidUpdate(prevProps) {
+    if((!prevProps.authenticatedUser.id && this.props.authenticatedUser.id) || 
+      (prevProps.authenticatedUser.id !== this.props.authenticatedUser.id)) {
+        this.props.getOrders(this.props.authenticatedUser.id)
+    }
   }
 
   render() {
-    console.log(this.props.history);
     return (
       <Router>
         <Fragment>
@@ -34,13 +41,20 @@ class App extends Component {
             />
             <Route path="/register" component={RegisterUser} />
             <Route path="/adminManagement" component={AdminManagement} />
-            <Route exact path="/" component={Home} />
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
+            <Route path="/cart" component={Cart} />
+            <Route exact path="/" component={Home} />
           </Switch>
         </Fragment>
       </Router>
     );
+  }
+}
+
+const mapStateToProps = ({ authenticatedUser }) => {
+  return {
+    authenticatedUser
   }
 }
 
@@ -49,10 +63,11 @@ const mapDispatchToProps = dispatch => {
     getUsers: () => dispatch(getUsers()),
     getProducts: () => dispatch(getProducts()),
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
+    getOrders: (userId) => dispatch(getOrders(userId)),
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);
