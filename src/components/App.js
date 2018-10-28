@@ -11,6 +11,7 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
+import Cart from './Cart'
 
 class App extends Component {
   componentDidMount() {
@@ -34,9 +35,10 @@ class App extends Component {
             />
             <Route path="/register" component={RegisterUser} />
             <Route path="/adminManagement" component={AdminManagement} />
-            <Route exact path="/" component={Home} />
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
+            <Route path="/cart" component={Cart} />
+            <Route exact path="/" component={Home} />
           </Switch>
         </Fragment>
       </Router>
