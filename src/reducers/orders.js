@@ -88,7 +88,7 @@ const ordersReducer = (state = [], action) => {
     }
 }
 
-const getCart = (orders) => orders.find(order => order.status === 'CART' )
+const getCart = (orders) => orders.find(order => order.type === 'CART' )
 
 export { ordersReducer, getOrders, createCart, getCart, placeOrder, createLineItemInCart,
     deleteLineItemFromCart, updateLineItemInCart }

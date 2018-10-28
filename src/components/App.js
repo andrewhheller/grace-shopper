@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { getUsers, exchangeTokenForAuth, getProducts } from '../store';
+import { getUsers, exchangeTokenForAuth, getProducts, getOrders } from '../store';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from './Nav';
@@ -17,11 +17,17 @@ class App extends Component {
   componentDidMount() {
     this.props.getUsers();
     this.props.getProducts();
-    this.props.exchangeTokenForAuth();
+    this.props.exchangeTokenForAuth()
+  }
+
+  componentDidUpdate(prevProps) {
+    if((!prevProps.authenticatedUser.id && this.props.authenticatedUser.id) || 
+      (prevProps.authenticatedUser.id !== this.props.authenticatedUser.id)) {
+        this.props.getOrders(this.props.authenticatedUser.id)
+    }
   }
 
   render() {
-    console.log(this.props.history);
     return (
       <Router>
         <Fragment>
@@ -46,15 +52,22 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({ authenticatedUser }) => {
+  return {
+    authenticatedUser
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     getUsers: () => dispatch(getUsers()),
     getProducts: () => dispatch(getProducts()),
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
+    getOrders: (userId) => dispatch(getOrders(userId)),
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);
