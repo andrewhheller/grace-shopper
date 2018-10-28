@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Tabs, Tab } from '@material-ui/core'
 import UserManagement from './UserManagement';
 import ProductManagement from './ProductManagement';
-import OrderManagement from './OrderManagement';
+// import OrderManagement from './OrderManagement';
 
 class AdminManagement extends Component {
     
@@ -31,7 +31,7 @@ class AdminManagement extends Component {
                 </Tabs>
                 { value === 0 && <UserManagement />}
                 { value === 1 && <ProductManagement />}
-                { value === 2 && <OrderManagement />}
+                {/* { value === 2 && <OrderManagement />} */}
             </Fragment>
         )
     }

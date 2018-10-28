@@ -13,6 +13,10 @@ import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
 import Cart from './Cart'
 
+
+
+
+
 class App extends Component {
   componentDidMount() {
     this.props.getUsers();
