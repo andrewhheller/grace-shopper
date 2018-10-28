@@ -1,12 +1,21 @@
 import React, { Fragment } from 'react';
 
+import Typography from '@material-ui/core/Typography';
 
 
-const UserOrders = () => {
+
+
+const UserOrders = ({ user }) => {
 
   return (
     <Fragment>
-      <h1>My Orders</h1>
+      <Typography
+        variant="h2"
+        gutterBottom
+        style={{ color: 'dodgerblue' }}
+      >
+        {`${user.firstName}'s Orders`}
+      </Typography>
     </Fragment>
   )
 

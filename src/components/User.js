@@ -46,7 +46,7 @@ class User extends Component {
                 return <UserInfo user={ user }/>
 
             case 'myorders':
-                return <UserOrders />
+                return <UserOrders user={ user }/>
         }
 
     }
@@ -63,7 +63,13 @@ class User extends Component {
     }
 
     render() {
-        const { user } = this.props;
+        const { user, location } = this.props;
+        const { handleUserArea, selected } = this;
+        const { userArea } = this.state;
+
+        const style = {
+            GridItem: { padding: 10, marginTop: 10, height: '90vh' },
+        };
 
         if(!user) {
             return null;

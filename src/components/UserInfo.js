@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 
 import { updateUser } from './../reducers/UserReducer';
 
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+
 
 
 class UserInfo extends Component {
@@ -47,8 +53,21 @@ handleSubmit(event) {
     const { onUpdateUser } = this.props;
 
     event.preventDefault();
+    this.confirmPassword();
+
     onUpdateUser(this.state);
 }
+
+confirmPassword() {
+    const password1 = document.getElementById('password1').value;
+    const password2 = document.getElementById('password2').value;
+
+    if(password1 === password2) {
+       this.setState({ password: 'test' })
+    console.log(password1)
+    };
+
+  }
 
 render() {
   const { handleChange, handleSubmit } = this;
@@ -58,61 +77,136 @@ render() {
 
     <Fragment>
 
-      <h1>{`${firstName}'s Account`}</h1>
+      <Typography
+        variant="h2"
+        gutterBottom
+        style={{ color: 'dodgerblue' }}
+      >
+        {`${firstName}'s Account`}
+      </Typography>
 
-      <h3>Profile</h3>
+      <br />
+      <br />
+
+      <Typography variant="h4" gutterBottom>Profile</Typography>
 
       <form onSubmit={ handleSubmit } >
-        <label>first name:</label>
-        <input
+
+        <Grid container justify="flex-start" spacing={16}>
+
+            <Grid item>
+                <TextField
+                    required
+                    name="firstName"
+                    label="first name"
+                    margin="normal"
+                    variant="filled"
+                    value={ firstName }
+                    onChange={ handleChange }
+                />
+            </Grid>
+
+            <Grid item>
+                <TextField
+                    required
+                    name="lastName"
+                    label="last name"
+                    margin="normal"
+                    variant="filled"
+                    value={ lastName }
+                    onChange={ handleChange }
+                />
+            </Grid>
+
+        </Grid>
+
+        <TextField
+          required  
+          name="email"
+          label="email"
+          margin="normal"
+          variant="filled"
+          value={ email }
+          onChange={ handleChange }
+        />
+
+        <br />
+        <br />
+        <br />
+        <br />
+
+        <Typography variant="h4" gutterBottom>Login / Security</Typography>
+
+        <TextField
             required
-            type="text"
-            name="firstName" 
-            value={ firstName }
+            name="username"
+            label="username"
+            margin="normal"
+            variant="filled"
+            value={ userName }
             onChange={ handleChange }
         />
 
         <br />
         <br />
 
-        <label>last name:</label>
-        <input
-            required
-            type="text"
-            name="lastName"
-            value={ lastName }
-            onChange={ handleChange }
-        />
-        <br />
-        <br />
+        {/* <Typography variant="subtitle1" style={{ color: 'red' }}gutterBottom>Change Password</Typography> */}
 
-        <label>email:</label>
-        <input
+        <TextField
             required
-            type="email"
-            name="email"
-            value={ email }
+            name="password"
+            label="password"
+            type="password"
+            margin="normal"
+            variant="filled"
+            value={ password }
             onChange={ handleChange }
         />
 
-        <br />
-        <br />
+        {/* <Grid container justify="flex-start" spacing={16}>
+        
+            <Grid item>
+                <TextField
+                    // required
+                    id="password1"
+                    // name="password"
+                    label="new password"
+                    name="password1"
+                    type="password"
+                    margin="normal"
+                    variant="filled"
+                    onChange={ handleChange }
+                />
+            </Grid>
 
-        <h3>Login / Security</h3>
+            <Grid item>
+                <TextField
+                    // required
+                    id="password2"
+                    // name="password"
+                    label="confirm password"
+                    name="password2"
+                    type="password"
+                    margin="normal"
+                    variant="filled"
+                    onChange={ handleChange }
+                />
+            </Grid>
 
-        <label>username:</label>
-        <input type="text" name="lastName" value={ userName } onChange={ handleChange } />
-
-        <br />
-        <br />
-
-        <label>password:</label>
-        <input type="password" name="password" value={ password } onChange={ handleChange } />
+          </Grid> */}
 
         <br/>
         <br/>
 
-        <button>Save</button>
+        <Button
+            type="submit"
+            variant="contained"
+            color="primary" 
+            // className={classes.button}
+        >
+            Save
+        </Button>
+
         </form>
 
         <br/>
@@ -124,16 +218,6 @@ render() {
   }
 
 }
-
-
-// const mapStateToProps = ({ users }, { match }) => {
-//   const id = parseInt(match.params.id)
-
-//   return {
-//     user: getUserById(users, id)
-//   }
-
-// }
 
 
 const mapDispatchToProps = dispatch => {
