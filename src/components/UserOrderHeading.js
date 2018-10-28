@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import { orderTotal, dateFormatter } from '../utils';
+import { orderTotal, dateFormatter, orderStatusColor } from '../utils';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -52,7 +52,7 @@ const UserOrderHeading = ({ order }) => {
         Status:
       </Typography>
 
-      <Typography gutterBottom variant="subtitle1">
+      <Typography gutterBottom variant="subtitle1" style={ orderStatusColor(order.status) }>
         { order.status }
       </Typography>
 

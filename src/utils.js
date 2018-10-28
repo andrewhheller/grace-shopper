@@ -20,8 +20,38 @@ const dateFormatter = (date) => {
   return array.join('-');
 }
 
+const orderStatusColor = (status) => {
+
+  let color;
+
+  switch(status) {
+
+    case 'CREATED':
+      color = 'green'
+      break;
+
+    case 'PROCESSING':
+      color = 'black'
+      break;
+
+    case 'COMPLETED':
+      color = 'blue';
+      break;
+
+    case 'CANCELLED':
+      color = 'red'
+      break;
+  }
+
+  return { color };
+}
+
+
+
+
 export {
   getProductById,
   orderTotal,
-  dateFormatter
+  dateFormatter,
+  orderStatusColor
 }
