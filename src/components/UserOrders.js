@@ -14,7 +14,7 @@ const UserOrders = ({ user }) => {
         gutterBottom
         style={{ color: 'dodgerblue' }}
       >
-        {`${user.firstName}'s Orders`}
+        My Orders
       </Typography>
     </Fragment>
   )

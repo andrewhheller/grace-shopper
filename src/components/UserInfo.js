@@ -16,11 +16,14 @@ class UserInfo extends Component {
   constructor() {
     super();
     this.state = {
-        firstName: '',
-        lastName: '',
-        email: '',
-        userName: '',
-        password: ''
+        user: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            userName: '',
+            password: ''
+        },
+        status: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,44 +37,46 @@ componentDidMount() {
         return null;
     }
 
-    this.setState(user)
+    this.setState({ user })
 }
 
 componentDidUpdate(prevProps) {
     const { user } = this.props;
 
     if(prevProps !== this.props) {
-        this.setState(user)
+        this.setState({ user })
     }
 }
 
 handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    const user = Object.assign({}, this.state.user, { [event.target.name]: event.target.value })
+    this.setState({ user })
 }
 
 handleSubmit(event) {
     const { onUpdateUser } = this.props;
 
     event.preventDefault();
-    this.confirmPassword();
-
-    onUpdateUser(this.state);
+    // this.confirmPassword();
+    onUpdateUser(this.state.user);
+    this.setState({ status: 'Account Updated!' })
 }
 
-confirmPassword() {
-    const password1 = document.getElementById('password1').value;
-    const password2 = document.getElementById('password2').value;
+// confirmPassword() {
+//     const password1 = document.getElementById('password1').value;
+//     const password2 = document.getElementById('password2').value;
 
-    if(password1 === password2) {
-       this.setState({ password: 'test' })
-    console.log(password1)
-    };
+//     if(password1 === password2) {
+//        this.setState({ password: 'test' })
+//     console.log(password1)
+//     };
 
-  }
+// }
 
 render() {
   const { handleChange, handleSubmit } = this;
-  const { firstName, lastName, email, userName, password } = this.state;
+  const { firstName, lastName, email, userName, password } = this.state.user;
+  const { status } = this.state;
 
   return (
 
@@ -82,13 +87,15 @@ render() {
         gutterBottom
         style={{ color: 'dodgerblue' }}
       >
-        {`${firstName}'s Account`}
+        My Account
       </Typography>
 
       <br />
       <br />
 
       <Typography variant="h4" gutterBottom>Profile</Typography>
+      <Typography variant="subtitle1" style={{ color: 'green' }}gutterBottom>{ status }</Typography>
+
 
       <form onSubmit={ handleSubmit } >
 
