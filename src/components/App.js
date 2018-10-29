@@ -1,5 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { getUsers, exchangeTokenForAuth, getProducts, getOrders } from '../store';
+import {
+  getUsers,
+  exchangeTokenForAuth,
+  getProducts,
+  getOrders,
+  getReviews,
+} from '../store';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Nav from './Nav';
@@ -11,24 +17,24 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
-import Cart from './Cart'
-import OrderConfirmation from './OrderConfirmation'
-
-
-
-
+import Cart from './Cart';
+import OrderConfirmation from './OrderConfirmation';
 
 class App extends Component {
   componentDidMount() {
     this.props.getUsers();
     this.props.getProducts();
-    this.props.exchangeTokenForAuth()
+    this.props.exchangeTokenForAuth();
+    this.props.getReviews();
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.authenticatedUser.id) {
-      if((!prevProps.authenticatedUser.id) || (prevProps.authenticatedUser.id !== this.props.authenticatedUser.id)) {
-        this.props.getOrders(this.props.authenticatedUser.id)
+    if (this.props.authenticatedUser.id) {
+      if (
+        !prevProps.authenticatedUser.id ||
+        prevProps.authenticatedUser.id !== this.props.authenticatedUser.id
+      ) {
+        this.props.getOrders(this.props.authenticatedUser.id);
       }
     }
   }
@@ -49,8 +55,15 @@ class App extends Component {
             <Route path="/adminManagement" component={AdminManagement} />
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
-            <Route path="/cart" render={({ history }) => <Cart history={history} /> } />
-            <Route exact path="/orderConfirmation" component={OrderConfirmation} />
+            <Route
+              path="/cart"
+              render={({ history }) => <Cart history={history} />}
+            />
+            <Route
+              exact
+              path="/orderConfirmation"
+              component={OrderConfirmation}
+            />
             <Route exact path="/" component={Home} />
           </Switch>
         </Fragment>
@@ -61,16 +74,17 @@ class App extends Component {
 
 const mapStateToProps = ({ authenticatedUser }) => {
   return {
-    authenticatedUser
-  }
-}
+    authenticatedUser,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     getUsers: () => dispatch(getUsers()),
     getProducts: () => dispatch(getProducts()),
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
-    getOrders: (userId) => dispatch(getOrders(userId)),
+    getOrders: userId => dispatch(getOrders(userId)),
+    getReviews: () => dispatch(getReviews()),
   };
 };
 
