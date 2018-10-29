@@ -118,6 +118,11 @@ const createReviews = () => {
       text: faker.lorem.paragraph(),
       productId: 2,
       userId: 2,
+    },
+    {
+      text: faker.lorem.paragraph(),
+      productId: 1,
+      userId: 3,
     }
   );
   return reviews;

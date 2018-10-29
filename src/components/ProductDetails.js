@@ -8,7 +8,7 @@ import {
   CardActions,
   Typography,
   Divider,
-  ListItem,
+  Button,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { getProductById } from './../utils';
@@ -20,6 +20,7 @@ import {
 } from '../store';
 import ProductImageCarousel from './ProductImageCarousel';
 import ItemQuantity from './ItemQuantity';
+import Reviews from './Reviews';
 
 class ProductDetail extends Component {
   constructor(props) {
@@ -70,9 +71,6 @@ class ProductDetail extends Component {
     const { product } = this.state;
     const { handleAddToCart } = this;
     const images = product.images;
-    const findReviews = reviews.filter(
-      review => review.productId === product.id
-    );
     images.unshift(product.primaryImageUrl);
     return (
       <Fragment>
@@ -109,18 +107,7 @@ class ProductDetail extends Component {
         </div>
         <div className={classes.container}>
           <div style={{ gridColumnEnd: 'span 12' }}>
-            <Card className={classes.card}>
-              <CardHeader title="Product Reviews:" />
-              <CardContent>
-                {findReviews.map(review => {
-                  return (
-                    <ListItem key={review.id}>
-                      {review.text} {review.userId}
-                    </ListItem>
-                  );
-                })}
-              </CardContent>
-            </Card>
+            <Reviews id={product.id} />
           </div>
         </div>
       </Fragment>
@@ -144,7 +131,7 @@ const styles = theme => ({
 });
 
 const mapStateToProps = (
-  { orders, products, authenticatedUser },
+  { orders, products, authenticatedUser, reviews },
   { match }
 ) => {
   const id = parseInt(match.params.id);
@@ -152,6 +139,7 @@ const mapStateToProps = (
     product: getProductById(products, id),
     cart: getCartWithItems(orders, products),
     userId: authenticatedUser.id,
+    reviews,
   };
 };
 
