@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const GET_ORDERS = 'GET_ORDERS'
+const RESET_ORDERS = 'RESET_ORDERS'
 const CREATE_ORDER = 'CREATE_ORDER'
 const UPDATE_ORDER = 'UPDATE_ORDER'
 const CREATE_LINEITEM = 'CREATE_LINEITEM'
@@ -8,6 +9,7 @@ const DELETE_LINEITEM = 'DELETE_LINEITEM'
 const UPDATE_LINEITEM = 'UPDATE_LINEITEM'
 
 const _getOrders = (orders) => ({ type: GET_ORDERS, orders })
+const _resetOrders = () => ({ type: RESET_ORDERS })
 const _createOrder = (order) => ({ type: CREATE_ORDER, order })
 const _updateOrder = (order) => ({ type: UPDATE_ORDER, order })
 const _createLineItem = (cartId, lineItem) => ({ type: CREATE_LINEITEM, cartId, lineItem })
@@ -22,6 +24,12 @@ const getOrders = (userId) => {
     }
 }
 
+const resetOrders = () => {
+    return (dispatch) => {
+        dispatch(_resetOrders())
+    }
+}
+
 //Create Cart when the first item is added
 const createCart = (item, userId) => {
     return (dispatch) => {
@@ -31,11 +39,12 @@ const createCart = (item, userId) => {
     }
 }
 
-const placeOrder = (order, userId) => {
+const placeOrder = (order, userId, history) => {
     return (dispatch) => {
         axios.put(`/api/users/${userId}/orders/${order.id}`, order)
             .then(response => response.data)
             .then(order => dispatch(_updateOrder(order)))
+            .then(() => history.push('/orderConfirmation'))
     }
 }
 
@@ -67,6 +76,8 @@ const ordersReducer = (state = [], action) => {
     switch(action.type) {
         case GET_ORDERS:
             return action.orders
+        case RESET_ORDERS:
+            return []
         case CREATE_ORDER:
             return [...state, action.order]
         case UPDATE_ORDER:
@@ -91,4 +102,4 @@ const ordersReducer = (state = [], action) => {
 const getCart = (orders) => orders.find(order => order.type === 'CART' )
 
 export { ordersReducer, getOrders, createCart, getCart, placeOrder, createLineItemInCart,
-    deleteLineItemFromCart, updateLineItemInCart }
+    deleteLineItemFromCart, updateLineItemInCart, resetOrders }

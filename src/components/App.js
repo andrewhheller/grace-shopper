@@ -12,6 +12,7 @@ import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
 import Cart from './Cart'
+import OrderConfirmation from './OrderConfirmation'
 
 class App extends Component {
   componentDidMount() {
@@ -21,9 +22,10 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if((!prevProps.authenticatedUser.id && this.props.authenticatedUser.id) || 
-      (prevProps.authenticatedUser.id !== this.props.authenticatedUser.id)) {
+    if(this.props.authenticatedUser.id) {
+      if((!prevProps.authenticatedUser.id) || (prevProps.authenticatedUser.id !== this.props.authenticatedUser.id)) {
         this.props.getOrders(this.props.authenticatedUser.id)
+      }
     }
   }
 
@@ -43,7 +45,8 @@ class App extends Component {
             <Route path="/adminManagement" component={AdminManagement} />
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
-            <Route path="/cart" component={Cart} />
+            <Route path="/cart" render={({ history }) => <Cart history={history} /> } />
+            <Route exact path="/orderConfirmation" component={OrderConfirmation} />
             <Route exact path="/" component={Home} />
           </Switch>
         </Fragment>
