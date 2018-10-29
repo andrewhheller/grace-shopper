@@ -1,14 +1,16 @@
 import React, { Fragment } from 'react';
+import { connect } from 'react-redux';
 
 import Typography from '@material-ui/core/Typography';
 
+import UserOrder from './UserOrder';
 
 
-
-const UserOrders = ({ user }) => {
+const UserOrders = ({ orders }) => {
 
   return (
     <Fragment>
+
       <Typography
         variant="h2"
         gutterBottom
@@ -16,10 +18,24 @@ const UserOrders = ({ user }) => {
       >
         My Orders
       </Typography>
+
+      <br />
+      <br />
+
+      {
+        orders.map(order => <UserOrder key={ order.id } order={ order } />)
+      }
+      
     </Fragment>
   )
 
 }
 
+const mapStateToProps = ({ orders }) => {
+  return {
+    orders: orders.filter(order => order.type === 'ORDER')
+  }
+}
 
-export default UserOrders;
+
+export default connect(mapStateToProps)(UserOrders);

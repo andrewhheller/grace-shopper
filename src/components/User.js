@@ -21,6 +21,19 @@ class User extends Component {
         this.selected = this.selected.bind(this);
     }
 
+    componentDidMount() {
+        const { location } = this.props;
+        const path = location.pathname;
+        const url = path.substr(path.lastIndexOf('/') + 1, path.length);
+
+        if(url === 'myaccount'){
+            this.setState({ userArea: 'myaccount' })
+        }
+        else if(url === 'myorders') {
+            this.setState({ userArea: 'myorders' })
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const { location } = this.props;
         const path = location.pathname;
@@ -46,7 +59,7 @@ class User extends Component {
                 return <UserInfo user={ user }/>
 
             case 'myorders':
-                return <UserOrders user={ user }/>
+                return <UserOrders />
         }
 
     }
