@@ -53,7 +53,7 @@ class App extends Component {
             />
             <Route path="/register" component={RegisterUser} />
             <Route path="/adminManagement" component={AdminManagement} />
-            <Route exact path="/products" component={Products} />
+            <Route exact path="/products" component={Home} />
             <Route path="/products/:id" component={ProductDetails} />
             <Route
               path="/cart"
