@@ -10,6 +10,7 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import Admin from './Admin/Admin';
+import AdminUsers from './Admin/UserMgt/AdminUsersMain';
 import Cart from './Cart'
 import OrderConfirmation from './OrderConfirmation'
 
@@ -48,7 +49,12 @@ class App extends Component {
             <Route path="/register" component={RegisterUser} />
 
             {
-              authenticatedUser.isAdmin ? <Route path="/admins" component={ Admin } /> : null
+              authenticatedUser.isAdmin ? 
+                <Fragment>
+                  <Route path="/admins" component={ Admin } />
+                  {/* <Route exact path="/admins/user-create" component={ AdminUsers } /> */}
+                </Fragment>
+              : null
             }
 
             <Route exact path="/products" component={Products} />

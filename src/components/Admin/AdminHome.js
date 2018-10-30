@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Grid } from '@material-ui/core'
 import Paper from '@material-ui/core/Paper';
@@ -39,21 +40,36 @@ const AdminHome = () => {
         <div style={{ margin: "0 auto" }}>
           <List component="nav">
 
-            <ListItem button>
+            <ListItem
+              button
+              component={ Link }
+              to="/admins/user-create"
+            >
               {/* <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon> */}
-              <ListItemText primary="Create User" style={{ textAlign: 'center' }}/>
+              <ListItemText
+                primary="Create User"
+                style={{ textAlign: 'center' }}
+              />
             </ListItem>
 
-            <ListItem button>
+            <ListItem
+              button
+              component={ Link }
+              to="/admins/product-search"
+            >
               {/* <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon> */}
               <ListItemText primary="Search Products" style={{ textAlign: 'center' }}/>
             </ListItem>
 
-            <ListItem button>
+            <ListItem
+              button
+              component={ Link }
+              to="/admins/orders"  
+            >
               {/* <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon> */}
