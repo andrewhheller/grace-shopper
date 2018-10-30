@@ -10,8 +10,7 @@ import AdminOrdersMain from './OrderMgt/AdminOrdersMain';
 
 
 
-
-class Admin extends Component {
+class AdminTopNav extends Component {
     
     constructor() {
         super()
@@ -88,4 +87,4 @@ class Admin extends Component {
 }
 
 
-export default Admin;
+export default AdminTopNav;
