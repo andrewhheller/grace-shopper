@@ -51,7 +51,7 @@ class Reviews extends Component {
   }
 
   render() {
-    const { id, reviews, classes } = this.props;
+    const { id, reviews } = this.props;
     const { handleSubmit, onChange } = this;
 
     const { text, userId, rating } = this.state;
@@ -74,10 +74,12 @@ class Reviews extends Component {
                 label="Review:"
                 name="text"
                 multiline
+                rows="4"
                 fullWidth
                 value={text}
                 onChange={onChange}
                 margin="normal"
+                variant="outlined"
               />
               <TextField
                 id="name"
@@ -88,7 +90,7 @@ class Reviews extends Component {
                 onChange={onChange}
                 margin="normal"
               />
-              <FormControl>
+              <FormControl style={{ minWidth: 60 }}>
                 <InputLabel shrink htmlFor="rating">
                   Rating
                 </InputLabel>
