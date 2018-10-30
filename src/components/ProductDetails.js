@@ -8,7 +8,6 @@ import {
   CardActions,
   Typography,
   Divider,
-  Button,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { getProductById } from './../utils';
@@ -96,7 +95,7 @@ class ProductDetail extends Component {
                   variant="subheading"
                   gutterBottom={true}
                 >
-                  Price: {product.price}
+                  Price: ${product.price}
                 </Typography>
                 <Divider />
                 <Typography paragraph variant="subheading">

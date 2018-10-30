@@ -58,7 +58,7 @@ class Reviews extends Component {
     const filterReviews = reviews.filter(review => review.productId === id);
     return (
       <Card>
-        <CardHeader title="Products Review:" />
+        <CardHeader title="Product Reviews:" />
         {filterReviews.map(review => (
           <Review review={review} key={review.id} />
         ))}
