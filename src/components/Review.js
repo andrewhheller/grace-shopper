@@ -6,6 +6,7 @@ const Review = ({ review, users }) => {
   return (
     <CardContent>
       <Typography>Review: {review.text}</Typography>
+      <Typography>Rating: {review.rating}</Typography>
       <Typography>Written By: {reviewer.userName}</Typography>
     </CardContent>
   );

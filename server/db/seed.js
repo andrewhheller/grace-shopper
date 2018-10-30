@@ -108,23 +108,21 @@ const createOrdersWithLineItems = () => {
 
 const createReviews = () => {
   const reviews = [];
-  reviews.push(
-    {
-      text: faker.lorem.paragraph(),
-      productId: 1,
-      userId: 2,
-    },
-    {
-      text: faker.lorem.paragraph(),
-      productId: 2,
-      userId: 2,
-    },
-    {
-      text: faker.lorem.paragraph(),
-      productId: 1,
-      userId: 3,
-    }
-  );
+  let i = 0;
+  while (i < 50) {
+    const text = faker.lorem.paragraph();
+    const rating = Math.round(Math.random() * 5);
+    const productId = Math.round(Math.random() * 50);
+    const userId = Math.round(Math.random() * 50);
+    reviews.push({ text, rating, productId, userId });
+    i++;
+  }
+  reviews.push({
+    text: faker.lorem.paragraph(),
+    rating: Math.round(Math.random() * 5),
+    productId: 2,
+    userId: 1,
+  });
   return reviews;
 };
 

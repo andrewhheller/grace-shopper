@@ -70,6 +70,15 @@ class ProductDetail extends Component {
     const { classes, reviews } = this.props;
     const { product } = this.state;
     const { handleAddToCart } = this;
+    const findReviews = reviews.filter(
+      review => review.productId === product.id
+    );
+    const averageRating = reviews => {
+      let arr = [];
+      reviews.forEach(review => arr.push(review.rating));
+      return (arr.reduce((a, b) => a + b, 0) / arr.length).toFixed(2);
+    };
+
     const images = product.images;
     images.unshift(product.primaryImageUrl);
     return (
@@ -90,6 +99,12 @@ class ProductDetail extends Component {
                   Price: {product.price}
                 </Typography>
                 <Divider />
+                <Typography paragraph variant="subheading">
+                  Average Rating:{' '}
+                  {findReviews.length === 0
+                    ? 'Be the first to review'
+                    : averageRating(findReviews)}
+                </Typography>
                 <Typography paragraph variant="subheading" gutterBottom={true}>
                   Product Details:
                 </Typography>

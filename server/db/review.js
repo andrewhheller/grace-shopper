@@ -6,6 +6,10 @@ const Review = conn.define('review', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
+  rating: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  },
 });
 
 module.exports = Review;

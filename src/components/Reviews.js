@@ -16,8 +16,8 @@ class Reviews extends Component {
     super(props);
     this.state = {
       text: '',
-      productId: '',
       userId: '',
+      rating: '',
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,13 +28,13 @@ class Reviews extends Component {
     const text = this.state.text;
     const productId = this.props.id;
     const userId = this.state.userId;
-    this.props
-      .createReview({
-        text,
-        productId,
-        userId,
-      })
-      .then(() => this.props.history.push(`/products/${productId}`));
+    const rating = this.state.rating;
+    this.props.createReview({
+      text,
+      rating,
+      productId,
+      userId,
+    });
   }
   onChange(evt) {
     this.setState({
@@ -46,7 +46,7 @@ class Reviews extends Component {
     const { id, reviews } = this.props;
     const { handleSubmit, onChange } = this;
 
-    const { text, productId, userId } = this.state;
+    const { text, userId, rating } = this.state;
     const filterReviews = reviews.filter(review => review.productId === id);
     return (
       <Card>
@@ -60,7 +60,7 @@ class Reviews extends Component {
             <Typography variant="subheading">Write a Review</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <form id="new-school-form" onSubmit={handleSubmit}>
+            <form id="new-review-form" onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="text">Review</label>
                 <input
@@ -80,15 +80,22 @@ class Reviews extends Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="product">Product</label>
-                <input
+                <label htmlFor="rating">Rating: </label>
+                <select
                   type="text"
-                  name="productId"
-                  defaultValue={id}
+                  name="rating"
+                  value={rating}
                   onChange={onChange}
-                />
+                >
+                  <option value="">Please Select</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
               </div>
-              <button type="submit" disabled={!text || !userId}>
+              <button type="submit" disabled={!text || !userId || !rating}>
                 Submit
               </button>
             </form>
