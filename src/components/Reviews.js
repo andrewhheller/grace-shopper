@@ -6,7 +6,15 @@ import {
   ExpansionPanelSummary,
   Typography,
   ExpansionPanelDetails,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button,
+  Divider,
 } from '@material-ui/core';
+
 import { connect } from 'react-redux';
 import Review from './Review';
 import { createReview } from './../store';
@@ -43,7 +51,7 @@ class Reviews extends Component {
   }
 
   render() {
-    const { id, reviews } = this.props;
+    const { id, reviews, classes } = this.props;
     const { handleSubmit, onChange } = this;
 
     const { text, userId, rating } = this.state;
@@ -60,44 +68,51 @@ class Reviews extends Component {
             <Typography variant="subheading">Write a Review</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <form id="new-review-form" onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label htmlFor="text">Review</label>
-                <input
-                  type="text"
-                  name="text"
-                  value={text}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="user">UserId</label>
-                <input
-                  type="text"
-                  name="userId"
-                  value={userId}
-                  onChange={onChange}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor="rating">Rating: </label>
-                <select
-                  type="text"
-                  name="rating"
+            <form id="review-form" onSubmit={handleSubmit}>
+              <TextField
+                id="standard-textarea"
+                label="Review:"
+                name="text"
+                multiline
+                fullWidth
+                value={text}
+                onChange={onChange}
+                margin="normal"
+              />
+              <TextField
+                id="name"
+                label="UserId"
+                name="userId"
+                value={userId}
+                fullWidth
+                onChange={onChange}
+                margin="normal"
+              />
+              <FormControl>
+                <InputLabel shrink htmlFor="rating">
+                  Rating
+                </InputLabel>
+                <Select
                   value={rating}
+                  fullWidth
                   onChange={onChange}
+                  inputProps={{
+                    name: 'rating',
+                  }}
                 >
-                  <option value="">Please Select</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
-              </div>
-              <button type="submit" disabled={!text || !userId || !rating}>
+                  <MenuItem value="">Please Select</MenuItem>
+                  <MenuItem value="0">0</MenuItem>
+                  <MenuItem value="1">1</MenuItem>
+                  <MenuItem value="2">2</MenuItem>
+                  <MenuItem value="3">3</MenuItem>
+                  <MenuItem value="4">4</MenuItem>
+                  <MenuItem value="5">5</MenuItem>
+                </Select>
+              </FormControl>
+              <Divider />
+              <Button type="submit" disabled={!text || !userId || !rating}>
                 Submit
-              </button>
+              </Button>
             </form>
           </ExpansionPanelDetails>
         </ExpansionPanel>
