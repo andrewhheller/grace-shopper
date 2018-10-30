@@ -22,6 +22,20 @@ class Admin extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        const { location } = this.props;
+   
+        if(location.pathname.includes('admins/user')){
+            this.setState({ value: 1 })
+        }
+        else if(location.pathname.includes('admins/product')) {
+            this.setState({ value: 2 })
+        }
+        else if(location.pathname.includes('admins/orders')) {
+            this.setState({ value: 3 })
+        }
+    }
+
     handleChange(event, value) {
         this.setState({ value });
     };

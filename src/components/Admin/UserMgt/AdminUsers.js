@@ -14,7 +14,7 @@ const searchUsers = (users, search) => {
     return users.filter(user => Object.values(user).toString().search(pattern) !== -1);
   }
 
-class UserManagement extends Component {
+class AdminUsers extends Component {
     
     constructor() {
         super();
@@ -111,4 +111,4 @@ const mapStateToProps = ({ users }) => {
     };
 };
 
-export default connect(mapStateToProps)(UserManagement);
+export default connect(mapStateToProps)(AdminUsers);

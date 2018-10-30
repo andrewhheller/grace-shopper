@@ -19,6 +19,17 @@ class AdminUsersMain extends Component {
     this.handleAdminArea = this.handleAdminArea.bind(this);
   }
 
+  componentDidMount() {
+    const { location } = this.props;
+
+    if(location.pathname.includes('admins/user-create')){
+        this.setState({ adminArea: 'user-create' })
+    }
+    else if(location.pathname.includes('admins/user-update')) {
+        this.setState({ adminArea: 'user-update' })
+    }
+}
+
   // returns Component to render in main area (to the right) when user area button is clicked
   handleAdminArea(adminArea) {
         
@@ -26,7 +37,7 @@ class AdminUsersMain extends Component {
         case 'user-create':
             return <AdminUserCreate/>
 
-        case 'user-search':
+        case 'user-update':
             return <AdminUsers />
     }
 
@@ -57,12 +68,12 @@ class AdminUsersMain extends Component {
                     </ListItem>
   
                     <ListItem
-                        button onClick={ () => this.setState({ adminArea: 'user-search' }) }
+                        button onClick={ () => this.setState({ adminArea: 'user-update' }) }
                         component={ Link } 
-                        to="/admins/user-search"
-                        selected={ location.pathname.includes('/admins/user-search') }
+                        to="/admins/user-update"
+                        selected={ location.pathname.includes('/admins/user-update') }
                     >
-                        <ListItemText>Search User</ListItemText>
+                        <ListItemText>Update User</ListItemText>
                     </ListItem>
               
                 </List>

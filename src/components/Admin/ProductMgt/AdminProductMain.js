@@ -22,36 +22,21 @@ class AdminProductMain extends Component {
     // this.selected = this.selected.bind(this);
   }
 
-    // componentDidMount() {
-    //     const { location } = this.props;
-   
-    //     if(location.pathname.includes('admins/products')){
-    //         this.setState({ adminArea: 'product-create' })
-    //     }
-    //     else if(location.pathname.includes('admins/product-search')) {
-    //         this.setState({ adminArea: 'product-search' })
-    //     }
-    //     else if(location.pathname.includes('admins/catalogues')) {
-    //         this.setState({ adminArea: 'catalogues' })
-    //     }
-    // }
-
-    componentDidUpdate(prevProps) {
+    componentDidMount() {
         const { location } = this.props;
 
         // loads correct admin area on refresh depending on URL
-        if(prevProps !== this.props) {
-            console.log('component did update')
+        // if(prevProps !== this.props) {
             if(location.pathname.includes('admins/product-create')){
                 this.setState({ adminArea: 'product-create' })
             }
             else if(location.pathname.includes('admins/product-search')) {
                 this.setState({ adminArea: 'product-search' })
             }
-            else if(location.pathname.includes('admins/catalogues')) {
+            else if(location.pathname.includes('admins/product-catalogues')) {
                 this.setState({ adminArea: 'catalogues' })
             }
-        }
+        // }
     }
 
   // returns Component to render in main area (to the right) when user area button is clicked
@@ -64,7 +49,7 @@ class AdminProductMain extends Component {
         case 'product-search':
             return <AdminProducts />
 
-        case 'catalogues':
+        case 'product-catalogues':
             return <AdminCatalogues />
     }
 
@@ -104,10 +89,10 @@ class AdminProductMain extends Component {
                     </ListItem>
 
                     <ListItem
-                        button onClick={ () => this.setState({ adminArea: 'catalogues' }) }
+                        button onClick={ () => this.setState({ adminArea: 'product-catalogues' }) }
                         component={ Link } 
-                        to="/admins/catalogues"
-                        selected={ location.pathname.includes('/admins/catalogues') }
+                        to="/admins/product-catalogues"
+                        selected={ location.pathname.includes('/admins/product-catalogues') }
                     >
                         <ListItemText>Catalogues</ListItemText>
                     </ListItem>
