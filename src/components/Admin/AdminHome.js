@@ -12,7 +12,9 @@ import InboxIcon from '@material-ui/icons/Inbox';
 const AdminHome = () => {
 
   return (
+
     <Grid container justify="center" spacing={32}>
+    
       <Paper elevation={5} style={{backgroundColor: '#EEEEEE', padding: '10px', textAlign: 'center' }}>
 
         <br />
@@ -41,21 +43,21 @@ const AdminHome = () => {
               {/* <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon> */}
-              <ListItemText primary="Create User" />
+              <ListItemText primary="Create User" style={{ textAlign: 'center' }}/>
             </ListItem>
 
             <ListItem button>
               {/* <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon> */}
-              <ListItemText primary="Search Products" />
+              <ListItemText primary="Search Products" style={{ textAlign: 'center' }}/>
             </ListItem>
 
             <ListItem button>
               {/* <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon> */}
-              <ListItemText primary="Modify Order" />
+              <ListItemText primary="Modify Order" style={{ textAlign: 'center' }}/>
             </ListItem>
 
           </List>

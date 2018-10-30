@@ -5,7 +5,7 @@ import React from 'react';
 const AdminUserCreate = () => {
 
   return (
-    <p>Create New User</p>
+    <h1>Create New User</h1>
   )
 
 }

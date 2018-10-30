@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core'
 
 import AdminHome from './AdminHome';
-import AdminUserMain from './UserMgt/AdminUserMain';
+import AdminUsersMain from './UserMgt/AdminUsersMain';
 import AdminProductMain from './ProductMgt/AdminProductMain';
-import AdminOrderMain from './OrderMgt/AdminOrderMain';
+import AdminOrdersMain from './OrderMgt/AdminOrdersMain';
 
 
 
@@ -20,25 +20,6 @@ class Admin extends Component {
         }
 
         this.handleChange = this.handleChange.bind(this);
-    }
-
-    componentDidMount() {
-        const { location } = this.props;
-        const path = location.pathname;
-        const url = path.substr(path.lastIndexOf('/') + 1, path.length);
-
-        if(url === 'users'){
-            this.setState({ value: 1 })
-        }
-        else if(url === 'products') {
-            this.setState({ value: 2 })
-        }
-        else if(url === 'orders') {
-            this.setState({ value: 3 })
-        }
-        else if(url === 'admins') {
-            this.setState({ value: 0 })
-        }
     }
 
     handleChange(event, value) {
@@ -63,13 +44,13 @@ class Admin extends Component {
                     <Tab
                         label="Users"
                         component={ Link }
-                        to="/admins/users"
+                        to="/admins/user-create"
                     />
                                
                     <Tab
                         label="Products"
                         component={ Link }
-                        to="/admins/products"
+                        to="/admins/product-create"
                     />
 
                     <Tab
@@ -80,12 +61,12 @@ class Admin extends Component {
                     
                 </Tabs>
 
-                <div style={{ height: "25px" }}></div>
+                <div style={{ height: "50px" }}></div>
 
                 { value === 0 && <AdminHome />}
-                { value === 1 && <AdminUserMain />}
+                { value === 1 && <AdminUsersMain location={ location } />}
                 { value === 2 && <AdminProductMain location={ location } />}
-                { value === 3 && <AdminOrderMain />}
+                { value === 3 && <AdminOrdersMain location={ location } />}
 
             </Fragment>
         )

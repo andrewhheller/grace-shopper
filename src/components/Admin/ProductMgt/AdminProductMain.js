@@ -36,22 +36,23 @@ class AdminProductMain extends Component {
     //     }
     // }
 
-    // componentDidUpdate(prevProps) {
-    //     const { location } = this.props;
-   
-    //     // loads correct user area on refresh depending on URL
-    //     if(prevProps !== this.props) {
-    //         if(location.pathname.includes('admins/product-create')){
-    //             this.setState({ adminArea: 'product-create' })
-    //         }
-    //         else if(location.pathname.includes('admins/product-search')) {
-    //             this.setState({ adminArea: 'product-search' })
-    //         }
-    //         else if(location.pathname.includes('admins/catalogues')) {
-    //             this.setState({ adminArea: 'catalogues' })
-    //         }
-    //     }
-    // }
+    componentDidUpdate(prevProps) {
+        const { location } = this.props;
+
+        // loads correct admin area on refresh depending on URL
+        if(prevProps !== this.props) {
+            console.log('component did update')
+            if(location.pathname.includes('admins/product-create')){
+                this.setState({ adminArea: 'product-create' })
+            }
+            else if(location.pathname.includes('admins/product-search')) {
+                this.setState({ adminArea: 'product-search' })
+            }
+            else if(location.pathname.includes('admins/catalogues')) {
+                this.setState({ adminArea: 'catalogues' })
+            }
+        }
+    }
 
   // returns Component to render in main area (to the right) when user area button is clicked
   handleAdminArea(adminArea) {
@@ -73,7 +74,7 @@ class AdminProductMain extends Component {
     const { handleAdminArea } = this;
     const { location } = this.props;
     const { adminArea } = this.state;
-  
+ 
     const style = {
         GridItem: { padding: 10, marginTop: 10, height: '90vh' },
     };
