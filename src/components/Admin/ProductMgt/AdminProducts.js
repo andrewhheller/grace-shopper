@@ -14,7 +14,7 @@ const searchProducts = (products, search) => {
     return products.filter(product => Object.values(product).toString().search(pattern) !== -1);
   }
 
-class ProductMgtMain extends Component {
+class AdminProductListing extends Component {
     
     constructor() {
         super();
@@ -60,9 +60,7 @@ class ProductMgtMain extends Component {
         
         <Fragment>
 
-            <h1>Product Management</h1>
-
-            <button>Add New Product</button>
+            <h1>Grace Shopper Products</h1>
 
             <form onSubmit={ handleSubmit }>
                 <label>Search for product:</label>
@@ -113,4 +111,4 @@ const mapStateToProps = ({ products }) => {
     };
 };
 
-export default connect(mapStateToProps)(ProductMgtMain);
+export default connect(mapStateToProps)(AdminProductListing);
