@@ -9,7 +9,7 @@ import ProductDetails from './ProductDetails';
 import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
-import AdminHome from './Admin/AdminHome';
+import Admin from './Admin/Admin';
 import Cart from './Cart'
 import OrderConfirmation from './OrderConfirmation'
 
@@ -48,7 +48,7 @@ class App extends Component {
             <Route path="/register" component={RegisterUser} />
 
             {
-              authenticatedUser.isAdmin ? <Route path="/admins" component={ AdminHome } /> : null
+              authenticatedUser.isAdmin ? <Route path="/admins" component={ Admin } /> : null
             }
 
             <Route exact path="/products" component={Products} />

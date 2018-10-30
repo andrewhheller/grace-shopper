@@ -22,6 +22,25 @@ class Admin extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidMount() {
+        const { location } = this.props;
+        const path = location.pathname;
+        const url = path.substr(path.lastIndexOf('/') + 1, path.length);
+
+        if(url === 'users'){
+            this.setState({ value: 1 })
+        }
+        else if(url === 'products') {
+            this.setState({ value: 2 })
+        }
+        else if(url === 'orders') {
+            this.setState({ value: 3 })
+        }
+        else if(url === 'admins') {
+            this.setState({ value: 0 })
+        }
+    }
+
     handleChange(event, value) {
         this.setState({ value });
     };
@@ -60,6 +79,9 @@ class Admin extends Component {
                     />
                     
                 </Tabs>
+
+                <div style={{ height: "25px" }}></div>
+
                 { value === 0 && <AdminHome />}
                 { value === 1 && <AdminUserMain />}
                 { value === 2 && <AdminProductMain location={ location } />}
