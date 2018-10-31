@@ -152,7 +152,7 @@ class AdminProductCreate extends Component {
                 step="0.01"
                 name="price"
                 placeholder="$0.00"
-                min="0.00"
+                min="0.01"
                 label="price"
                 margin="normal"
                 variant="outlined"
@@ -169,6 +169,7 @@ class AdminProductCreate extends Component {
                 type="number"
                 step="1"
                 placeholder="0"
+                min="0"
                 label="inventory"
                 margin="normal"
                 variant="outlined"
@@ -196,9 +197,9 @@ class AdminProductCreate extends Component {
 
             <Grid item>
               <TextField
-                // required
+                required
                 name="categories"
-                label="categories (separate by ,)"
+                label="categories (separated by comma + space)"
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
@@ -217,10 +218,14 @@ class AdminProductCreate extends Component {
         <Button
             type="submit"
             variant="contained"
-            color="primary" 
+            color="primary"
+            style={{ width: '100px' }}
         >
           Submit
         </Button>
+
+        <br />
+        <br />
 
         </form>
 

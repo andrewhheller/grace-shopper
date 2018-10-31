@@ -64,4 +64,10 @@ Product.findByCategory = function(category) {
   });
 };
 
+Product.afterValidate(product => {
+  if(typeof product.categories === 'string') {
+    product.categories = product.categories.split(', ')
+  }
+})
+
 module.exports = Product;
