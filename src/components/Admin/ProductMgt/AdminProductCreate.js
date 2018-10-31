@@ -17,7 +17,6 @@ class AdminProductCreate extends Component {
     this.state = {
       product: {
         title: '',
-        // author: '',
         description: '',
         primaryImageUrl: '',
         price: '',
@@ -38,11 +37,10 @@ class AdminProductCreate extends Component {
 
   handleSubmit(event) {
     const { onAddProduct } = this.props;
-    const { product } = this.state.product;
+    const { product } = this.state;
 
     event.preventDefault();
     onAddProduct(product);
-    console.log(this.state.product);
   }
 
   render() {
