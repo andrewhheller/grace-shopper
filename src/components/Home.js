@@ -4,7 +4,6 @@ import Products from './Products';
 import { connect } from 'react-redux';
 import { getCategories, getProductByCategory } from './../store';
 
-// TO DO: Need to be a connected component to get the categories list. For now, hard-coding test data
 class Home extends Component {
   constructor(props) {
     super(props);
