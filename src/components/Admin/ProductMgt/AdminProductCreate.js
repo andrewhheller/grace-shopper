@@ -10,8 +10,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
-
-
 class AdminProductCreate extends Component {
 
   constructor() {
@@ -75,17 +73,20 @@ class AdminProductCreate extends Component {
           >
 
             <Grid item>
-              <Typography
-                variant="subtitle1"
-                style={{ color: 'green' }}
-                gutterBottom>{ status }
-                Upload Photo
-              </Typography>
-
-              <Button style={{ padding: "10px" }}>
-                <input type="file" />
-              </Button>
+              <TextField
+                required
+                type="url"
+                name="primaryImageUrl"
+                label="primary photo (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ primaryImageUrl }
+                style={{ width: "700px" }}
+              />
             </Grid>
+
+            <img src={ primaryImageUrl } style={{ marginLeft: "50px" }}/>
 
             <br />
 
@@ -134,6 +135,9 @@ class AdminProductCreate extends Component {
 
         </Paper>
 
+        <br />
+        <br />
+
         <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
 
           <Grid
@@ -180,7 +184,10 @@ class AdminProductCreate extends Component {
 
         </Paper>
 
-         <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <br />
+        <br />
+
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
 
           <Grid
             container
@@ -204,7 +211,10 @@ class AdminProductCreate extends Component {
 
           </Grid>
 
-          </Paper>
+        </Paper>
+
+        <br />
+        <br />
 
         <Button
             type="submit"
