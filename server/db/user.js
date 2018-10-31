@@ -39,6 +39,10 @@ const User = conn.define('user', {
             isEmail: true
         }
     },
+    address: {
+        type: conn.Sequelize.STRING,
+        allowNull: true
+    },
     isAdmin: {
         type: conn.Sequelize.BOOLEAN,
         defaultValue: false,
