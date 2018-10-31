@@ -49,11 +49,12 @@ const createProducts = () => {
   let i = 0;
   while (i < NO_OF_PRODUCTS) {
     const title = faker.lorem.words();
-    if (!products.find(product => product.title === title)) {
+    const price = faker.commerce.price();
+    if (!products.find(product => product.title === title) && price > 0.01) {
       products.push({
         title,
         description: faker.lorem.paragraph(),
-        price: faker.commerce.price(),
+        price,
         inventory: faker.random.number({ min: 1, max: 10000 }),
         primaryImageUrl: `https://picsum.photos/400/500/?image=${i}`,
         images: [

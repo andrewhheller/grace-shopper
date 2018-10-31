@@ -19,6 +19,7 @@ import RegisterUser from './RegisterUser';
 import AdminManagement from './AdminManagement';
 import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
+import RegistrationSuccessful from './RegistrationSuccessful';
 
 class App extends Component {
   componentDidMount() {
@@ -52,6 +53,7 @@ class App extends Component {
               render={({ history }) => <Login history={history} />}
             />
             <Route path="/register" component={RegisterUser} />
+            <Route path="/registerSuccess" component={RegistrationSuccessful} />
             <Route path="/adminManagement" component={AdminManagement} />
             <Route exact path="/products" component={Home} />
             <Route path="/products/:id" component={ProductDetails} />
