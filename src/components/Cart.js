@@ -54,7 +54,7 @@ class Cart extends Component {
                             cart.line_items.map(item => <TableRow key={item.id}>
                                 <TableCell >
                                     <Typography variant="subheading">{item.product.title}</Typography>
-                                    <img src={item.product.imageUrl} style={{height: "20vh" }}/>
+                                    <img src={item.product.primaryImageUrl} style={{height: "20vh" }}/>
                                 </TableCell>
                                 <TableCell>
                                     <ItemQuantity updateQuantity={updateQuantity} cartId={cart.id} itemId={item.id} 
