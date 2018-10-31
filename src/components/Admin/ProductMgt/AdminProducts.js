@@ -160,7 +160,7 @@ class AdminProductListing extends Component {
 
                                     <CustomTableCell component="th" scope="row">
                                         <Link
-                                            to={`/products/${product.id}`}
+                                            to={`/admin/products/${product.id}`}
                                             style={ {textDecoration: 'none'} }>
                                             { product.title }
                                         </Link>
