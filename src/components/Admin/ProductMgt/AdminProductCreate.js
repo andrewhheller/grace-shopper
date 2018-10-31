@@ -41,7 +41,7 @@ class AdminProductCreate extends Component {
     const { product } = this.state.product;
 
     event.preventDefault();
-    // onAddProduct(product);
+    onAddProduct(product);
     console.log(this.state.product);
   }
 
