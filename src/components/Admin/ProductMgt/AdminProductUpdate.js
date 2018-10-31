@@ -35,6 +35,8 @@ class AdminProductUpdate extends Component {
         title: '',
         description: '',
         primaryImageUrl: '',
+        image1: '',
+        image2: '',
         price: '',
         inventory: '',
         categories: ''
@@ -78,7 +80,7 @@ class AdminProductUpdate extends Component {
   render() {
     const { handleChange, handleSubmit } = this;
     const { success, error } = this.state;
-    const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
+    const { title, description, primaryImageUrl, image1, image2, price, inventory, categories } = this.state.product;
 
     return (
       <Fragment>
@@ -124,7 +126,7 @@ class AdminProductUpdate extends Component {
                 required
                 type="url"
                 name="primaryImageUrl"
-                label="primary photo (URL only)"
+                label="primary image (URL only)"
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
@@ -133,7 +135,37 @@ class AdminProductUpdate extends Component {
               />
             </Grid>
 
-            <img src={ primaryImageUrl } style={{ marginLeft: "50px" }}/>
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                name="image1"
+                label="image-1 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ image1 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                name="image2"
+                label="image-2 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ image2 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+            <img src={ primaryImageUrl } style={{ width: '25%', marginLeft: "25px" }}/>
+            <img src={ image1 } style={{ width: '25%', marginLeft: "25px" }}/>
+            <img src={ image2 } style={{ width: '25%', marginLeft: "25px" }}/>
 
             <br />
 

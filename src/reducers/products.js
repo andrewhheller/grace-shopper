@@ -116,8 +116,7 @@ const productReducer = (state = [], action) => {
       break;
 
     case UPDATE_PRODUCT:
-      state = [...state]
-      state = [...state.filter(product => product.id !== product.school.id), product.school]
+      state = [...state.filter(product => product.id !== action.product.id), action.product]
       break;
 
     case DELETE_PRODUCT:
