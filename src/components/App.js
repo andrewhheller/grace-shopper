@@ -18,7 +18,7 @@ import RegisterUser from './RegisterUser';
 import AdminTopNav from './Admin/AdminTopNav';
 import Cart from './Cart'
 import OrderConfirmation from './OrderConfirmation'
-
+import RegistrationSuccessful from './RegistrationSuccessful';
 
 
 
