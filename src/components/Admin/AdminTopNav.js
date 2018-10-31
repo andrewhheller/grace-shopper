@@ -21,7 +21,7 @@ class AdminTopNav extends Component {
   componentDidMount() {
     const { location } = this.props;
 
-    if (location.pathname.includes('admins/users')) {
+    if (location.pathname.includes('admins/user')) {
       this.setState({ value: 1 });
     } else if (location.pathname.includes('admins/product')) {
       this.setState({ value: 2 });

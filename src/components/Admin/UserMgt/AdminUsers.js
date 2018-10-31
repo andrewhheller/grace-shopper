@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import AdminUserUpdate from './AdminUserUpdate';
 
 const searchUsers = (users, search) => {
   // creates regex pattern, to search for -
@@ -85,7 +86,9 @@ class AdminUsers extends Component {
               return (
                 <tr key={user.id}>
                   <td>
-                    <Link to={`users/${user.id}`}>{user.firstName}</Link>
+                    <Link to={`users/${user.id}`} state={user}>
+                      {user.firstName}
+                    </Link>
                   </td>
                   <td>{user.lastName}</td>
                   <td>{user.userName}</td>

@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { updateUser } from '../../../reducers/UserReducer';
+import { updateUser, deleteUser } from '../../../reducers/UserReducer';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -9,55 +9,52 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 class AdminUserUpdate extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const { user } = this.props;
     this.state = {
-      user: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        userName: '',
-        password: '',
-      },
-      status: '',
+      firstName: user ? user.firstName : '',
+      lastName: user ? user.lastName : '',
+      email: user ? user.email : '',
+      userName: user ? user.userName : '',
+      password: user ? user.password : '',
+      address: user ? user.address : '',
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
-
-  componentDidMount() {
-    const { user } = this.props;
-
-    if (!user) {
-      return null;
-    }
-
-    this.setState({ user });
-  }
-
   componentDidUpdate(prevProps) {
-    const { user } = this.props;
-
-    if (prevProps !== this.props) {
-      this.setState({ user });
+    if (!prevProps.user && this.props.user) {
+      this.setState({
+        firstName: this.props.user.firstName,
+        lastName: this.props.user.lastName,
+        email: this.props.user.email,
+        userName: this.props.user.userName,
+        password: this.props.user.password,
+        address: this.props.user.address,
+      });
     }
   }
-
-  handleChange(event) {
-    const user = Object.assign({}, this.state.user, {
-      [event.target.name]: event.target.value,
+  onChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value,
     });
-    this.setState({ user });
   }
-
-  handleSubmit(event) {
-    const { onUpdateUser } = this.props;
-
-    event.preventDefault();
-    // this.confirmPassword();
-    onUpdateUser(this.state.user);
-    this.setState({ status: 'Account Updated!' });
+  onSave(evt) {
+    evt.preventDefault();
+    this.props
+      .updateUser({
+        id: this.props.user.id,
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        userName: this.state.userName,
+        password: this.state.password,
+        address: this.state.address,
+      })
+      .then(() => this.props.history.push('/admins/users'));
   }
 
   // confirmPassword() {
@@ -73,18 +70,22 @@ class AdminUserUpdate extends Component {
   // }
 
   render() {
-    const { handleChange, handleSubmit } = this;
-    const { firstName, lastName, email, userName, password } = this.state.user;
-    const { status } = this.state;
+    const { onChange, onSave } = this;
+    const {
+      firstName,
+      lastName,
+      email,
+      userName,
+      password,
+      address,
+    } = this.state;
+    const empty =
+      !firstName || !lastName || !email || !userName || !password || !address;
 
     return (
       <Fragment>
         <Typography variant="h2" gutterBottom style={{ color: 'dodgerblue' }}>
           My Account
-        </Typography>
-
-        <Typography variant="subtitle1" style={{ color: 'green' }} gutterBottom>
-          {status}
         </Typography>
 
         <br />
@@ -94,7 +95,7 @@ class AdminUserUpdate extends Component {
           Profile
         </Typography>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSave}>
           <Grid container justify="flex-start" spacing={16}>
             <Grid item>
               <TextField
@@ -104,7 +105,7 @@ class AdminUserUpdate extends Component {
                 margin="normal"
                 variant="filled"
                 value={firstName}
-                onChange={handleChange}
+                onChange={onChange}
               />
             </Grid>
 
@@ -116,7 +117,7 @@ class AdminUserUpdate extends Component {
                 margin="normal"
                 variant="filled"
                 value={lastName}
-                onChange={handleChange}
+                onChange={onChange}
               />
             </Grid>
           </Grid>
@@ -128,7 +129,16 @@ class AdminUserUpdate extends Component {
             margin="normal"
             variant="filled"
             value={email}
-            onChange={handleChange}
+            onChange={onChange}
+          />
+          <TextField
+            required
+            name="address"
+            label="address"
+            margin="normal"
+            variant="filled"
+            value={address}
+            onChange={onChange}
           />
 
           <br />
@@ -147,7 +157,7 @@ class AdminUserUpdate extends Component {
             margin="normal"
             variant="filled"
             value={userName}
-            onChange={handleChange}
+            onChange={onChange}
           />
 
           <br />
@@ -164,50 +174,45 @@ class AdminUserUpdate extends Component {
             margin="normal"
             variant="filled"
             value={password}
-            onChange={handleChange}
+            onChange={onChange}
           />
 
           {/* <Grid container justify="flex-start" spacing={16}>
+                
+                    <Grid item>
+                        <TextField
+                            // required
+                            id="password1"
+                            // name="password"
+                            label="new password"
+                            name="password1"
+                            type="password"
+                            margin="normal"
+                            variant="filled"
+                            onChange={ handleChange }
+                        />
+                    </Grid>
         
-            <Grid item>
-                <TextField
-                    // required
-                    id="password1"
-                    // name="password"
-                    label="new password"
-                    name="password1"
-                    type="password"
-                    margin="normal"
-                    variant="filled"
-                    onChange={ handleChange }
-                />
-            </Grid>
-
-            <Grid item>
-                <TextField
-                    // required
-                    id="password2"
-                    // name="password"
-                    label="confirm password"
-                    name="password2"
-                    type="password"
-                    margin="normal"
-                    variant="filled"
-                    onChange={ handleChange }
-                />
-            </Grid>
-
-          </Grid> */}
+                    <Grid item>
+                        <TextField
+                            // required
+                            id="password2"
+                            // name="password"
+                            label="confirm password"
+                            name="password2"
+                            type="password"
+                            margin="normal"
+                            variant="filled"
+                            onChange={ handleChange }
+                        />
+                    </Grid>
+        
+                  </Grid> */}
 
           <br />
           <br />
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            // className={classes.button}
-          >
+          <Button type="submit" variant="contained" color="primary">
             Save
           </Button>
         </form>
@@ -218,18 +223,16 @@ class AdminUserUpdate extends Component {
     );
   }
 }
-
-const mapStateToProps = (users, { match }) => {
-  const id = +match.params.id;
-
+const mapStateToProps = ({ users }, { match }) => {
+  const user = users.find(s => s.id === match.params.id * 1);
   return {
-    user: users.find(user => user.id === id),
+    user,
   };
 };
-
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdateUser: user => dispatch(updateUser(user)),
+    updateUser: user => dispatch(updateUser(user)),
+    deleteUser: user => dispatch(deleteUser(user)),
   };
 };
 
