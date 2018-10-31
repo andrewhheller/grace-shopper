@@ -1,17 +1,23 @@
 const faker = require('faker');
 
+const NO_OF_USERS = 50;
+const NO_OF_PRODUCTS = 100;
+const NO_OF_REVIEWS_PER_PRODUCT = 3;
+
 const createUsers = () => {
   const users = [];
   let i = 0;
-  while (i < 50) {
+  while (i < NO_OF_USERS) {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
+    const address = faker.address
     if (!users.find(user => user.userName === firstName)) {
       users.push({
         firstName,
         lastName,
         userName: firstName,
         password: lastName,
+        address: `${address.streetAddress()}, ${address.city()}, ${address.state()}, ${address.zipCode()}`,
         email: `${firstName}.${lastName}@email.com`,
       });
       i++;
@@ -41,7 +47,7 @@ const createProducts = () => {
 
   const products = [];
   let i = 0;
-  while (i < 100) {
+  while (i < NO_OF_PRODUCTS) {
     const title = faker.lorem.words();
     if (!products.find(product => product.title === title)) {
       products.push({
@@ -51,9 +57,9 @@ const createProducts = () => {
         inventory: faker.random.number({ min: 1, max: 10000 }),
         primaryImageUrl: `https://picsum.photos/400/500/?image=${i}`,
         images: [
-          `https://picsum.photos/400/500/?image=${i + 100}`,
-          `https://picsum.photos/400/500/?image=${i + 101}`,
-          `https://picsum.photos/400/500/?image=${i + 102}`,
+          `https://picsum.photos/400/500/?image=${i + NO_OF_PRODUCTS}`,
+          `https://picsum.photos/400/500/?image=${i + NO_OF_PRODUCTS + 1}`,
+          `https://picsum.photos/400/500/?image=${i + NO_OF_PRODUCTS + 2}`,
         ],
         categories: getCategory(i),
       });
@@ -108,21 +114,16 @@ const createOrdersWithLineItems = () => {
 
 const createReviews = () => {
   const reviews = [];
-  let i = 0;
-  while (i < 50) {
-    const text = faker.lorem.paragraph();
-    const rating = Math.round(Math.random() * 5);
-    const productId = Math.round(Math.random() * 50);
-    const userId = Math.round(Math.random() * 50);
-    reviews.push({ text, rating, productId, userId });
+  let i = 1;
+  while (i < NO_OF_PRODUCTS) {
+    for(let j = 0; j < NO_OF_REVIEWS_PER_PRODUCT; j++) {
+      const text = faker.lorem.paragraph();
+      const rating = faker.random.number({ min: 1, max: 5 });
+      const userId = faker.random.number({ min: 1, max: (NO_OF_USERS - 1) });
+      reviews.push({ text, rating, productId: i, userId });
+    }
     i++;
   }
-  reviews.push({
-    text: faker.lorem.paragraph(),
-    rating: Math.round(Math.random() * 5),
-    productId: 2,
-    userId: 1,
-  });
   return reviews;
 };
 
