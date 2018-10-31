@@ -10,6 +10,21 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
+// NOTE: the success message remain on page, but all other fields cleared
+// on error, the error message will appear and all fields intact
+const initialState = {
+  product: {
+    title: '',
+    description: '',
+    primaryImageUrl: '',
+    price: '',
+    inventory: '',
+    categories: ''
+  },
+  error: ''
+}
+
+
 class AdminProductCreate extends Component {
 
   constructor() {
@@ -23,7 +38,8 @@ class AdminProductCreate extends Component {
         inventory: '',
         categories: ''
       },
-      status: ''
+      success: '',
+      error: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,12 +56,17 @@ class AdminProductCreate extends Component {
     const { product } = this.state;
 
     event.preventDefault();
-    onAddProduct(product);
+    onAddProduct(product)
+      .then(() => {
+        this.setState({ success: 'Product added successfully!' })
+        this.setState(initialState)
+      })
+      .catch(error => this.setState({ error: 'An error has occurred.' }));
   }
 
   render() {
     const { handleChange, handleSubmit } = this;
-    const { products } = this.props;
+    const { success, error } = this.state;
     const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
 
     return (
@@ -58,6 +79,23 @@ class AdminProductCreate extends Component {
         >
           Create Product
         </Typography>
+
+        <Typography
+          variant="subtitle1"
+          style={{ color: 'green', marginLeft: "25px" }}
+          gutterBottom>
+            { success }
+          </Typography>
+        
+        <Typography
+          variant="subtitle1"
+          style={{ color: 'red', marginLeft: "25px" }}
+          gutterBottom>
+            { error }
+        </Typography>
+
+        <br />
+        <br />
 
         <form onSubmit={ handleSubmit }>
 

@@ -50,13 +50,13 @@ const addProduct = (product) => {
     return axios.post(`/api/products`, product)
       .then(res => res.data)
       .then(product => dispatch(_addProduct(product)))
-      .catch(error => console.log(error))
+      // .catch(error => console.log(error))
   };
 };
 
 const updateProduct = (product) => {
   return (dispatch) => {
-    return axios.put(`/api/users/${product.id}`, product)
+    return axios.put(`/api/products/${product.id}`, product)
       .then(res => res.data)
       .then(product => dispatch(_updateProduct(product)))
   };
