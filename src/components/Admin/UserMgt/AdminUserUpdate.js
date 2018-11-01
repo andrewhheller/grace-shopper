@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 
-import { updateUser, deleteUser } from '../../../reducers/UserReducer';
+import { updateUser, deleteUser } from '../../../store';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -11,7 +11,7 @@ import Button from '@material-ui/core/Button';
 class AdminUserUpdate extends Component {
   constructor(props) {
     super(props);
-    const { user } = this.props;
+    const user = this.props.user;
     this.state = {
       firstName: user ? user.firstName : '',
       lastName: user ? user.lastName : '',
@@ -70,7 +70,11 @@ class AdminUserUpdate extends Component {
   // }
 
   render() {
+    if (!this.props.user) {
+      return null;
+    }
     const { onChange, onSave } = this;
+    const { user } = this.props;
     const {
       firstName,
       lastName,
@@ -79,8 +83,6 @@ class AdminUserUpdate extends Component {
       password,
       address,
     } = this.state;
-    const empty =
-      !firstName || !lastName || !email || !userName || !password || !address;
 
     return (
       <Fragment>
@@ -215,6 +217,14 @@ class AdminUserUpdate extends Component {
           <Button type="submit" variant="contained" color="primary">
             Save
           </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={() => this.props.deleteUser(user)}
+          >
+            Delete
+          </Button>
         </form>
 
         <br />
@@ -227,6 +237,7 @@ const mapStateToProps = ({ users }, { match }) => {
   const user = users.find(s => s.id === match.params.id * 1);
   return {
     user,
+    users,
   };
 };
 const mapDispatchToProps = dispatch => {

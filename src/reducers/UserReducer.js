@@ -14,24 +14,26 @@ const updateUser = user => {
   return dispatch => {
     return axios
       .put(`/api/users/${user.id}`, user)
-      .then(res => res.data)
-      .then(user => dispatch(_updateUser(user)));
+      .then(response => response.data)
+      .then(updated => dispatch(_updateUser(updated)));
   };
 };
 
 const addUser = user => {
   return dispatch => {
     return axios
-      .post(`/api/users`, user)
-      .then(res => res.data)
-      .then(user => dispatch(_addUser(user)));
+      .post('/api/users', user)
+      .then(response => response.data)
+      .then(newUser => dispatch(_addUser(newUser)));
   };
 };
 
-const deleteUser = (user, history) => {
+const deleteUser = user => {
   return dispatch => {
-    dispatch(_deleteUser(user));
-    return axios.delete(`/api/user/${user.id}`).then(() => history.goBack());
+    return axios
+      .delete(`/api/users/${user.id}`)
+      .then(response => response.data)
+      .then(() => dispatch(_deleteUser(user)));
   };
 };
 
@@ -51,7 +53,7 @@ const UserReducer = (state = [], action) => {
     case GET_USERS:
       return action.users;
     case DELETE_USER:
-      return state.filter(user => user.id != action.user.id);
+      return state.filter(user => user.id !== action.user.id);
     case UPDATE_USER:
       return state.map(user => {
         return user.id === action.user.id ? action.user : user;

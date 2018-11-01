@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../../../store';
+import { Grid, Button, TextField, Typography, Paper } from '@material-ui/core';
 
 class AdminUserCreate extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       firstName: '',
       lastName: '',
@@ -18,23 +19,22 @@ class AdminUserCreate extends Component {
   }
 
   handleSubmit(evt) {
-    evt.preventDefault();
     const firstName = this.state.firstName;
     const lastName = this.state.lastName;
     const userName = this.state.userName;
     const password = this.state.password;
     const email = this.state.email;
     const address = this.state.address;
-    this.props
-      .addUser({
-        firstName,
-        lastName,
-        userName,
-        password,
-        email,
-        address,
-      })
-      .then(() => this.props.history.push('/admins/user-create'));
+    evt.preventDefault();
+    this.props.addUser({
+      firstName,
+      lastName,
+      userName,
+      password,
+      email,
+      address,
+    });
+    //.then(() => this.props.history.push('/admins/users'));
   }
   onChange(evt) {
     this.setState({
@@ -52,75 +52,99 @@ class AdminUserCreate extends Component {
       email,
       address,
     } = this.state;
-    return (
-      <div>
-        <h1>Add a User</h1>
-        <form id="new-user-form" onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="firstName">First:</label>
-            <input
-              type="text"
-              name="firstName"
-              value={firstName}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="firstName">Last:</label>
-            <input
-              type="text"
-              name="lastName"
-              value={lastName}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="userName">Username:</label>
-            <input
-              type="text"
-              name="userName"
-              value={userName}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="text"
-              name="password"
-              value={password}
-              onChange={onChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input type="text" name="email" value={email} onChange={onChange} />
-          </div>
-          <div className="form-group">
-            <label htmlFor="address">Address:</label>
-            <input
-              type="text"
-              name="address"
-              value={address}
-              onChange={onChange}
-            />
-          </div>
+    const isValidEmail = email => {
+      const regExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
+      return regExp.test(String(email));
+    };
 
-          <button
-            type="submit"
-            disabled={
-              !firstName ||
-              !lastName ||
-              !userName ||
-              !password ||
-              !email ||
-              !address
-            }
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+    return (
+      <Grid container justify="center">
+        <Grid item xs>
+          <div>
+            <Grid container justify="center">
+              <Grid item>
+                <Paper elevation={1}>
+                  <form id="create-user">
+                    <Typography variant="title">Add A User</Typography>
+
+                    <TextField
+                      required
+                      name="firstName"
+                      label="First Name"
+                      variant="outlined"
+                      value={firstName}
+                      onChange={onChange}
+                    />
+
+                    <TextField
+                      required
+                      name="lastName"
+                      label="Last Name"
+                      variant="outlined"
+                      value={lastName}
+                      onChange={onChange}
+                    />
+
+                    <TextField
+                      required
+                      name="userName"
+                      label="Username"
+                      variant="outlined"
+                      value={userName}
+                      onChange={onChange}
+                    />
+
+                    <TextField
+                      required
+                      name="password"
+                      label="Password"
+                      variant="outlined"
+                      value={password}
+                      type="password"
+                      onChange={onChange}
+                    />
+
+                    <TextField
+                      required
+                      name="email"
+                      label="Email"
+                      variant="outlined"
+                      value={email}
+                      onChange={onChange}
+                      error={email.length > 0 && !isValidEmail(email)}
+                    />
+
+                    <TextField
+                      required
+                      name="address"
+                      label="Address"
+                      variant="outlined"
+                      value={address}
+                      onChange={onChange}
+                    />
+
+                    <Button
+                      type="submit"
+                      disabled={
+                        !firstName ||
+                        !lastName ||
+                        !userName ||
+                        !password ||
+                        !email ||
+                        !address ||
+                        !isValidEmail(email)
+                      }
+                      onClick={handleSubmit}
+                    >
+                      Submit
+                    </Button>
+                  </form>
+                </Paper>
+              </Grid>
+            </Grid>
+          </div>
+        </Grid>
+      </Grid>
     );
   }
 }

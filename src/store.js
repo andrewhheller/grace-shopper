@@ -2,7 +2,13 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { reviewsReducer, getReviews, createReview } from './reducers/reviews';
-import { UserReducer, getUsers, addUser } from './reducers/UserReducer';
+import {
+  UserReducer,
+  getUsers,
+  addUser,
+  deleteUser,
+  updateUser,
+} from './reducers/UserReducer';
 import {
   productReducer,
   getProducts,
@@ -78,5 +84,7 @@ export {
   getProductByCategory,
   getReviews,
   createReview,
-  addUser
+  addUser,
+  deleteUser,
+  updateUser,
 };

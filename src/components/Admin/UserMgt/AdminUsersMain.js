@@ -24,7 +24,6 @@ class AdminUsersMain extends Component {
 
   componentDidMount() {
     const { location } = this.props;
-
     if (location.pathname.includes('admins/user-create')) {
       this.setState({ adminArea: 'user-create' });
     } else if (location.pathname.includes('admins/users')) {

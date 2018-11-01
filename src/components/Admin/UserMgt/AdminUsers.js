@@ -19,8 +19,8 @@ const searchUsers = (users, search) => {
 };
 
 class AdminUsers extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       search: '',
       users: [],
@@ -29,14 +29,16 @@ class AdminUsers extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleShowAllUsers = this.handleShowAllUsers.bind(this);
+    this.componentDidUdate = this.componentDidUpdate.bind(this);
   }
-
+  componentDidUpdate(prevProps) {
+    if (!prevProps.users && this.props.users) {
+      this.setState({ users: this.props.users });
+    }
+  }
   componentDidMount() {
-    const { users } = this.props;
-
-    this.setState({ users });
+    this.setState({ users: this.props.users });
   }
-
   handleChange(event) {
     this.setState({ search: event.target.value });
   }
@@ -46,6 +48,7 @@ class AdminUsers extends Component {
     const { search } = this.state;
 
     event.preventDefault();
+
     this.setState({ users: searchUsers(users, search) });
   }
 
@@ -56,8 +59,7 @@ class AdminUsers extends Component {
 
   render() {
     const { handleChange, handleSubmit, handleShowAllUsers } = this;
-    const { users } = this.state;
-
+    const { users } = this.props;
     return (
       <Fragment>
         <h2>Grace Shopper Users</h2>
@@ -66,6 +68,7 @@ class AdminUsers extends Component {
           <label>Search for user:</label>
           <input type="text" name="search" onChange={handleChange} />
           <button type="submit">Search</button>
+
           <button type="button" onClick={() => handleShowAllUsers()}>
             Show All users
           </button>
