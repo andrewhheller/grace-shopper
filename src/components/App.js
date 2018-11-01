@@ -19,6 +19,7 @@ import RegisterUser from './RegisterUser';
 import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
 import RegistrationSuccessful from './RegistrationSuccessful';
+import Checkout from './Checkout';
 import AdminTopNav from './Admin/AdminTopNav';
 
 
@@ -32,13 +33,11 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { authenticatedUser, orders, localCart } = this.props
+    const { authenticatedUser } = this.props
     if (authenticatedUser.id) {
       if ( !prevProps.authenticatedUser.id || prevProps.authenticatedUser.id !== authenticatedUser.id) {
-        this.props.getOrders(authenticatedUser.id);
-      }
-      if(!prevProps.authenticatedUser.id && orders && localCart.length) {
-        this.props.mergeCartWithLocalCartOnLogin(orders, localCart, authenticatedUser.id)
+        this.props.getOrders(authenticatedUser.id)
+          .then(() => this.props.mergeCartWithLocalCartOnLogin(this.props.orders, this.props.localCart, authenticatedUser.id))
       }
     }
   }
@@ -59,27 +58,19 @@ class App extends Component {
             <Route path="/register" component={RegisterUser} />
             <Route path="/registerSuccess" component={RegistrationSuccessful} />
 
-            {
-              authenticatedUser.isAdmin ? 
-                <Fragment>
-                  <Route exact path="/admins/user-create" component={ AdminTopNav } />
-                  <Route exact path="/admins/user-update" component={ AdminTopNav } />
-                  <Route exact path="/admins/product-create" component={ AdminTopNav } />
-                  <Route exact path="/admins/product-search" component={ AdminTopNav } />
-                  <Route exact path="/admins/product-catalogues" component={ AdminTopNav } />
-                  <Route exact path="/admins/products/:id" component={ AdminTopNav } />
-                  <Route exact path="/admins/orders" component={ AdminTopNav } />
-                  <Route exact path="/admins" component={ AdminTopNav } />
-                </Fragment>
-              : null
-            }
+            <Route exact path="/admins/user-create" component={ AdminTopNav } />
+            <Route exact path="/admins/user-update" component={ AdminTopNav } />
+            <Route exact path="/admins/product-create" component={ AdminTopNav } />
+            <Route exact path="/admins/product-search" component={ AdminTopNav } />
+            <Route exact path="/admins/product-catalogues" component={ AdminTopNav } />
+            <Route exact path="/admins/products/:id" component={ AdminTopNav } />
+            <Route exact path="/admins/orders" component={ AdminTopNav } />
+            <Route exact path="/admins" component={ AdminTopNav } />
+            <Route path="/checkout" render={({ location, history }) => <Checkout location={location} history={history} />} />
 
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
-            <Route
-              path="/cart"
-              render={({ history }) => <Cart history={history} />}
-            />
+            <Route path="/cart" component={Cart} />
             <Route
               exact
               path="/orderConfirmation"
@@ -93,9 +84,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ authenticatedUser }) => {
+const mapStateToProps = ({ authenticatedUser, orders, localCart }) => {
   return {
-    authenticatedUser
+    authenticatedUser,
+    orders,
+    localCart
   };
 };
 
@@ -104,7 +97,9 @@ const mapDispatchToProps = dispatch => {
     getUsers: () => dispatch(getUsers()),
     getProducts: () => dispatch(getProducts()),
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
-    getOrders: userId => dispatch(getOrders(userId)),
+    getOrders: userId => {
+      return dispatch(getOrders(userId))
+    },
     getReviews: () => dispatch(getReviews()),
     mergeCartWithLocalCartOnLogin: (orders, localCart, userId) => dispatch(mergeCartWithLocalCartOnLogin(orders, localCart, userId))
   };
