@@ -46,7 +46,8 @@ class AdminProductCreate extends Component {
       },
       tempImages: {
         image1: '',
-        image2: ''
+        image2: '',
+        image3: ''
       },
       success: '',
       error: ''
@@ -59,10 +60,10 @@ class AdminProductCreate extends Component {
 
   handleChange(event) {
     const { primaryImageUrl } = this.state.product;
-    const { image1, image2 } = this.state.tempImages;
+    const { image1, image2, image3 } = this.state.tempImages;
 
     const product = Object.assign({}, this.state.product, { [event.target.name]: event.target.value })
-    product.images = `${primaryImageUrl}, ${image1}, ${image2}`;
+    product.images = `${primaryImageUrl}, ${image1}, ${image2}, ${image3}`;
     this.setState({ product })
   }
 
@@ -82,7 +83,8 @@ class AdminProductCreate extends Component {
   handleImages() {
     const image1 = document.getElementById('image1').value;
     const image2 = document.getElementById('image2').value;
-    const tempImages = { image1, image2 }
+    const image3 = document.getElementById('image3').value;
+    const tempImages = { image1, image2, image3 }
 
     this.setState({ tempImages })
   }
@@ -90,7 +92,7 @@ class AdminProductCreate extends Component {
   render() {
     const { handleChange, handleSubmit, handleImages } = this;
     const { success, error } = this.state;
-    const { image1, image2 } = this.state.tempImages;
+    const { image1, image2, image3 } = this.state.tempImages;
     const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
 
     return (
@@ -176,6 +178,21 @@ class AdminProductCreate extends Component {
               />
             </Grid>
 
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                id="image3"
+                name="image3"
+                label="image-3 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleImages }
+                value={ image2 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
               <img
                 src={ primaryImageUrl ? primaryImageUrl : null }
                 style={{
@@ -192,6 +209,11 @@ class AdminProductCreate extends Component {
 
               <img
                 src={ image2 ? image2 : null }
+                style={{ width: "25%", marginLeft: "10px" }}
+              />
+
+              <img
+                src={ image3 ? image3 : null }
                 style={{ width: "25%", marginLeft: "10px" }}
               />
 

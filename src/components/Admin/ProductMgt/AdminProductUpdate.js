@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 
 import { updateProduct, deleteProduct } from '../../../reducers/products';
@@ -12,6 +12,8 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
+
+
 class AdminProductUpdate extends Component {
 
   constructor() {
@@ -21,7 +23,7 @@ class AdminProductUpdate extends Component {
         title: '',
         description: '',
         primaryImageUrl: '',
-        images: '',
+        images: [],
         price: '',
         inventory: '',
         categories: ''
@@ -33,7 +35,7 @@ class AdminProductUpdate extends Component {
       success: '',
       error: ''
     }
-
+  
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleImages = this.handleImages.bind(this);
@@ -42,12 +44,7 @@ class AdminProductUpdate extends Component {
 
   componentDidMount() {
     const { product } = this.props;
-
-    // converts incoming category array to string of categories
-    const categories = product.categories.join(', ');
-
-    // preloads state with product data (including formatted category field)
-    this.setState({ product: { ...product, categories } })
+    this.setState({ product } )
   }
 
   handleChange(event) {
@@ -84,6 +81,7 @@ class AdminProductUpdate extends Component {
 
     this.setState({ tempImages })
   }
+
 
   render() {
     const { handleChange, handleSubmit, handleDelete, handleImages } = this;
@@ -366,7 +364,6 @@ const mapStateToProps = ({ products }, { match }) => {
 }
 
 const mapDispatchToProps = (dispatch, { history }) => {
-  console.log(history)
 
   return {
     onUpdateProduct: (product) => dispatch(updateProduct(product)),
@@ -375,4 +372,3 @@ const mapDispatchToProps = (dispatch, { history }) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProductUpdate);
-
