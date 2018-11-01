@@ -5,6 +5,7 @@ import {
   getProducts,
   getOrders,
   getReviews,
+  mergeCartWithLocalCartOnLogin
 } from '../store';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -27,15 +28,17 @@ class App extends Component {
     this.props.getProducts();
     this.props.exchangeTokenForAuth();
     this.props.getReviews();
+    
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.authenticatedUser.id) {
-      if (
-        !prevProps.authenticatedUser.id ||
-        prevProps.authenticatedUser.id !== this.props.authenticatedUser.id
-      ) {
-        this.props.getOrders(this.props.authenticatedUser.id);
+    const { authenticatedUser, orders, localCart } = this.props
+    if (authenticatedUser.id) {
+      if ( !prevProps.authenticatedUser.id || prevProps.authenticatedUser.id !== authenticatedUser.id) {
+        this.props.getOrders(authenticatedUser.id);
+      }
+      if(!prevProps.authenticatedUser.id && orders && localCart.length) {
+        this.props.mergeCartWithLocalCartOnLogin(orders, localCart, authenticatedUser.id)
       }
     }
   }
@@ -76,7 +79,7 @@ class App extends Component {
 
 const mapStateToProps = ({ authenticatedUser }) => {
   return {
-    authenticatedUser,
+    authenticatedUser
   };
 };
 
@@ -87,6 +90,7 @@ const mapDispatchToProps = dispatch => {
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
     getOrders: userId => dispatch(getOrders(userId)),
     getReviews: () => dispatch(getReviews()),
+    mergeCartWithLocalCartOnLogin: (orders, localCart, userId) => dispatch(mergeCartWithLocalCartOnLogin(orders, localCart, userId))
   };
 };
 

@@ -14,15 +14,15 @@ class Cart extends Component {
         this.handlePlaceOrder = this.handlePlaceOrder.bind(this)
     }
 
-   updateQuantity(quantity, cartId, price, itemId) {
+   updateQuantity(quantity, cartId, price, itemId, productId) {
         const { userId } = this.props
-        this.props.updateLineItemInCart(cartId, quantity, itemId, price, userId)
+        this.props.updateLineItemInCart(cartId, quantity, itemId, price, userId, productId)
     }
 
 
-    handleRemoveFromCart(cartId, itemId) {
+    handleRemoveFromCart(cartId, itemId, productId) {
         const { userId } = this.props
-        this.props.deleteLineItemFromCart(cartId, itemId, userId)
+        this.props.deleteLineItemFromCart(cartId, itemId, userId, productId)
     }
 
     handlePlaceOrder() {
@@ -51,14 +51,14 @@ class Cart extends Component {
                         </TableHead>             
                         <TableBody>
                         {
-                            cart.line_items.map(item => <TableRow key={item.id}>
+                            cart.line_items.map((item, index) => <TableRow key={index}>
                                 <TableCell >
                                     <Typography variant="subheading">{item.product.title}</Typography>
                                     <img src={item.product.primaryImageUrl} style={{height: "20vh" }}/>
                                 </TableCell>
                                 <TableCell>
                                     <ItemQuantity updateQuantity={updateQuantity} cartId={cart.id} itemId={item.id} 
-                                            quantity={item.quantity} price={item.product.price}/>
+                                            quantity={item.quantity} price={item.product.price} productId={item.productId}/>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subheading">{`$ ${item.product.price}`}</Typography>
@@ -67,7 +67,7 @@ class Cart extends Component {
                                     <Typography variant="subheading">{`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <IconButton onClick={() => handleRemoveFromCart(cart.id, item.id)} variant="outlined" color="secondary">
+                                    <IconButton onClick={() => handleRemoveFromCart(cart.id, item.id, item.productId)} variant="outlined" color="secondary">
                                         <Clear />
                                     </IconButton> 
                                 </TableCell>
@@ -119,9 +119,9 @@ const calculateTotalAmount = (cart) => {
     return result
 }
 
-const mapStateToProps = ({ orders, products, authenticatedUser }) => {
+const mapStateToProps = ({ orders, products, authenticatedUser, localCart }) => {
     return {
-        cart: getCartWithItems(orders, products),
+        cart: getCartWithItems(orders, products, localCart),
         userId: authenticatedUser.id
     }
 }
@@ -129,9 +129,10 @@ const mapStateToProps = ({ orders, products, authenticatedUser }) => {
 const mapDispatchToProps = (dispatch, {history}) => {
     return {
         placeOrder: (order, userId) => dispatch(placeOrder(order, userId, history)),
-        deleteLineItemFromCart: (cartId, itemId, userId) => dispatch(deleteLineItemFromCart(cartId, itemId, userId)),
-        updateLineItemInCart: (cartId, quantity, itemId, price, userId) => 
-            dispatch(updateLineItemInCart(cartId, { quantity, price }, itemId, userId)),
+        deleteLineItemFromCart: (cartId, itemId, userId, productId) => 
+            dispatch(deleteLineItemFromCart(cartId, itemId, userId, productId)),
+        updateLineItemInCart: (cartId, quantity, itemId, price, userId, productId) => 
+            dispatch(updateLineItemInCart(cartId, { quantity, price, productId }, itemId, userId)),
     }
 }
 
