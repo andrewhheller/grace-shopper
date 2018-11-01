@@ -143,7 +143,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ primaryImageUrl }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -158,7 +157,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleImages }
-                value={ image1 }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -173,7 +171,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleImages }
-                value={ image2 }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -188,7 +185,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleImages }
-                value={ image2 }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -229,7 +225,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ title }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -241,7 +236,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ author }
                 style={{ width: "700px" }}
               />
             </Grid> */}
@@ -257,7 +251,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ description }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -290,7 +283,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ price }
                 style={{ width: "200px" }}
               />
             </Grid>
@@ -307,7 +299,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ inventory }
                 style={{ width: "200px" }}
               />
             </Grid>
@@ -336,7 +327,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ categories }
                 style={{ width: "700px" }}
               />
             </Grid>

@@ -28,10 +28,6 @@ class AdminProductUpdate extends Component {
         inventory: '',
         categories: ''
       },
-      tempImages: {
-        image1: '',
-        image2: ''
-      },
       success: '',
       error: ''
     }
@@ -52,7 +48,6 @@ class AdminProductUpdate extends Component {
     const { image1, image2 } = this.state.tempImages;
 
     const product = Object.assign({}, this.state.product, { [event.target.name]: event.target.value })
-    product.images = `${primaryImageUrl}, ${image1}, ${image2}`;
     this.setState({ product })
   }
 
@@ -75,19 +70,23 @@ class AdminProductUpdate extends Component {
   }
 
   handleImages() {
-    const image1 = document.getElementById('image1').value;
-    const image2 = document.getElementById('image2').value;
-    const tempImages = { image1, image2 }
+    const { images } = this.state.product;
+    const _images = [];
 
-    this.setState({ tempImages })
+    images.forEach((image, idx) => {
+      const _image = document.getElementById(`image${ idx }`).value;
+      _images.push(_image);
+    })
+
+    const product = Object.assign({}, this.state.product, { images: _images })
+    this.setState({ product })
   }
 
 
   render() {
     const { handleChange, handleSubmit, handleDelete, handleImages } = this;
     const { success, error } = this.state;
-    const { image1, image2 } = this.state.tempImages;
-    const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
+    const { title, description, primaryImageUrl, images, price, inventory, categories } = this.state.product;
 
     return (
       <Fragment>
@@ -142,54 +141,48 @@ class AdminProductUpdate extends Component {
               />
             </Grid>
 
-            <Grid item>
-              <TextField
-                required
-                type="url"
-                id="image1"
-                name="image1"
-                label="image-1 (URL only)"
-                margin="normal"
-                variant="outlined"
-                onChange={ handleImages }
-                value={ image1 }
-                style={{ width: "700px" }}
-              />
-            </Grid>
+            {
+              images.map((image, idx) => {
+                return (
+                  <Grid item key={ image }>
+                    <TextField
+                      required
+                      type="url"
+                      id={`image${idx}`}
+                      name={`image${idx}`}
+                      label={`image-${idx} (URL only)`}
+                      margin="normal"
+                      variant="outlined"
+                      onChange={ handleImages }
+                      value={ image }
+                      style={{ width: "700px" }}
+                    />
+                  </Grid>
+                )
+              })
+            }
 
-            <Grid item>
-              <TextField
-                required
-                type="url"
-                id="image2"
-                name="image2"
-                label="image-2 (URL only)"
-                margin="normal"
-                variant="outlined"
-                onChange={ handleImages }
-                value={ image2 }
-                style={{ width: "700px" }}
-              />
-            </Grid>
+            <img
+              src={ primaryImageUrl ? primaryImageUrl : null }
+              style={{
+                  width: "25%",
+                  marginLeft: "10px",
+                  border: primaryImageUrl ? "3px solid red" : ''
+              }}
+            />
 
-              <img
-                src={ primaryImageUrl ? primaryImageUrl : null }
-                style={{
-                    width: "25%",
-                    marginLeft: "10px",
-                    border: primaryImageUrl ? "3px solid red" : ''
-                }}
-              />
-
-              <img
-                src={ image1 ? image1 : null }
-                style={{ width: "25%", marginLeft: "10px" }}
-              />
-
-              <img
-                src={ image2 ? image2 : null }
-                style={{ width: "25%", marginLeft: "10px" }}
-              />
+            {
+              images.map(image => {
+                return (
+                  <img
+                    key={ image }
+                    src={ image ? image : null }
+                    style={{ width: "25%", marginLeft: "10px" }}
+                  />
+  
+                )
+              })
+            }
 
             <br />
             <br />
