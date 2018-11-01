@@ -66,7 +66,7 @@ const deleteProduct = (product, history) => {
   return (dispatch) => {
       return axios.delete(`/api/products/${product.id}`)
         .then(() => dispatch(_deleteProduct(product)))
-        .then(() => history.push('/admins/product-search'))
+        .then(() => history.back())
   }
 };
 

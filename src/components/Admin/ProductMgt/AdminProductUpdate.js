@@ -63,7 +63,7 @@ class AdminProductUpdate extends Component {
   }
 
   handleDelete(product) {
-    const { onDeleteProduct} = this.props;
+    const { onDeleteProduct, history } = this.props;
 
     onDeleteProduct(product)
   }

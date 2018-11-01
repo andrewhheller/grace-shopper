@@ -7,7 +7,7 @@ import AdminProductUpdate from './AdminProductUpdate';
 import AdminCatalogues from './AdminCatalogues';
 
 
-import { Grid , List, ListItem, ListItemLink, ListItemText} from '@material-ui/core'
+import { Grid , List, ListItem, ListItemText} from '@material-ui/core'
 
 
 
@@ -53,7 +53,7 @@ class AdminProductMain extends Component {
             return <AdminProducts />
 
         case 'product-update':
-            return <AdminProductUpdate history={ history } match={ match } />
+            return <AdminProductUpdate location={ location } history={ history } match={ match } />
 
         case 'product-catalogues':
             return <AdminCatalogues />
