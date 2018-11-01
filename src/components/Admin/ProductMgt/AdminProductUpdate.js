@@ -103,7 +103,7 @@ class AdminProductUpdate extends Component {
 
         <form onSubmit={ handleSubmit }>
 
-        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px', width: '900px' }}>
 
           <Grid
             container
@@ -208,7 +208,7 @@ class AdminProductUpdate extends Component {
         <br />
         <br />
 
-        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px', width: '900px'}}>
 
           <Grid
             container
@@ -258,7 +258,7 @@ class AdminProductUpdate extends Component {
         <br />
         <br />
 
-        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px', width: '900px' }}>
 
           <Grid
             container
