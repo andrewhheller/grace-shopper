@@ -18,13 +18,15 @@ const initialState = {
     title: '',
     description: '',
     primaryImageUrl: '',
+    images: '',
     price: '',
     inventory: '',
     categories: ''
   },
   tempImages: {
     image1: '',
-    image2: ''
+    image2: '',
+    image3: ''
   },
   error: ''
 }
@@ -77,7 +79,7 @@ class AdminProductCreate extends Component {
         this.setState({ success: 'Product added successfully!' })
         this.setState(initialState)
       })
-      .catch(error => this.setState({ error: 'An error has occurred.' }));
+      .catch(error => this.setState({ error: 'An error has occurred.', success: '' }));
   }
 
   handleImages() {
@@ -143,6 +145,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ primaryImageUrl }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -157,6 +160,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleImages }
+                value={ image1 }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -171,6 +175,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleImages }
+                value={ image2 }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -185,6 +190,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleImages }
+                value={ image3 }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -225,6 +231,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ title }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -251,6 +258,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ description }
                 style={{ width: "700px" }}
               />
             </Grid>
@@ -283,6 +291,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ price }
                 style={{ width: "200px" }}
               />
             </Grid>
@@ -299,6 +308,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ inventory }
                 style={{ width: "200px" }}
               />
             </Grid>
@@ -327,6 +337,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ categories }
                 style={{ width: "700px" }}
               />
             </Grid>

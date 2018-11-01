@@ -44,9 +44,6 @@ class AdminProductUpdate extends Component {
   }
 
   handleChange(event) {
-    const { primaryImageUrl } = this.state.product;
-    const { image1, image2 } = this.state.tempImages;
-
     const product = Object.assign({}, this.state.product, { [event.target.name]: event.target.value })
     this.setState({ product })
   }
@@ -144,7 +141,7 @@ class AdminProductUpdate extends Component {
             {
               images.map((image, idx) => {
                 return (
-                  <Grid item key={ image }>
+                  <Grid item key={ idx }>
                     <TextField
                       required
                       type="url"
@@ -172,10 +169,10 @@ class AdminProductUpdate extends Component {
             />
 
             {
-              images.map(image => {
+              images.map((image, idx) => {
                 return (
                   <img
-                    key={ image }
+                    key={ idx }
                     src={ image ? image : null }
                     style={{ width: "25%", marginLeft: "10px" }}
                   />
