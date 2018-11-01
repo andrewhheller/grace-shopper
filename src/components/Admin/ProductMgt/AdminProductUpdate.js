@@ -86,7 +86,7 @@ class AdminProductUpdate extends Component {
   }
 
   render() {
-    const { handleChange, handleSubmit, handleDelete } = this;
+    const { handleChange, handleSubmit, handleDelete, handleImages } = this;
     const { success, error } = this.state;
     const { image1, image2 } = this.state.tempImages;
     const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
