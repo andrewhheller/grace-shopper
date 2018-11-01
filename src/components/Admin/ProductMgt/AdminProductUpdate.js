@@ -26,12 +26,17 @@ class AdminProductUpdate extends Component {
         inventory: '',
         categories: ''
       },
+      tempImages: {
+        image1: '',
+        image2: ''
+      },
       success: '',
       error: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleImages = this.handleImages.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
@@ -46,7 +51,11 @@ class AdminProductUpdate extends Component {
   }
 
   handleChange(event) {
+    const { primaryImageUrl } = this.state.product;
+    const { image1, image2 } = this.state.tempImages;
+
     const product = Object.assign({}, this.state.product, { [event.target.name]: event.target.value })
+    product.images = `${primaryImageUrl}, ${image1}, ${image2}`;
     this.setState({ product })
   }
 
@@ -68,9 +77,18 @@ class AdminProductUpdate extends Component {
     onDeleteProduct(product)
   }
 
+  handleImages() {
+    const image1 = document.getElementById('image1').value;
+    const image2 = document.getElementById('image2').value;
+    const tempImages = { image1, image2 }
+
+    this.setState({ tempImages })
+  }
+
   render() {
     const { handleChange, handleSubmit, handleDelete } = this;
     const { success, error } = this.state;
+    const { image1, image2 } = this.state.tempImages;
     const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
 
     return (
@@ -126,15 +144,16 @@ class AdminProductUpdate extends Component {
               />
             </Grid>
 
-            {/* <Grid item>
+            <Grid item>
               <TextField
                 required
                 type="url"
+                id="image1"
                 name="image1"
                 label="image-1 (URL only)"
                 margin="normal"
                 variant="outlined"
-                onChange={ handleChange }
+                onChange={ handleImages }
                 value={ image1 }
                 style={{ width: "700px" }}
               />
@@ -144,20 +163,38 @@ class AdminProductUpdate extends Component {
               <TextField
                 required
                 type="url"
+                id="image2"
                 name="image2"
                 label="image-2 (URL only)"
                 margin="normal"
                 variant="outlined"
-                onChange={ handleChange }
+                onChange={ handleImages }
                 value={ image2 }
                 style={{ width: "700px" }}
               />
-            </Grid> */}
+            </Grid>
 
-            <img src={ primaryImageUrl } style={{ marginLeft: "25px" }}/>
-            {/* <img src={ image1 } style={{ width: '25%', marginLeft: "25px" }}/>
-            <img src={ image2 } style={{ width: '25%', marginLeft: "25px" }}/> */}
+              <img
+                src={ primaryImageUrl ? primaryImageUrl : null }
+                style={{
+                    width: "25%",
+                    marginLeft: "10px",
+                    border: primaryImageUrl ? "3px solid red" : ''
+                }}
+              />
 
+              <img
+                src={ image1 ? image1 : null }
+                style={{ width: "25%", marginLeft: "10px" }}
+              />
+
+              <img
+                src={ image2 ? image2 : null }
+                style={{ width: "25%", marginLeft: "10px" }}
+              />
+
+            <br />
+            <br />
             <br />
 
             <Grid item>
