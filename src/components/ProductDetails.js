@@ -44,13 +44,12 @@ class ProductDetail extends Component {
       updateLineItemInCart,
       userId,
     } = this.props;
-    if (!cart.id) {
+    if (!cart.id && userId) {
       createCart(item, userId);
     } else {
       const lineItem = cart.line_items.find(
         i => i.productId === item.productId
       );
-      console.log(lineItem);
       if (!lineItem) {
         createLineItemInCart(cart.id, item, userId);
       } else {
@@ -59,7 +58,8 @@ class ProductDetail extends Component {
           item.quantity + lineItem.quantity,
           lineItem.id,
           price,
-          userId
+          userId,
+          item.productId
         );
       }
     }
@@ -145,13 +145,13 @@ const styles = theme => ({
 });
 
 const mapStateToProps = (
-  { orders, products, authenticatedUser, reviews },
+  { orders, products, authenticatedUser, reviews, localCart },
   { match }
 ) => {
   const id = parseInt(match.params.id);
   return {
     product: getProductById(products, id),
-    cart: getCartWithItems(orders, products),
+    cart: getCartWithItems(orders, products, localCart),
     userId: authenticatedUser.id,
     reviews,
   };
@@ -162,9 +162,9 @@ const mapDispatchToProps = dispatch => {
     createCart: (item, userId) => dispatch(createCart(item, userId)),
     createLineItemInCart: (cartId, item, userId) =>
       dispatch(createLineItemInCart(cartId, item, userId)),
-    updateLineItemInCart: (cartId, quantity, itemId, price, userId) =>
+    updateLineItemInCart: (cartId, quantity, itemId, price, userId, productId) =>
       dispatch(
-        updateLineItemInCart(cartId, { quantity, price }, itemId, userId)
+        updateLineItemInCart(cartId, { quantity, price, productId }, itemId, userId)
       ),
   };
 };

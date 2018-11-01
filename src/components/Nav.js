@@ -94,9 +94,9 @@ class Nav extends Component {
     }
 }
 
-const mapStateToProps = ({ orders, products, authenticatedUser }) => {
+const mapStateToProps = ({ orders, products, authenticatedUser, localCart }) => {
     return {
-        cart: getCartWithItems(orders, products),
+        cart: getCartWithItems(orders, products, localCart),
         authenticatedUser
     }
 }
