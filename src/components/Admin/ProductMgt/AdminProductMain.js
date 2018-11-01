@@ -53,7 +53,7 @@ class AdminProductMain extends Component {
             return <AdminProducts />
 
         case 'product-update':
-            return <AdminProductUpdate match={ match } />
+            return <AdminProductUpdate history={ history } match={ match } />
 
         case 'product-catalogues':
             return <AdminCatalogues />

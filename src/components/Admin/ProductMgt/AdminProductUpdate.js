@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 
-import { updateProduct } from '../../../reducers/products';
+import { updateProduct, deleteProduct } from '../../../reducers/products';
 import { getProductById } from '../../../utils';
 
 import Grid from '@material-ui/core/Grid';
@@ -9,21 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-
-
-// NOTE: the success message remain on page, but all other fields cleared
-// on error, the error message will appear and all fields intact
-const initialState = {
-  product: {
-    title: '',
-    description: '',
-    primaryImageUrl: '',
-    price: '',
-    inventory: '',
-    categories: ''
-  },
-  error: ''
-}
+import DeleteIcon from '@material-ui/icons/Delete';
 
 
 class AdminProductUpdate extends Component {
@@ -46,6 +32,7 @@ class AdminProductUpdate extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -70,14 +57,19 @@ class AdminProductUpdate extends Component {
     event.preventDefault();
     onUpdateProduct(product)
       .then(() => {
-        this.setState({ success: 'Product updated updated!' })
-        this.setState(initialState)
+        this.setState({ success: 'Product updated successfully!' })
       })
       .catch(error => this.setState({ error: 'An error has occurred.' }));
   }
 
+  handleDelete(product) {
+    const { onDeleteProduct} = this.props;
+
+    onDeleteProduct(product)
+  }
+
   render() {
-    const { handleChange, handleSubmit } = this;
+    const { handleChange, handleSubmit, handleDelete } = this;
     const { success, error } = this.state;
     const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
 
@@ -304,6 +296,17 @@ class AdminProductUpdate extends Component {
           Submit
         </Button>
 
+        <Button
+            type="button"
+            variant="contained"
+            color="secondary"
+            style={{ width: '100px', marginLeft: "10px" }}
+            onClick={ () => handleDelete(this.state.product) }
+        >
+          Delete
+          <DeleteIcon />
+        </Button>
+
         <br />
         <br />
 
@@ -319,16 +322,18 @@ class AdminProductUpdate extends Component {
 const mapStateToProps = ({ products }, { match }) => {
   const id = +match.params.id;
   const product = getProductById(products, id);
-  console.log(product);
 
   return {
     product
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { history }) => {
+  console.log(history)
+
   return {
-    onUpdateProduct: (product) => dispatch(updateProduct(product))
+    onUpdateProduct: (product) => dispatch(updateProduct(product)),
+    onDeleteProduct: (product) => dispatch(deleteProduct(product, history))
   }
 }
 

@@ -64,10 +64,10 @@ const updateProduct = (product) => {
 
 const deleteProduct = (product, history) => {
   return (dispatch) => {
-      dispatch(_deleteProduct(product));
-      return axios.delete(`/api/product/${product.id}`)
-          .then(()=> history.goBack());
-  };
+      return axios.delete(`/api/products/${product.id}`)
+        .then(() => dispatch(_deleteProduct(product)))
+        .then(() => history.push('/admins/product-search'))
+  }
 };
 
 
