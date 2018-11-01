@@ -35,8 +35,7 @@ class AdminProductUpdate extends Component {
         title: '',
         description: '',
         primaryImageUrl: '',
-        image1: '',
-        image2: '',
+        images: '',
         price: '',
         inventory: '',
         categories: ''
@@ -80,7 +79,7 @@ class AdminProductUpdate extends Component {
   render() {
     const { handleChange, handleSubmit } = this;
     const { success, error } = this.state;
-    const { title, description, primaryImageUrl, image1, image2, price, inventory, categories } = this.state.product;
+    const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
 
     return (
       <Fragment>
@@ -135,7 +134,7 @@ class AdminProductUpdate extends Component {
               />
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <TextField
                 required
                 type="url"
@@ -161,11 +160,11 @@ class AdminProductUpdate extends Component {
                 value={ image2 }
                 style={{ width: "700px" }}
               />
-            </Grid>
+            </Grid> */}
 
-            <img src={ primaryImageUrl } style={{ width: '25%', marginLeft: "25px" }}/>
-            <img src={ image1 } style={{ width: '25%', marginLeft: "25px" }}/>
-            <img src={ image2 } style={{ width: '25%', marginLeft: "25px" }}/>
+            <img src={ primaryImageUrl } style={{ marginLeft: "25px" }}/>
+            {/* <img src={ image1 } style={{ width: '25%', marginLeft: "25px" }}/>
+            <img src={ image2 } style={{ width: '25%', marginLeft: "25px" }}/> */}
 
             <br />
 

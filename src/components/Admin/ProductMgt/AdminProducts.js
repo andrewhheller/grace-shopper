@@ -77,7 +77,6 @@ class AdminProductListing extends Component {
         })
     }
 
-
     render() {
         const { handleChange, handleSubmit, handleShowAllProducts } = this;
         const { products } = this.state;

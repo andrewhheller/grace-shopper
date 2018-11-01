@@ -8,11 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+
 
 
 // NOTE: the success message remain on page, but all other fields cleared
@@ -39,6 +35,7 @@ class AdminProductCreate extends Component {
         title: '',
         description: '',
         primaryImageUrl: '',
+        images: '',
         price: '',
         inventory: '',
         categories: ''
@@ -53,6 +50,7 @@ class AdminProductCreate extends Component {
 
   handleChange(event) {
     const product = Object.assign({}, this.state.product, { [event.target.name]: event.target.value })
+    product.images = this.state.product.primaryImageUrl;
     this.setState({ product })
   }
 
@@ -126,6 +124,34 @@ class AdminProductCreate extends Component {
                 style={{ width: "700px" }}
               />
             </Grid>
+
+            {/* <Grid item>
+              <TextField
+                required
+                type="url"
+                name="image1"
+                label="image-1 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ image1 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                name="image2"
+                label="image-2 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ image2 }
+                style={{ width: "700px" }}
+              />
+            </Grid> */}
 
             <img src={ primaryImageUrl } style={{ marginLeft: "50px" }}/>
 
