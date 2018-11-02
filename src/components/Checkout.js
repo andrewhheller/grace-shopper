@@ -49,13 +49,22 @@ class Cart extends Component {
             return (
                 <Grid item xs>
                     <form style={{display: "flex", flexDirection: "column", width: "30vw"}}>
-                        <Typography variant="title" style={styles.element}>Payment Details</Typography>
+                        <Typography
+                            variant="h3"
+                            style={styles.element}
+                        >
+                            Payment Details
+                        </Typography>
+                        
                         <TextField required id="cardName" label="Name on Card" variant="outlined" style={styles.element} 
-                            value={cardName} onChange={handleChange('cardName')} /> 
+                            value={cardName} onChange={handleChange('cardName')} />
+
                         <TextField required id="cardNumber" label="Card Number" variant="outlined" style={styles.element} 
                             value={cardNumber} onChange={handleChange('cardNumber')} /> 
+
                         <TextField required id="cvv" label="CVV Code" variant="outlined" style={styles.element} 
                             value={cvv} onChange={handleChange('cvv')} /> 
+
                         <TextField required id="expiration" label="Card Expiration" variant="outlined" style={styles.element} 
                             value={expiration} onChange={handleChange('expiration')} /> 
                     </form>
@@ -66,14 +75,25 @@ class Cart extends Component {
         const shippingDetails = () => {
             return (
                 <Grid item xs={6}>
+
                     <form style={{display: "flex", flexDirection: "column", width: "30vw"}} >
-                        <Typography variant="title" style={styles.element}>Shipping Details</Typography>
+
+                        <Typography
+                            variant="h3"
+                            style={styles.element}
+                        >
+                            Shipping Details
+                        </Typography>
+                        
                         <TextField required id="firstName" label="First Name" variant="outlined" style={styles.element} 
                             value={firstName} onChange={handleChange('firstName')} /> 
+                        
                         <TextField required id="lastName" label="Last Name" variant="outlined" style={styles.element} 
                             value={lastName} onChange={handleChange('lastName')} />
+                        
                         <TextField required id="address" label="Address" variant="outlined" style={styles.element} 
                             value={address} onChange={handleChange('address')} />
+                        
                         <TextField required id="email" label="Email" variant="outlined" style={styles.element} 
                             value={email} onChange={handleChange('email')} />
                     </form>
