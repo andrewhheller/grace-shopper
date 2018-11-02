@@ -6,9 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/Inbox';
+
+
+
 
 const AdminHome = () => {
 
@@ -45,9 +46,6 @@ const AdminHome = () => {
               component={ Link }
               to="/admins/user-create"
             >
-              {/* <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon> */}
               <ListItemText
                 primary="Create User"
                 style={{ textAlign: 'center' }}
@@ -59,9 +57,6 @@ const AdminHome = () => {
               component={ Link }
               to="/admins/product-search"
             >
-              {/* <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon> */}
               <ListItemText primary="Search Products" style={{ textAlign: 'center' }}/>
             </ListItem>
 
@@ -70,9 +65,6 @@ const AdminHome = () => {
               component={ Link }
               to="/admins/orders"  
             >
-              {/* <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon> */}
               <ListItemText primary="Modify Order" style={{ textAlign: 'center' }}/>
             </ListItem>
 
