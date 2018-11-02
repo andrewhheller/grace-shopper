@@ -22,7 +22,6 @@ import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
 import RegistrationSuccessful from './RegistrationSuccessful';
 import Checkout from './Checkout';
-import AdminTopNav from './Admin/AdminTopNav';
 
 
 class App extends Component {
