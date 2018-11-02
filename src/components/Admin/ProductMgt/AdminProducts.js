@@ -73,11 +73,9 @@ class AdminProductListing extends Component {
     // toggle to show all products again
     handleShowAllProducts() {
         this.setState({
-            products: this.props.products,
-            search: ''
+            products: this.props.products
         })
     }
-
 
     render() {
         const { handleChange, handleSubmit, handleShowAllProducts } = this;
@@ -160,7 +158,7 @@ class AdminProductListing extends Component {
 
                                     <CustomTableCell component="th" scope="row">
                                         <Link
-                                            to={`/products/${product.id}`}
+                                            to={`/admins/products/${product.id}`}
                                             style={ {textDecoration: 'none'} }>
                                             { product.title }
                                         </Link>

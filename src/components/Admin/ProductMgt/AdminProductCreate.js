@@ -10,6 +10,28 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
 
+
+// NOTE: the success message remain on page, but all other fields cleared
+// on error, the error message will appear and all fields intact
+const initialState = {
+  product: {
+    title: '',
+    description: '',
+    primaryImageUrl: '',
+    images: '',
+    price: '',
+    inventory: '',
+    categories: ''
+  },
+  tempImages: {
+    image1: '',
+    image2: '',
+    image3: ''
+  },
+  error: ''
+}
+
+
 class AdminProductCreate extends Component {
 
   constructor() {
@@ -19,19 +41,31 @@ class AdminProductCreate extends Component {
         title: '',
         description: '',
         primaryImageUrl: '',
+        images: '',
         price: '',
         inventory: '',
         categories: ''
       },
-      status: ''
+      tempImages: {
+        image1: '',
+        image2: '',
+        image3: ''
+      },
+      success: '',
+      error: ''
     }
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleImages = this.handleImages.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
+    const { primaryImageUrl } = this.state.product;
+    const { image1, image2, image3 } = this.state.tempImages;
+
     const product = Object.assign({}, this.state.product, { [event.target.name]: event.target.value })
+    product.images = `${primaryImageUrl}, ${image1}, ${image2}, ${image3}`;
     this.setState({ product })
   }
 
@@ -40,12 +74,27 @@ class AdminProductCreate extends Component {
     const { product } = this.state;
 
     event.preventDefault();
-    onAddProduct(product);
+    onAddProduct(product)
+      .then(() => {
+        this.setState({ success: 'Product added successfully!' })
+        this.setState(initialState)
+      })
+      .catch(error => this.setState({ error: 'An error has occurred.', success: '' }));
+  }
+
+  handleImages() {
+    const image1 = document.getElementById('image1').value;
+    const image2 = document.getElementById('image2').value;
+    const image3 = document.getElementById('image3').value;
+    const tempImages = { image1, image2, image3 }
+
+    this.setState({ tempImages })
   }
 
   render() {
-    const { handleChange, handleSubmit } = this;
-    const { products } = this.props;
+    const { handleChange, handleSubmit, handleImages } = this;
+    const { success, error } = this.state;
+    const { image1, image2, image3 } = this.state.tempImages;
     const { title, description, primaryImageUrl, price, inventory, categories } = this.state.product;
 
     return (
@@ -59,15 +108,32 @@ class AdminProductCreate extends Component {
           Create Product
         </Typography>
 
+        <Typography
+          variant="subtitle1"
+          style={{ color: 'green', marginLeft: "25px" }}
+          gutterBottom>
+            { success }
+          </Typography>
+        
+        <Typography
+          variant="subtitle1"
+          style={{ color: 'red', marginLeft: "25px" }}
+          gutterBottom>
+            { error }
+        </Typography>
+
+        <br />
+        <br />
+
         <form onSubmit={ handleSubmit }>
 
-        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px', width: '900px' }}>
 
           <Grid
             container
             justify="flex-start"
             spacing={16}
-            style={{ marginLeft: "20px", width: "700px" }}
+            style={{ marginLeft: "20px", width: "900px" }}
           >
 
             <Grid item>
@@ -84,8 +150,77 @@ class AdminProductCreate extends Component {
               />
             </Grid>
 
-            <img src={ primaryImageUrl } style={{ marginLeft: "50px" }}/>
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                id="image1"
+                name="image1"
+                label="image-1 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleImages }
+                value={ image1 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
 
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                id="image2"
+                name="image2"
+                label="image-2 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleImages }
+                value={ image2 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                required
+                type="url"
+                id="image3"
+                name="image3"
+                label="image-3 (URL only)"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleImages }
+                value={ image3 }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+              <img
+                src={ primaryImageUrl ? primaryImageUrl : null }
+                style={{
+                    width: "25%",
+                    marginLeft: "10px",
+                    border: primaryImageUrl ? "3px solid red" : ''
+                }}
+              />
+
+              <img
+                src={ image1 ? image1 : null }
+                style={{ width: "25%", marginLeft: "10px" }}
+              />
+
+              <img
+                src={ image2 ? image2 : null }
+                style={{ width: "25%", marginLeft: "10px" }}
+              />
+
+              <img
+                src={ image3 ? image3 : null }
+                style={{ width: "25%", marginLeft: "10px" }}
+              />
+
+            <br />
+            <br />
             <br />
 
             <Grid item>
@@ -108,7 +243,6 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
-                value={ author }
                 style={{ width: "700px" }}
               />
             </Grid> */}
@@ -136,7 +270,7 @@ class AdminProductCreate extends Component {
         <br />
         <br />
 
-        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px', width: '900px' }}>
 
           <Grid
             container
@@ -152,7 +286,7 @@ class AdminProductCreate extends Component {
                 step="0.01"
                 name="price"
                 placeholder="$0.00"
-                min="0.00"
+                min="0.01"
                 label="price"
                 margin="normal"
                 variant="outlined"
@@ -169,6 +303,7 @@ class AdminProductCreate extends Component {
                 type="number"
                 step="1"
                 placeholder="0"
+                min="0"
                 label="inventory"
                 margin="normal"
                 variant="outlined"
@@ -185,7 +320,7 @@ class AdminProductCreate extends Component {
         <br />
         <br />
 
-        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px' }}>
+        <Paper elevation={5} style={{backgroundColor: '#FFFFFF', padding: '10px', width: '900px' }}>
 
           <Grid
             container
@@ -196,9 +331,9 @@ class AdminProductCreate extends Component {
 
             <Grid item>
               <TextField
-                // required
+                required
                 name="categories"
-                label="categories (separate by ,)"
+                label="categories (separated by comma + space)"
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
@@ -217,10 +352,14 @@ class AdminProductCreate extends Component {
         <Button
             type="submit"
             variant="contained"
-            color="primary" 
+            color="primary"
+            style={{ width: '100px' }}
         >
           Submit
         </Button>
+
+        <br />
+        <br />
 
         </form>
 

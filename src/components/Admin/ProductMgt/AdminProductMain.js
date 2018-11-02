@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom';
 
 import AdminProductCreate from './AdminProductCreate';
 import AdminProducts from './AdminProducts';
+import AdminProductUpdate from './AdminProductUpdate';
 import AdminCatalogues from './AdminCatalogues';
 
 
-import { Grid , List, ListItem, ListItemLink, ListItemText} from '@material-ui/core'
+import { Grid , List, ListItem, ListItemText} from '@material-ui/core'
 
 
 
@@ -26,21 +27,23 @@ class AdminProductMain extends Component {
         const { location } = this.props;
 
         // loads correct admin area on refresh depending on URL
-        // if(prevProps !== this.props) {
-            if(location.pathname.includes('admins/product-create')){
-                this.setState({ adminArea: 'product-create' })
-            }
-            else if(location.pathname.includes('admins/product-search')) {
-                this.setState({ adminArea: 'product-search' })
-            }
-            else if(location.pathname.includes('admins/product-catalogues')) {
-                this.setState({ adminArea: 'catalogues' })
-            }
-        // }
+        if(location.pathname.includes('admins/product-create')){
+            this.setState({ adminArea: 'product-create' })
+        }
+        else if(location.pathname.includes('admins/product-search')) {
+            this.setState({ adminArea: 'product-search' })
+        }
+        else if(location.pathname.includes('admins/products')) {
+            this.setState({ adminArea: 'product-update' })
+        }
+        else if(location.pathname.includes('admins/product-catalogues')) {
+            this.setState({ adminArea: 'catalogues' })
+        }
     }
 
   // returns Component to render in main area (to the right) when user area button is clicked
   handleAdminArea(adminArea) {
+    const { match } = this.props;
         
     switch(adminArea) {
         case 'product-create':
@@ -48,6 +51,9 @@ class AdminProductMain extends Component {
 
         case 'product-search':
             return <AdminProducts />
+
+        case 'product-update':
+            return <AdminProductUpdate location={ location } history={ history } match={ match } />
 
         case 'product-catalogues':
             return <AdminCatalogues />
@@ -83,7 +89,7 @@ class AdminProductMain extends Component {
                         button onClick={ () => this.setState({ adminArea: 'product-search' }) }
                         component={ Link } 
                         to="/admins/product-search"
-                        selected={ location.pathname.includes('/admins/product-search') }
+                        selected={ location.pathname.includes('/admins/product-search') ||  location.pathname.includes('/admins/products') }
                     >
                         <ListItemText>Product Search</ListItemText>
                     </ListItem>
