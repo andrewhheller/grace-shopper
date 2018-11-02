@@ -18,7 +18,7 @@ const _updateLineItem = (cartId, lineItem) => ({ type: UPDATE_LINEITEM, cartId, 
 
 const getOrders = (userId) => {
     return (dispatch) => {
-        axios.get(`/api/users/${userId}/orders`)
+        return axios.get(`/api/users/${userId}/orders`)
             .then(response => response.data)
             .then(orders => dispatch(_getOrders(orders)))
     }
@@ -39,6 +39,29 @@ const createCart = (item, userId) => {
     }
 }
 
+const addMultipleLineItems = (items, userId) => {
+    return (dispatch) => {
+        return axios.post(`/api/users/${userId}/orders/${items.cartId}`, items)
+            .then(response => response.data)
+            .then(order => dispatch(_updateOrder(order))) 
+    }
+}
+
+const createCartWithMultipleLineItems = (items, userId) => {
+    return (dispatch) => {
+        return axios.post(`/api/users/${userId}/orders/`, items.addedItems[0])
+            .then(response => response.data)
+            .then((order) => {
+                const rest = items.addedItems.slice(1)
+                if(rest.length) {
+                    return axios.post(`/api/users/${userId}/orders/${order.id}`, {addedItems: rest, changedItems: []})
+                        .then(response => response.data)
+                }
+                return order
+            }).then(order => dispatch(_createOrder(order))) 
+    }
+}
+
 const placeOrder = (order, userId, history) => {
     return (dispatch) => {
         axios.put(`/api/users/${userId}/orders/${order.id}`, order)
@@ -48,26 +71,26 @@ const placeOrder = (order, userId, history) => {
     }
 }
 
-const createLineItemInCart = (cartId, item, userId) => {
+const createLineItemInCartForLoggedUser = (cartId, item, userId) => {
     return (dispatch) => {
-        axios.post(`/api/users/${userId}/orders/${cartId}/lineItems`, item)
-            .then(response => response.data)
-            .then(lineItem => dispatch(_createLineItem(cartId, lineItem)))
+        return axios.post(`/api/users/${userId}/orders/${cartId}/lineItems`, item)
+                .then(response => response.data)
+                .then(lineItem => dispatch(_createLineItem(cartId, lineItem)))
     }
 }
 
-const deleteLineItemFromCart = (cartId, itemId, userId) => {
+const deleteLineItemFromCartForLoggedUser = (cartId, itemId, userId) => {
     return (dispatch) => {
-        axios.delete(`/api/users/${userId}/orders/${cartId}/lineItems/${itemId}`)
-            .then(() => dispatch(_deleteLineItem(cartId, itemId)))
+        return axios.delete(`/api/users/${userId}/orders/${cartId}/lineItems/${itemId}`)
+                .then(() => dispatch(_deleteLineItem(cartId, itemId)))
     }
 }
 
-const updateLineItemInCart = (cartId, item, itemId, userId) => {
+const updateLineItemInCartForLoggedUser = (cartId, item, itemId, userId) => {
     return (dispatch) => {
-        axios.put(`/api/users/${userId}/orders/${cartId}/lineItems/${itemId}`, item)
-            .then(response => response.data)
-            .then(lineItem => dispatch(_updateLineItem(cartId, lineItem)))
+        return axios.put(`/api/users/${userId}/orders/${cartId}/lineItems/${itemId}`, item)
+                .then(response => response.data)
+                .then(lineItem => dispatch(_updateLineItem(cartId, lineItem)))
     }
 }
 
@@ -99,7 +122,10 @@ const ordersReducer = (state = [], action) => {
     }
 }
 
-const getCart = (orders) => orders.find(order => order.type === 'CART' )
+const getCart = (orders) => {
+    return orders.find(order => order.type === 'CART' )
+}
 
-export { ordersReducer, getOrders, createCart, getCart, placeOrder, createLineItemInCart,
-    deleteLineItemFromCart, updateLineItemInCart, resetOrders }
+export { ordersReducer, getOrders, createCart, getCart, placeOrder, createLineItemInCartForLoggedUser,
+    deleteLineItemFromCartForLoggedUser, updateLineItemInCartForLoggedUser, resetOrders, 
+    addMultipleLineItems, createCartWithMultipleLineItems }

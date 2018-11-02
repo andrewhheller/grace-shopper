@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import { Typography, Grid, IconButton, Button, Table, TableHead, TableRow, TableBody, TableCell } from '@material-ui/core'
 import { Clear } from '@material-ui/icons'
 import ItemQuantity from './ItemQuantity'
-import { getCartWithItems, placeOrder, deleteLineItemFromCart, updateLineItemInCart } from '../store'
+import { getCartWithItems, deleteLineItemFromCart, updateLineItemInCart } from '../store'
 
 class Cart extends Component {
 
@@ -11,29 +12,22 @@ class Cart extends Component {
         super()
         this.updateQuantity = this.updateQuantity.bind(this)
         this.handleRemoveFromCart = this.handleRemoveFromCart.bind(this)
-        this.handlePlaceOrder = this.handlePlaceOrder.bind(this)
     }
 
-   updateQuantity(quantity, cartId, price, itemId) {
+   updateQuantity(quantity, cartId, price, itemId, productId) {
         const { userId } = this.props
-        this.props.updateLineItemInCart(cartId, quantity, itemId, price, userId)
+        this.props.updateLineItemInCart(cartId, quantity, itemId, price, userId, productId)
     }
 
 
-    handleRemoveFromCart(cartId, itemId) {
+    handleRemoveFromCart(cartId, itemId, productId) {
         const { userId } = this.props
-        this.props.deleteLineItemFromCart(cartId, itemId, userId)
-    }
-
-    handlePlaceOrder() {
-        const { id } = this.props.cart
-        const { userId } = this.props
-        this.props.placeOrder({ id, type: 'ORDER' }, userId)
+        this.props.deleteLineItemFromCart(cartId, itemId, userId, productId)
     }
 
     render() {
-        const { cart } = this.props
-        const { handlePlaceOrder, handleRemoveFromCart, updateQuantity } = this
+        const { cart, userId } = this.props
+        const { handleRemoveFromCart, updateQuantity } = this
         const totalAmount = calculateTotalAmount(cart)
 
         const shoppingCartDetails = () => {
@@ -51,14 +45,14 @@ class Cart extends Component {
                         </TableHead>             
                         <TableBody>
                         {
-                            cart.line_items.map(item => <TableRow key={item.id}>
+                            cart.line_items.map((item, index) => <TableRow key={index}>
                                 <TableCell >
                                     <Typography variant="subheading">{item.product.title}</Typography>
                                     <img src={item.product.primaryImageUrl} style={{height: "20vh" }}/>
                                 </TableCell>
                                 <TableCell>
                                     <ItemQuantity updateQuantity={updateQuantity} cartId={cart.id} itemId={item.id} 
-                                            quantity={item.quantity} price={item.product.price}/>
+                                            quantity={item.quantity} price={item.product.price} productId={item.productId}/>
                                 </TableCell>
                                 <TableCell>
                                     <Typography variant="subheading">{`$ ${item.product.price}`}</Typography>
@@ -67,7 +61,7 @@ class Cart extends Component {
                                     <Typography variant="subheading">{`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}</Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <IconButton onClick={() => handleRemoveFromCart(cart.id, item.id)} variant="outlined" color="secondary">
+                                    <IconButton onClick={() => handleRemoveFromCart(cart.id, item.id, item.productId)} variant="outlined" color="secondary">
                                         <Clear />
                                     </IconButton> 
                                 </TableCell>
@@ -86,7 +80,17 @@ class Cart extends Component {
                     </Grid>
                     <Grid container style={{marginTop: "1vh", marginLeft: "80vw"}}>
                         <Grid item xs>
-                            <Button onClick={handlePlaceOrder} variant="outlined" color="primary"> Place Order </Button>
+                        {
+                            userId &&
+                                <Button to={{pathname: "/checkout", details: {cart, totalAmount} }} component={Link}
+                                    variant="outlined" color="primary" component={Link}> Proceed to Checkout</Button>
+                        }
+                        { !userId &&
+                                <Button to="/login" variant="outlined" color="primary" component={Link}> 
+                                    Login here to Checkout</Button>
+
+                        }
+                            
                         </Grid>
                     </Grid>
                 </Fragment>
@@ -119,19 +123,19 @@ const calculateTotalAmount = (cart) => {
     return result
 }
 
-const mapStateToProps = ({ orders, products, authenticatedUser }) => {
+const mapStateToProps = ({ orders, products, authenticatedUser, localCart }) => {
     return {
-        cart: getCartWithItems(orders, products),
+        cart: getCartWithItems(orders, products, localCart),
         userId: authenticatedUser.id
     }
 }
 
-const mapDispatchToProps = (dispatch, {history}) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        placeOrder: (order, userId) => dispatch(placeOrder(order, userId, history)),
-        deleteLineItemFromCart: (cartId, itemId, userId) => dispatch(deleteLineItemFromCart(cartId, itemId, userId)),
-        updateLineItemInCart: (cartId, quantity, itemId, price, userId) => 
-            dispatch(updateLineItemInCart(cartId, { quantity, price }, itemId, userId)),
+        deleteLineItemFromCart: (cartId, itemId, userId, productId) => 
+            dispatch(deleteLineItemFromCart(cartId, itemId, userId, productId)),
+        updateLineItemInCart: (cartId, quantity, itemId, price, userId, productId) => 
+            dispatch(updateLineItemInCart(cartId, { quantity, price, productId }, itemId, userId)),
     }
 }
 

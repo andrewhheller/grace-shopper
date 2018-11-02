@@ -60,6 +60,28 @@ router.post('/:id/orders', (req, res, next) => {
         .catch(next);
 });
 
+//Adds Multiple Line Items to existing CART
+router.post('/:id/orders/:orderId', async (req, res, next) => {
+    try
+    {
+        const cart = req.body;
+
+        await Promise.all(cart.addedItems.map(lineItem => LineItem.create({ orderId: req.params.orderId, productId: lineItem.productId, 
+            quantity: lineItem.quantity, price: lineItem.price })))
+
+        await Promise.all(cart.changedItems.map(lineItem => LineItem.findById(lineItem.id)
+            .then(lineItem => lineItem.update({productId: lineItem.productId, quantity: lineItem.quantity, price: lineItem.price }))
+        ))
+
+        const order = await Order.findById(req.params.orderId, { include: [ LineItem ] })
+        res.status(201).send(order)
+    }
+    catch(error) {
+        next(error)
+    }
+
+});
+
 //Updates order: type (CART -> ORDER)
 router.put('/:id/orders/:orderId', (req, res, next) => {
     Order.findById(req.params.orderId, { include: [ LineItem ] })
