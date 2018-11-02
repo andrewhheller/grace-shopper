@@ -30,9 +30,16 @@ class AdminTopNav extends Component {
     }
   }
 
+<<<<<<< HEAD
   handleChange(event, value) {
     this.setState({ value });
   }
+=======
+    render() {
+        const { handleChange } = this;
+        const { location, match, history } = this.props;
+        const { value } = this.state;
+>>>>>>> master
 
   render() {
     const { handleChange } = this;
@@ -51,7 +58,14 @@ class AdminTopNav extends Component {
           <Tab label="Orders" component={Link} to="/admins/orders" />
         </Tabs>
 
+<<<<<<< HEAD
         <div style={{ height: '50px' }} />
+=======
+                { value === 0 && <AdminHome />}
+                { value === 1 && <AdminUsersMain location={ location } />}
+                { value === 2 && <AdminProductMain history={ history }  match={ match } location={ location } />}
+                { value === 3 && <AdminOrdersMain />}
+>>>>>>> master
 
         {value === 0 && <AdminHome />}
         {value === 1 && <AdminUsersMain location={location} />}

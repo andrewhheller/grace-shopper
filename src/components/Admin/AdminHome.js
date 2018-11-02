@@ -6,9 +6,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/Inbox';
+
+
+
 
 const AdminHome = () => {
   return (
@@ -35,16 +36,26 @@ const AdminHome = () => {
 
         <div style={{ margin: '0 auto' }}>
           <List component="nav">
+<<<<<<< HEAD
             <ListItem button component={Link} to="/admins/user-create">
               {/* <ListItemIcon>
                 <InboxIcon />
               </ListItemIcon> */}
+=======
+
+            <ListItem
+              button
+              component={ Link }
+              to="/admins/user-create"
+            >
+>>>>>>> master
               <ListItemText
                 primary="Create User"
                 style={{ textAlign: 'center' }}
               />
             </ListItem>
 
+<<<<<<< HEAD
             <ListItem button component={Link} to="/admins/product-search">
               {/* <ListItemIcon>
                 <DraftsIcon />
@@ -63,6 +74,22 @@ const AdminHome = () => {
                 primary="Modify Order"
                 style={{ textAlign: 'center' }}
               />
+=======
+            <ListItem
+              button
+              component={ Link }
+              to="/admins/product-search"
+            >
+              <ListItemText primary="Search Products" style={{ textAlign: 'center' }}/>
+            </ListItem>
+
+            <ListItem
+              button
+              component={ Link }
+              to="/admins/orders"  
+            >
+              <ListItemText primary="Modify Order" style={{ textAlign: 'center' }}/>
+>>>>>>> master
             </ListItem>
           </List>
         </div>

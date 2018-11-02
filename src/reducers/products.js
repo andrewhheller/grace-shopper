@@ -50,13 +50,13 @@ const addProduct = (product) => {
     return axios.post(`/api/products`, product)
       .then(res => res.data)
       .then(product => dispatch(_addProduct(product)))
-      .catch(error => console.log(error))
+      // .catch(error => console.log(error))
   };
 };
 
 const updateProduct = (product) => {
   return (dispatch) => {
-    return axios.put(`/api/users/${product.id}`, product)
+    return axios.put(`/api/products/${product.id}`, product)
       .then(res => res.data)
       .then(product => dispatch(_updateProduct(product)))
   };
@@ -64,10 +64,10 @@ const updateProduct = (product) => {
 
 const deleteProduct = (product, history) => {
   return (dispatch) => {
-      dispatch(_deleteProduct(product));
-      return axios.delete(`/api/product/${product.id}`)
-          .then(()=> history.goBack());
-  };
+      return axios.delete(`/api/products/${product.id}`)
+        .then(() => dispatch(_deleteProduct(product)))
+        .then(() => history.back())
+  }
 };
 
 
@@ -116,8 +116,7 @@ const productReducer = (state = [], action) => {
       break;
 
     case UPDATE_PRODUCT:
-      state = [...state]
-      state = [...state.filter(product => product.id !== product.school.id), product.school]
+      state = [...state.filter(product => product.id !== action.product.id), action.product]
       break;
 
     case DELETE_PRODUCT:
