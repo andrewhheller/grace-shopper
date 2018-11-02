@@ -36,45 +36,18 @@ const AdminHome = () => {
 
         <div style={{ margin: '0 auto' }}>
           <List component="nav">
-<<<<<<< HEAD
-            <ListItem button component={Link} to="/admins/user-create">
-              {/* <ListItemIcon>
-                <InboxIcon />
-              </ListItemIcon> */}
-=======
 
             <ListItem
               button
               component={ Link }
               to="/admins/user-create"
             >
->>>>>>> master
               <ListItemText
                 primary="Create User"
                 style={{ textAlign: 'center' }}
               />
             </ListItem>
 
-<<<<<<< HEAD
-            <ListItem button component={Link} to="/admins/product-search">
-              {/* <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon> */}
-              <ListItemText
-                primary="Search Products"
-                style={{ textAlign: 'center' }}
-              />
-            </ListItem>
-
-            <ListItem button component={Link} to="/admins/orders">
-              {/* <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon> */}
-              <ListItemText
-                primary="Modify Order"
-                style={{ textAlign: 'center' }}
-              />
-=======
             <ListItem
               button
               component={ Link }
@@ -89,7 +62,6 @@ const AdminHome = () => {
               to="/admins/orders"  
             >
               <ListItemText primary="Modify Order" style={{ textAlign: 'center' }}/>
->>>>>>> master
             </ListItem>
           </List>
         </div>
