@@ -16,11 +16,12 @@ import ProductDetails from './ProductDetails';
 import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
+import AdminTopNav from './Admin/AdminTopNav';
+import AdminUserUpdate from './Admin/UserMgt/AdminUserUpdate';
 import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
 import RegistrationSuccessful from './RegistrationSuccessful';
 import Checkout from './Checkout';
-import AdminTopNav from './Admin/AdminTopNav';
 
 
 class App extends Component {
