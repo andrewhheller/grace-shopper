@@ -35,7 +35,7 @@ class AdminUsersMain extends Component {
   handleAdminArea(adminArea) {
     switch (adminArea) {
       case 'user-create':
-        return <AdminUserCreate />;
+        return <AdminUserCreate history={history} />;
 
       case 'users':
         return <AdminUsers history={history} />;
