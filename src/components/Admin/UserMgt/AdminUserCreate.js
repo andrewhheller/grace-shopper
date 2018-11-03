@@ -7,8 +7,9 @@ import {
   TextField,
   Typography,
   Checkbox,
+  FormControlLabel,
 } from '@material-ui/core';
-import { ToggleButton } from '@material-ui/lab';
+
 class AdminUserCreate extends Component {
   constructor() {
     super();
@@ -147,14 +148,15 @@ class AdminUserCreate extends Component {
 
         <br />
         <br />
-        <Button
-          type="button"
-          variant="contained"
-          color="default"
-          onClick={() => this.setState({ isAdmin: true })}
-        >
-          Is Admin
-        </Button>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isAdmin}
+              onChange={e => this.setState({ isAdmin: !isAdmin })}
+            />
+          }
+          label="Is Admin?"
+        />
         <br />
         <br />
         <Divider />
