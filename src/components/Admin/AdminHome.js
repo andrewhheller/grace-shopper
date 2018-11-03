@@ -8,9 +8,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-
-
-
 const AdminHome = () => {
   return (
     <Grid container justify="center" spacing={32}>
@@ -36,32 +33,34 @@ const AdminHome = () => {
 
         <div style={{ margin: '0 auto' }}>
           <List component="nav">
-
-            <ListItem
-              button
-              component={ Link }
-              to="/admins/user-create"
-            >
+            <ListItem button component={Link} to="/admins/user-create">
+              {/* <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon> */}
               <ListItemText
                 primary="Create User"
                 style={{ textAlign: 'center' }}
               />
             </ListItem>
 
-            <ListItem
-              button
-              component={ Link }
-              to="/admins/product-search"
-            >
-              <ListItemText primary="Search Products" style={{ textAlign: 'center' }}/>
+            <ListItem button component={Link} to="/admins/product-search">
+              {/* <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon> */}
+              <ListItemText
+                primary="Search Products"
+                style={{ textAlign: 'center' }}
+              />
             </ListItem>
 
-            <ListItem
-              button
-              component={ Link }
-              to="/admins/orders"  
-            >
-              <ListItemText primary="Modify Order" style={{ textAlign: 'center' }}/>
+            <ListItem button component={Link} to="/admins/orders">
+              {/* <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon> */}
+              <ListItemText
+                primary="Modify Order"
+                style={{ textAlign: 'center' }}
+              />
             </ListItem>
           </List>
         </div>

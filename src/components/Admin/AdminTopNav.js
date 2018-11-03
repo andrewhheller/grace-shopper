@@ -15,6 +15,7 @@ class AdminTopNav extends Component {
       value: 0,
     };
 
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -36,7 +37,8 @@ class AdminTopNav extends Component {
 
   render() {
     const { handleChange } = this;
-    const { location } = this.props;
+    const { location, match, history } = this.props;
+
     const { value } = this.state;
 
     return (
@@ -52,9 +54,17 @@ class AdminTopNav extends Component {
         </Tabs>
 
         <div style={{ height: '50px' }} />
+
         {value === 0 && <AdminHome />}
-        {value === 1 && <AdminUsersMain location={location} />}
-        {value === 2 && <AdminProductMain location={location} />}
+        {value === 1 && <AdminUsersMain location={location} history={history} match={match}/>}
+        {value === 2 && (
+          <AdminProductMain
+            location={location}
+            history={history}
+            match={match}
+          />
+        )}
+
         {value === 3 && <AdminOrdersMain location={location} />}
       </Fragment>
     );

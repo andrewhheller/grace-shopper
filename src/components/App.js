@@ -5,7 +5,7 @@ import {
   getProducts,
   getOrders,
   getReviews,
-  mergeCartWithLocalCartOnLogin
+  mergeCartWithLocalCartOnLogin,
 } from '../store';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -30,15 +30,24 @@ class App extends Component {
     this.props.getProducts();
     this.props.exchangeTokenForAuth();
     this.props.getReviews();
-    
   }
 
   componentDidUpdate(prevProps) {
-    const { authenticatedUser } = this.props
+    const { authenticatedUser } = this.props;
     if (authenticatedUser.id) {
-      if ( !prevProps.authenticatedUser.id || prevProps.authenticatedUser.id !== authenticatedUser.id) {
-        this.props.getOrders(authenticatedUser.id)
-          .then(() => this.props.mergeCartWithLocalCartOnLogin(this.props.orders, this.props.localCart, authenticatedUser.id))
+      if (
+        !prevProps.authenticatedUser.id ||
+        prevProps.authenticatedUser.id !== authenticatedUser.id
+      ) {
+        this.props
+          .getOrders(authenticatedUser.id)
+          .then(() =>
+            this.props.mergeCartWithLocalCartOnLogin(
+              this.props.orders,
+              this.props.localCart,
+              authenticatedUser.id
+            )
+          );
       }
     }
   }
@@ -58,16 +67,34 @@ class App extends Component {
             />
             <Route path="/register" component={RegisterUser} />
             <Route path="/registerSuccess" component={RegistrationSuccessful} />
+            <Route
+              path="/checkout"
+              render={({ location, history }) => (
+                <Checkout location={location} history={history} />
+              )}
+            />
 
-            <Route exact path="/admins/user-create" component={ AdminTopNav } />
-            <Route exact path="/admins/user-update" component={ AdminTopNav } />
-            <Route exact path="/admins/product-create" component={ AdminTopNav } />
-            <Route exact path="/admins/product-search" component={ AdminTopNav } />
-            <Route exact path="/admins/product-catalogues" component={ AdminTopNav } />
-            <Route exact path="/admins/products/:id" component={ AdminTopNav } />
-            <Route exact path="/admins/orders" component={ AdminTopNav } />
-            <Route exact path="/admins" component={ AdminTopNav } />
-            <Route path="/checkout" render={({ location, history }) => <Checkout location={location} history={history} />} />
+            <Route exact path="/admins/user-create" component={AdminTopNav} />
+            <Route exact path="/admins/users" component={AdminTopNav} />
+            <Route exact path="/admins/users/:id" component={AdminUserUpdate} />
+            <Route
+              exact
+              path="/admins/product-create"
+              component={AdminTopNav}
+            />
+            <Route
+              exact
+              path="/admins/product-search"
+              component={AdminTopNav}
+            />
+            <Route
+              exact
+              path="/admins/product-catalogues"
+              component={AdminTopNav}
+            />
+            <Route exact path="/admins/products/:id" component={AdminTopNav} />
+            <Route exact path="/admins/orders" component={AdminTopNav} />
+            <Route exact path="/admins" component={AdminTopNav} />
 
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
@@ -89,7 +116,7 @@ const mapStateToProps = ({ authenticatedUser, orders, localCart }) => {
   return {
     authenticatedUser,
     orders,
-    localCart
+    localCart,
   };
 };
 
@@ -99,10 +126,11 @@ const mapDispatchToProps = dispatch => {
     getProducts: () => dispatch(getProducts()),
     exchangeTokenForAuth: () => dispatch(exchangeTokenForAuth()),
     getOrders: userId => {
-      return dispatch(getOrders(userId))
+      return dispatch(getOrders(userId));
     },
     getReviews: () => dispatch(getReviews()),
-    mergeCartWithLocalCartOnLogin: (orders, localCart, userId) => dispatch(mergeCartWithLocalCartOnLogin(orders, localCart, userId))
+    mergeCartWithLocalCartOnLogin: (orders, localCart, userId) =>
+      dispatch(mergeCartWithLocalCartOnLogin(orders, localCart, userId)),
   };
 };
 
