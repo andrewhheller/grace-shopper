@@ -12,7 +12,7 @@ import {
   Select,
   MenuItem,
   Button,
-  Divider,
+  Divider
 } from '@material-ui/core';
 
 import { connect } from 'react-redux';
@@ -59,13 +59,17 @@ class Reviews extends Component {
     return (
       <Card>
         <CardHeader title="Product Reviews:" />
+        <Divider />
         {filterReviews.map(review => (
-          <Review review={review} key={review.id} />
+          <div className='reviewContainer' key={review.id}>
+          <Review review={review} />
+          <Divider />
+          </div>
         ))}
 
         <ExpansionPanel>
           <ExpansionPanelSummary>
-            <Typography variant="subheading">Write a Review</Typography>
+            <Typography paragraph variant="h6" gutterBottom={true} >Write a Review</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <form id="review-form" onSubmit={handleSubmit}>

@@ -7,7 +7,7 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Divider,
+  Divider
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { getProductById } from './../utils';
