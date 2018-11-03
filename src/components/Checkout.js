@@ -7,7 +7,7 @@ import { placeOrder } from '../store'
 
 const styles = {
     title: { color: "dodgerblue", marginBottom: "25px" },
-    field: { margin: 10, width: "100%" }
+    field: { margin: 10 }
 }
 
 
@@ -171,101 +171,110 @@ class Cart extends Component {
 
         const orderDetails = () => {
             return (
-                <Fragment>
-
-                <Grid item>
-                    <Typography
-                        variant="h3"
-                        style={ styles.title }
-                    >
-                        Order Details
-                    </Typography>
-                </Grid>
-
-                <Grid item>
-                    
-                    <Grid
-                        container
-                        justify="center"
-                        direction="column"
-                    >
-                        {
-                            cart.line_items.map((item, index) => {
-                            
-                                return (
-                                
-                                    <Grid
-                                        container
-                                        key={index}
-                                    >
-
-                                        <Grid item xs={6}>
-                                            <Typography
-                                                variant="h6"
-                                            >
-                                                {item.product.title}
-                                            </Typography>
-                                            <img
-                                                src={item.product.primaryImageUrl} 
-                                                style={{ height: "15vh" }}
-                                            />
-                                        </Grid>
-
-                                        <Grid item xs={3}>
-                                            <Typography 
-                                                variant="subheading"
-                                            >
-                                                {`Qty: ${item.quantity}`}
-                                            </Typography>
-                                            
-                                            <Typography
-                                                variant="subheading"
-                                            >
-                                                {`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}
-                                            </Typography>
-
-                                            <br />
-                                        </Grid>
-
-                                    </Grid>
-                                )}
-                            )
-                        }
-                    </Grid>
-
-                </Grid>
-
                 <Grid
                     container
                     direction="column"
-                    justify="center"
-                    style={{ width: "200px" }}
+                    spacing={2}
+                    style={{ border: "1px solid red", width: "600px" }}
                 >
-
                     <Grid item>
                         <Typography
-                            style={{fontWeight: "bold"}}
-                            variant="subheading"
+                            variant="h3"
+                            style={ styles.title }
                         >
-                            {`Total Amount: $ ${parseFloat(totalAmount).toFixed(2)}`}
+                            Order Details
                         </Typography>
                     </Grid>
-                    
+
                     <Grid item>
-                        <Button
-                            onClick={ handlePlaceOrder }
-                            variant="contained"
-                            color="primary"
-                            style={{width: "10vw"}}
+                        
+                        <Grid
+                            container
+                            justify="center"
+                            direction="column"
                         >
-                            Place Order
-                        </Button>
+                            {
+                                cart.line_items.map((item, index) => {
+                                
+                                    return (
+                                    
+                                        <Grid
+                                            container
+                                            key={index}
+                                            style={{ marginLeft: "20px" }}
+                                        >
+
+                                            <Grid item xs={6}>
+                                                <Typography
+                                                    variant="h6"
+                                                >
+                                                    {item.product.title}
+                                                </Typography>
+                                                <img
+                                                    src={item.product.primaryImageUrl} 
+                                                    style={{ height: "15vh", marginTop: "10px" }}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={3}>
+                                                <Typography 
+                                                    variant="subheading"
+                                                >
+                                                    {`Qty: ${item.quantity}`}
+                                                </Typography>
+                                                
+                                                <Typography
+                                                    variant="subheading"
+                                                >
+                                                    {`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}
+                                                </Typography>
+
+                                                <br />
+                                            </Grid>
+
+                                        </Grid>
+                                    )}
+                                )
+                            }
+                        </Grid>
+
                     </Grid>
 
+                    <Grid
+                        container
+                        direction="column"
+                        justify="center"
+                        alignItmes="center"
+                        spaceing={2}
+                        style={{ width: "300px" }}
+                    >
+
+                        <Grid item>
+                            <Typography
+                                style={{ fontWeight: "bold", marginBottom: "10px" }}
+                                variant="subheading"
+                            >
+                                {`Total Amount: $ ${parseFloat(totalAmount).toFixed(2)}`}
+                            </Typography>
+                        </Grid>
+                        
+                        <Grid item>
+                            <Button
+                                onClick={ handlePlaceOrder }
+                                variant="contained"
+                                color="primary"
+                                style={{width: "10vw"}}
+                            >
+                                Place Order
+                            </Button>
+                        </Grid>
+
+                    </Grid>
+
+                    <br />
+                    <br />
+
                 </Grid>
-
-            </Fragment>
-
             )
         }
 
@@ -274,11 +283,18 @@ class Cart extends Component {
                 <Grid
                     container
                     justify="center"
-                    style={{ marginTop: "10vh", marginLeft: "20px"}}
+                    alignItems="flex-start"
+                    spacing={2}
+                    style={{ marginTop: "10vh", marginLeft: "20px" }}
                 >
 
-                    <Grid item xs>
-                        <Grid container spacing={32} direction="column" >
+                    <Grid item>
+                        <Grid
+                            container
+                            spacing={32}
+                            direction="column"
+                            style={ { border: "1px solid red", width: "600px" }}
+                        >
                             <Grid item>
                                 { paymentDetails() }
                             </Grid>
@@ -288,10 +304,16 @@ class Cart extends Component {
                         </Grid>
                     </Grid>
 
-                    <Grid item xs>
-                        <Grid container >
-                            { orderDetails() }
-                        </Grid>
+                    <Grid item>
+                        <Paper
+                            elevation={10}
+                            style={{
+                                backgroundColor: 'lightgray',
+                                padding: '10px',
+                                width: "600px"
+                            }}>
+                                { orderDetails() }
+                        </Paper>
                     </Grid>
 
                 </Grid>
