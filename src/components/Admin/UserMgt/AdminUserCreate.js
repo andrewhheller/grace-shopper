@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../../../store';
-import { Divider, Button, TextField, Typography } from '@material-ui/core';
-
+import {
+  Divider,
+  Button,
+  TextField,
+  Typography,
+  Checkbox,
+} from '@material-ui/core';
+import { ToggleButton } from '@material-ui/lab';
 class AdminUserCreate extends Component {
   constructor() {
     super();
@@ -13,6 +19,7 @@ class AdminUserCreate extends Component {
       password: '',
       email: '',
       address: '',
+      isAdmin: false,
     };
     this.onChange = this.onChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,6 +32,7 @@ class AdminUserCreate extends Component {
     const password = this.state.password;
     const email = this.state.email;
     const address = this.state.address;
+    const isAdmin = this.state.isAdmin;
     evt.preventDefault();
 
     this.props
@@ -35,6 +43,7 @@ class AdminUserCreate extends Component {
         password,
         email,
         address,
+        isAdmin,
       })
       .then(() => this.props.history.push('/admins/users'));
   }
@@ -53,7 +62,9 @@ class AdminUserCreate extends Component {
       password,
       email,
       address,
+      isAdmin,
     } = this.state;
+
     const isValidEmail = email => {
       const regExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
       return regExp.test(String(email));
@@ -134,6 +145,18 @@ class AdminUserCreate extends Component {
           style={{ width: '700px' }}
         />
 
+        <br />
+        <br />
+        <Button
+          type="button"
+          variant="contained"
+          color="default"
+          onClick={() => this.setState({ isAdmin: true })}
+        >
+          Is Admin
+        </Button>
+        <br />
+        <br />
         <Divider />
 
         <Button
