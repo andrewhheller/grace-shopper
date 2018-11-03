@@ -14,7 +14,7 @@ import {
   Button,
   Divider,
 } from '@material-ui/core';
-
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Review from './Review';
 import { createReview } from './../store';
@@ -24,7 +24,6 @@ class Reviews extends Component {
     super(props);
     this.state = {
       text: '',
-      userId: '',
       rating: '',
     };
     this.onChange = this.onChange.bind(this);
@@ -35,7 +34,7 @@ class Reviews extends Component {
     evt.preventDefault();
     const text = this.state.text;
     const productId = this.props.id;
-    const userId = this.state.userId;
+    const userId = this.props.authenticatedUser.id;
     const rating = this.state.rating;
     this.props.createReview({
       text,
@@ -51,18 +50,36 @@ class Reviews extends Component {
   }
 
   render() {
-    const { id, reviews } = this.props;
+    const { id, reviews, authenticatedUser } = this.props;
     const { handleSubmit, onChange } = this;
-
-    const { text, userId, rating } = this.state;
+    const { text, rating } = this.state;
     const filterReviews = reviews.filter(review => review.productId === id);
+    if (!authenticatedUser.id) {
+      return (
+        <Card>
+          <CardHeader title="Product Reviews:" />
+          {filterReviews.map(review => (
+            <Review review={review} key={review.id} />
+          ))}
+          <ExpansionPanel>
+            <ExpansionPanelSummary>
+              <Typography variant="subheading">Write a Review</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography variant="subheading">
+                <Link to="/login">Please Login to write a review</Link>
+              </Typography>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Card>
+      );
+    }
     return (
       <Card>
         <CardHeader title="Product Reviews:" />
         {filterReviews.map(review => (
           <Review review={review} key={review.id} />
         ))}
-
         <ExpansionPanel>
           <ExpansionPanelSummary>
             <Typography variant="subheading">Write a Review</Typography>
@@ -80,15 +97,6 @@ class Reviews extends Component {
                 onChange={onChange}
                 margin="normal"
                 variant="outlined"
-              />
-              <TextField
-                id="name"
-                label="UserId"
-                name="userId"
-                value={userId}
-                fullWidth
-                onChange={onChange}
-                margin="normal"
               />
               <FormControl style={{ minWidth: 60 }}>
                 <InputLabel shrink htmlFor="rating">
@@ -112,7 +120,7 @@ class Reviews extends Component {
                 </Select>
               </FormControl>
               <Divider />
-              <Button type="submit" disabled={!text || !userId || !rating}>
+              <Button type="submit" disabled={!text || !rating}>
                 Submit
               </Button>
             </form>
@@ -123,9 +131,10 @@ class Reviews extends Component {
   }
 }
 
-const mapStateToProps = ({ reviews }) => {
+const mapStateToProps = ({ reviews, authenticatedUser }) => {
   return {
     reviews,
+    authenticatedUser,
   };
 };
 const mapDispatchToProps = dispatch => {
