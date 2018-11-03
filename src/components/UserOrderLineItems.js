@@ -91,22 +91,6 @@ const UserOrderLineItems = ({ order, products }) => {
 
       </TableBody>
 
-
-
-      {/* <p>line items</p>
-        {
-          order.line_items.map(line_item => {
-            return (
-              <ul>
-                <li>product name: { getProductById(products, line_item.productId).title }</li>
-                <li>quantity: { line_item.quantity }</li>
-                <li>price: { line_item.price }</li>
-                <li>subtotal: { line_item.quantity * line_item.price }</li>
-                <button>Review</button>
-              </ul>
-            )
-          })
-        } */}
     </Table>
   )
 

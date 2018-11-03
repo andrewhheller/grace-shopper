@@ -54,9 +54,6 @@ class AdminProductMain extends Component {
 
         case 'product-update':
             return <AdminProductUpdate location={ location } history={ history } match={ match } />
-
-        case 'product-catalogues':
-            return <AdminCatalogues />
     }
 
   }
@@ -92,15 +89,6 @@ class AdminProductMain extends Component {
                         selected={ location.pathname.includes('/admins/product-search') ||  location.pathname.includes('/admins/products') }
                     >
                         <ListItemText>Product Search</ListItemText>
-                    </ListItem>
-
-                    <ListItem
-                        button onClick={ () => this.setState({ adminArea: 'product-catalogues' }) }
-                        component={ Link } 
-                        to="/admins/product-catalogues"
-                        selected={ location.pathname.includes('/admins/product-catalogues') }
-                    >
-                        <ListItemText>Catalogues</ListItemText>
                     </ListItem>
               
                 </List>

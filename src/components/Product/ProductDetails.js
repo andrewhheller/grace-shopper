@@ -30,22 +30,6 @@ class ProductDetail extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentDidMount(){
-    const { product, products } = this.props;
-    console.log('product ', product)
-    if(!product) {
-        return null;
-    }
-    this.setState(product)
-  }
-
-  // componentDidUpdate(prevProps){
-  //   console.log('prevProps ', prevProps)
-  //   if(!prevProps.product & this.props.product){
-  //     this.setState = this.props.product
-  //   }
-  // }
-
   handleChange(event, productId) {
     this.productQty[productId] = event.target.value;
   }
@@ -81,12 +65,15 @@ class ProductDetail extends Component {
   }
 
   render() {
-    const { classes, reviews, products } = this.props;
-    const product = this.state;
+    const { classes, reviews, product } = this.props;
     const { handleAddToCart } = this;
+
+    if(!product) return null;
+
     const findReviews = reviews.filter(
       review => review.productId === product.id
     );
+
     const averageRating = reviews => {
       let arr = [];
       reviews.forEach(review => arr.push(review.rating));
@@ -103,7 +90,7 @@ class ProductDetail extends Component {
           </div>
           <div style={{ gridColumnEnd: 'span 6' }}>
             <Card className={classes.card}>
-              <CardHeader title={product.title} subheader="author TODO" />
+              <CardHeader title={product.title} subheader={product.author} />
               <CardContent>
                 <Typography
                   component="p"

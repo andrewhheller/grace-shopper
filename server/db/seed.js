@@ -10,15 +10,15 @@ const createUsers = () => {
   while (i < NO_OF_USERS) {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
-    const address = faker.address
+    const address = faker.address;
     if (!users.find(user => user.userName === firstName)) {
       users.push({
         firstName,
         lastName,
         userName: firstName,
         password: lastName,
-        address: `${address.streetAddress()}, ${address.city()}, ${address.state()}, ${address.zipCode()}`,
         email: `${firstName}.${lastName}@email.com`,
+        address: `${address.streetAddress()}, ${address.city()}, ${address.state()}, ${address.zipCode()}`,
       });
       i++;
     }
@@ -30,6 +30,7 @@ const createUsers = () => {
     userName: 'shopper',
     password: 'admin',
     email: 'admin@email.com',
+    address: '123 Main Street',
     isAdmin: true,
   });
   return users;
@@ -50,9 +51,12 @@ const createProducts = () => {
   while (i < NO_OF_PRODUCTS) {
     const title = faker.lorem.words();
     const price = faker.commerce.price();
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
     if (!products.find(product => product.title === title) && price > 0.01) {
       products.push({
         title,
+        author: `${firstName} ${lastName}`,
         description: faker.lorem.paragraph(),
         price,
         inventory: faker.random.number({ min: 1, max: 10000 }),
@@ -117,10 +121,10 @@ const createReviews = () => {
   const reviews = [];
   let i = 1;
   while (i < NO_OF_PRODUCTS) {
-    for(let j = 0; j < NO_OF_REVIEWS_PER_PRODUCT; j++) {
+    for (let j = 0; j < NO_OF_REVIEWS_PER_PRODUCT; j++) {
       const text = faker.lorem.paragraph();
       const rating = faker.random.number({ min: 1, max: 5 });
-      const userId = faker.random.number({ min: 1, max: (NO_OF_USERS - 1) });
+      const userId = faker.random.number({ min: 1, max: NO_OF_USERS - 1 });
       reviews.push({ text, rating, productId: i, userId });
     }
     i++;
