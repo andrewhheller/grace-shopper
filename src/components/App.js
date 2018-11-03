@@ -17,6 +17,7 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminTopNav from './Admin/AdminTopNav';
+// import AdminProductMain from './Admin/ProductMgt/AdminProductMain';
 import AdminUserUpdate from './Admin/UserMgt/AdminUserUpdate';
 import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
@@ -78,13 +79,11 @@ class App extends Component {
             <Route exact path="/admins/users" component={AdminTopNav} />
             <Route exact path="/admins/users/:id" component={AdminUserUpdate} />
             <Route
-              exact
-              path="/admins/product-create"
+              exact path="/admins/product-create"
               component={AdminTopNav}
             />
             <Route
-              exact
-              path="/admins/product-search"
+              exact path="/admins/product-search"
               component={AdminTopNav}
             />
             <Route exact path="/admins/products/:id" component={AdminTopNav} />

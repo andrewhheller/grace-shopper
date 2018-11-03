@@ -43,22 +43,22 @@ const AdminHome = () => {
               />
             </ListItem>
 
+            <ListItem button component={Link} to="/admins/product-create">
+              {/* <ListItemIcon>
+                <DraftsIcon />
+              </ListItemIcon> */}
+              <ListItemText
+                primary="Create Product"
+                style={{ textAlign: 'center' }}
+              />
+            </ListItem>
+
             <ListItem button component={Link} to="/admins/product-search">
               {/* <ListItemIcon>
                 <DraftsIcon />
               </ListItemIcon> */}
               <ListItemText
-                primary="Search Products"
-                style={{ textAlign: 'center' }}
-              />
-            </ListItem>
-
-            <ListItem button component={Link} to="/admins/orders">
-              {/* <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon> */}
-              <ListItemText
-                primary="Modify Order"
+                primary="Manage Products"
                 style={{ textAlign: 'center' }}
               />
             </ListItem>
