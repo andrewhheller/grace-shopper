@@ -17,6 +17,7 @@ const initialState = {
   product: {
     title: '',
     description: '',
+    author: '',
     primaryImageUrl: '',
     images: '',
     price: '',
@@ -40,6 +41,7 @@ class AdminProductCreate extends Component {
       product: {
         title: '',
         description: '',
+        author: '',
         primaryImageUrl: '',
         images: '',
         price: '',
@@ -199,29 +201,38 @@ class AdminProductCreate extends Component {
                 src={ primaryImageUrl ? primaryImageUrl : null }
                 style={{
                     width: "25%",
+                    height: "25%",
                     marginLeft: "10px",
-                    border: primaryImageUrl ? "3px solid red" : ''
+                    border: primaryImageUrl ? "2px solid red" : 'none'
                 }}
               />
 
               <img
                 src={ image1 ? image1 : null }
-                style={{ width: "25%", marginLeft: "10px" }}
+                style={{
+                    width: "25%",
+                    height: "25%",
+                    marginLeft: "10px"
+                }}
               />
 
               <img
                 src={ image2 ? image2 : null }
-                style={{ width: "25%", marginLeft: "10px" }}
+                style={{
+                  width: "25%",
+                  height: "25%",
+                  marginLeft: "10px"
+                }}
               />
 
               <img
                 src={ image3 ? image3 : null }
-                style={{ width: "25%", marginLeft: "10px" }}
+                style={{
+                    width: "25%",
+                    height: "25%",
+                    marginLeft: "10px"
+                }}
               />
-
-            <br />
-            <br />
-            <br />
 
             <Grid item>
               <TextField
@@ -236,8 +247,9 @@ class AdminProductCreate extends Component {
               />
             </Grid>
 
-            {/* <Grid item>
+            <Grid item>
               <TextField
+                required
                 name="author"
                 label="author"
                 margin="normal"
@@ -245,7 +257,7 @@ class AdminProductCreate extends Component {
                 onChange={ handleChange }
                 style={{ width: "700px" }}
               />
-            </Grid> */}
+            </Grid>
 
             <Grid item>
               <TextField
