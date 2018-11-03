@@ -46,7 +46,6 @@ class AdminProductUpdate extends Component {
   }
   
   componentDidUpdate(prevProps) {
-
     const { product } = this.props;
 
     if(prevProps !== this.props) {
