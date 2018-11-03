@@ -27,17 +27,14 @@ class AdminUserCreate extends Component {
     const address = this.state.address;
     evt.preventDefault();
 
-    this.props
-      .addUser({
-        firstName,
-        lastName,
-        userName,
-        password,
-        email,
-        address,
-      })
-      .then(() => this.props.history.push('/admins/users'));
-
+    this.props.addUser({
+      firstName,
+      lastName,
+      userName,
+      password,
+      email,
+      address,
+    });
   }
   onChange(evt) {
     this.setState({
