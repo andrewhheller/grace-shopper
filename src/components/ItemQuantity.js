@@ -46,16 +46,16 @@ class ItemQuantity extends Component {
         const { addToCart } = this.props
 
         return (
-            <Grid container>
-                <Grid item xs={2}>
+            <Grid container direction="row" justify="center" alignItems="center" spacing={2}>
+                <Grid item>
                     <IconButton onClick={() => handleChange(quantity - 1)} variant="outlined">
                         <RemoveCircle />
                     </IconButton>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item>
                     <Typography variant="subheading">{quantity}</Typography>
                 </Grid>
-                <Grid item xs={2}>
+                <Grid item>
                     <IconButton onClick={() => handleChange(quantity + 1)} variant="outlined">
                         <AddCircle />
                     </IconButton>

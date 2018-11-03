@@ -26,6 +26,7 @@ class AdminUserCreate extends Component {
     const email = this.state.email;
     const address = this.state.address;
     evt.preventDefault();
+
     this.props
       .addUser({
         firstName,
@@ -36,6 +37,7 @@ class AdminUserCreate extends Component {
         address,
       })
       .then(() => this.props.history.push('/admins/users'));
+
   }
   onChange(evt) {
     this.setState({

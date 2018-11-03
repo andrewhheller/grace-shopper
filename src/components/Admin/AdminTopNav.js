@@ -15,6 +15,7 @@ class AdminTopNav extends Component {
       value: 0,
     };
 
+
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -37,6 +38,7 @@ class AdminTopNav extends Component {
   render() {
     const { handleChange } = this;
     const { location, match, history } = this.props;
+
     const { value } = this.state;
 
     return (
@@ -62,6 +64,7 @@ class AdminTopNav extends Component {
             match={match}
           />
         )}
+
         {value === 3 && <AdminOrdersMain location={location} />}
       </Fragment>
     );
