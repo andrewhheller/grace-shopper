@@ -7,7 +7,7 @@ import {
   CardContent,
   CardActions,
   Typography,
-  Divider,
+  Divider
 } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { getProductById } from './../utils';
@@ -24,15 +24,7 @@ import Reviews from './Reviews';
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      product: this.props.product,
-    };
     this.handleAddToCart = this.handleAddToCart.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event, productId) {
-    this.productQty[productId] = event.target.value;
   }
 
   handleAddToCart(productId, quantity, price) {
@@ -66,12 +58,15 @@ class ProductDetail extends Component {
   }
 
   render() {
-    const { classes, reviews } = this.props;
-    const { product } = this.state;
+    const { classes, reviews, product } = this.props;
     const { handleAddToCart } = this;
+
+    if(!product) return null;
+
     const findReviews = reviews.filter(
       review => review.productId === product.id
     );
+
     const averageRating = reviews => {
       let arr = [];
       reviews.forEach(review => arr.push(review.rating));
@@ -88,7 +83,7 @@ class ProductDetail extends Component {
           </div>
           <div style={{ gridColumnEnd: 'span 6' }}>
             <Card className={classes.card}>
-              <CardHeader title={product.title} subheader="author TODO" />
+              <CardHeader title={product.title} subheader={product.author} />
               <CardContent>
                 <Typography
                   component="p"
@@ -97,7 +92,7 @@ class ProductDetail extends Component {
                 >
                   Price: ${product.price}
                 </Typography>
-                <Divider />
+                <Divider className={classes.divider}/>
                 <Typography paragraph variant="subheading">
                   Average Rating:{' '}
                   {findReviews.length === 0

@@ -13,8 +13,11 @@ import {
   MenuItem,
   Button,
   Divider,
+  withStyles,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 import Review from './Review';
 import { createReview } from './../store';
@@ -50,7 +53,7 @@ class Reviews extends Component {
   }
 
   render() {
-    const { id, reviews, authenticatedUser } = this.props;
+    const { id, reviews, authenticatedUser, classes } = this.props;
     const { handleSubmit, onChange } = this;
     const { text, rating } = this.state;
     const filterReviews = reviews.filter(review => review.productId === id);
@@ -77,12 +80,18 @@ class Reviews extends Component {
     return (
       <Card>
         <CardHeader title="Product Reviews:" />
+        <Divider />
         {filterReviews.map(review => (
-          <Review review={review} key={review.id} />
+          <div className="reviewContainer" key={review.id}>
+            <Review review={review} />
+            <Divider />
+          </div>
         ))}
         <ExpansionPanel>
           <ExpansionPanelSummary>
-            <Typography variant="subheading">Write a Review</Typography>
+            <Typography paragraph variant="h6" gutterBottom={true}>
+              Write a Review
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <form id="review-form" onSubmit={handleSubmit}>
@@ -120,8 +129,14 @@ class Reviews extends Component {
                 </Select>
               </FormControl>
               <Divider />
-              <Button type="submit" disabled={!text || !rating}>
-                Submit
+              <Button
+                type="submit"
+                variant="outlined"
+                color="primary"
+                disabled={!text || !rating}
+                className={classes.submit}
+              >
+                Add review
               </Button>
             </form>
           </ExpansionPanelDetails>
@@ -143,7 +158,20 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const styles = theme => ({
+  submit: {
+    margin: theme.spacing.unit * 5,
+  },
+  divider: {
+    margin: `${theme.spacing.unit * 2}px 0`,
+  },
+});
+
+Reviews.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Reviews);
+)(withStyles(styles)(Reviews));
