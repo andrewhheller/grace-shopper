@@ -3,6 +3,14 @@ import { connect } from 'react-redux'
 import { Typography, List, ListItem, Grid, TextField, Button, Paper } from '@material-ui/core'
 import { placeOrder } from '../store'
 
+
+
+const styles = {
+    title: { color: "dodgerblue", marginBottom: "25px" },
+    field: { margin: 10, width: "100%" }
+}
+
+
 class Cart extends Component {
 
     constructor() {
@@ -48,25 +56,59 @@ class Cart extends Component {
         const paymentDetails = () => {
             return (
                 <Grid item xs>
-                    <form style={{display: "flex", flexDirection: "column", width: "30vw"}}>
+                    <form
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            width: "30vw",
+                            marginLeft: "25px"
+                        }}>
                         <Typography
                             variant="h3"
-                            style={styles.element}
+                            style={styles.title}
                         >
                             Payment Details
                         </Typography>
                         
-                        <TextField required id="cardName" label="Name on Card" variant="outlined" style={styles.element} 
-                            value={cardName} onChange={handleChange('cardName')} />
+                        <TextField
+                            required
+                            id="cardName"
+                            label="Name on Card"
+                            variant="outlined"
+                            style={styles.field} 
+                            value={cardName}
+                            onChange={handleChange('cardName')}
+                        />
 
-                        <TextField required id="cardNumber" label="Card Number" variant="outlined" style={styles.element} 
-                            value={cardNumber} onChange={handleChange('cardNumber')} /> 
+                        <TextField
+                            required
+                            id="cardNumber"
+                            label="Card Number"
+                            variant="outlined"
+                            style={styles.field} 
+                            value={cardNumber}
+                            onChange={handleChange('cardNumber')}
+                        />
 
-                        <TextField required id="cvv" label="CVV Code" variant="outlined" style={styles.element} 
-                            value={cvv} onChange={handleChange('cvv')} /> 
+                        <TextField
+                            required id="cvv"
+                            label="CVV Code"
+                            variant="outlined"
+                            style={styles.field} 
+                            value={cvv}
+                            onChange={handleChange('cvv')}
+                        /> 
 
-                        <TextField required id="expiration" label="Card Expiration" variant="outlined" style={styles.element} 
-                            value={expiration} onChange={handleChange('expiration')} /> 
+                        <TextField
+                            required
+                            id="expiration"
+                            label="Card Expiration"
+                            variant="outlined"
+                            style={styles.field} 
+                            value={expiration}
+                            onChange={handleChange('expiration')}
+                        />
+
                     </form>
                 </Grid>
             )
@@ -76,26 +118,31 @@ class Cart extends Component {
             return (
                 <Grid item xs={6}>
 
-                    <form style={{display: "flex", flexDirection: "column", width: "30vw"}} >
+                    <form style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "30vw",
+                        marginLeft: "25px"
+                    }}>
 
-                        <Typography
-                            variant="h3"
-                            style={styles.element}
-                        >
-                            Shipping Details
-                        </Typography>
-                        
-                        <TextField required id="firstName" label="First Name" variant="outlined" style={styles.element} 
-                            value={firstName} onChange={handleChange('firstName')} /> 
-                        
-                        <TextField required id="lastName" label="Last Name" variant="outlined" style={styles.element} 
-                            value={lastName} onChange={handleChange('lastName')} />
-                        
-                        <TextField required id="address" label="Address" variant="outlined" style={styles.element} 
-                            value={address} onChange={handleChange('address')} />
-                        
-                        <TextField required id="email" label="Email" variant="outlined" style={styles.element} 
-                            value={email} onChange={handleChange('email')} />
+                    <Typography
+                        variant="h3"
+                        style={styles.title}
+                    >
+                        Shipping Details
+                    </Typography>
+                    
+                    <TextField required id="firstName" label="First Name" variant="outlined" style={styles.field} 
+                        value={firstName} onChange={handleChange('firstName')} /> 
+                    
+                    <TextField required id="lastName" label="Last Name" variant="outlined" style={styles.field} 
+                        value={lastName} onChange={handleChange('lastName')} />
+                    
+                    <TextField required id="address" label="Address" variant="outlined" style={styles.field} 
+                        value={address} onChange={handleChange('address')} />
+                    
+                    <TextField required id="email" label="Email" variant="outlined" style={styles.field} 
+                        value={email} onChange={handleChange('email')} />
                     </form>
                 </Grid>
             )
@@ -103,48 +150,115 @@ class Cart extends Component {
 
         const orderDetails = () => {
             return (
-                <Grid item xs style={{flexGrow: 1}}>
-                    <Typography variant="title" style={styles.element}>Order Details</Typography>
+                <Grid item>
+                    <Typography
+                        variant="h3"
+                        style={ styles.title }
+                    >
+                        Order Details
+                    </Typography>
+                </Grid>
+
+                <Grid item>
+                    
                     <Grid container justify="center" style={{display: "flex", flexDirection: "column"}}>
                         {
                             cart.line_items.map((item, index) => <Grid container key={index}>
+
                                 <Grid item xs={6}>
-                                    <Typography variant="subheading">{item.product.title}</Typography>
-                                    <img src={item.product.primaryImageUrl} style={{height: "15vh" }}/>
+                                    <Typography
+                                        variant="h6"
+                                    >
+                                        {item.product.title}
+                                    </Typography>
+                                    <img src={item.product.primaryImageUrl} style={{ height: "15vh" }}/>
                                 </Grid>
+
                                 <Grid item xs={3}>
-                                    <Typography variant="subheading">{`Qty: ${item.quantity}`}</Typography>
-                                    <Typography variant="subheading">{`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}</Typography>
+                                    <Typography 
+                                        variant="subheading"
+                                    >
+                                        {`Qty: ${item.quantity}`}
+                                    </Typography>
+                                    
+                                    <Typography
+                                        variant="subheading"
+                                    >
+                                        {`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}
+                                    </Typography>
+
                                     <br />
                                 </Grid>
+
                             </Grid>
                             )
                         }
-                        </Grid>
-                        <Grid container style={{display: "flex", flexDirection: "column", marginTop: "1vh"}} >
-                            <Typography style={{fontWeight: "bold"}} variant="subheading">{`Total Amount: $ ${parseFloat(totalAmount).toFixed(2)}`}</Typography>
-                            <Button onClick={handlePlaceOrder} variant="outlined" color="primary" style={{width: "10vw"}}> Place Order </Button>
-                        </Grid>
                     </Grid>
+
+                </Grid>
+
+                <Grid
+                    container
+                    direction="column"
+                    justify="center"
+                >
+
+                    <Grid item>
+                        <Typography
+                            style={{fontWeight: "bold"}}
+                            variant="subheading"
+                        >
+                            {`Total Amount: $ ${parseFloat(totalAmount).toFixed(2)}`}
+                        </Typography>
+                    </Grid>
+                    
+                    <Grid item>
+                        <Button
+                            onClick={ handlePlaceOrder }
+                            variant="contained"
+                            color="primary"
+                            style={{width: "10vw"}}
+                        >
+                            Place Order
+                        </Button>
+                    </Grid>
+
+                </Grid>
+
+                    
+
             )
         }
 
         return (
             <Fragment>
-                <Grid container justify="center" style={{marginTop: "10vh", display:"flex"}}>
+                <Grid
+                    container
+                    justify="center"
+                    style={{ marginTop: "10vh", marginLeft: "20px"}}
+                >
+
                     <Grid item xs>
-                        <Grid container style={{display: "flex", flexDirection: "column"}} >
-                            { paymentDetails() }
-                            <br />
-                            { shippingDetails() }
+                        <Grid container spacing={32} direction="column" >
+                            <Grid item>
+                                { paymentDetails() }
+                            </Grid>
+                            <Grid item>
+                                { shippingDetails() }
+                            </Grid>
                         </Grid>
                     </Grid>
+
                     <Grid item xs>
                         <Grid container >
                             { orderDetails() }
                         </Grid>
                     </Grid>
+
                 </Grid>
+
+                <br />
+                <br />
             </Fragment>
         )
 
@@ -165,8 +279,5 @@ const mapDispatchToProps = (dispatch, {history}) => {
     }
 }
 
-const styles = {
-    element: { margin: 10 }
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart)
