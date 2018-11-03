@@ -22,6 +22,7 @@ import OrderConfirmation from './OrderConfirmation';
 import RegistrationSuccessful from './RegistrationSuccessful';
 import Checkout from './Checkout';
 import AdminUserUpdate from './Admin/UserMgt/AdminUserUpdate';
+import AdminUserCreate from './Admin/UserMgt/AdminUserCreate';
 
 class App extends Component {
   componentDidMount() {
@@ -73,7 +74,11 @@ class App extends Component {
               )}
             />
 
-            <Route exact path="/admins/user-create" component={AdminTopNav} />
+            <Route
+              exact
+              path="/admins/user-create"
+              render={({ history }) => <AdminUserCreate history={history} />}
+            />
             <Route exact path="/admins/users" component={AdminTopNav} />
             <Route path="/admins/users/:id" component={AdminUserUpdate} />
 

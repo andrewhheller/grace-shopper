@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addUser } from '../../../store';
-import { Grid, Button, TextField, Typography, Paper } from '@material-ui/core';
+import { Divider, Button, TextField, Typography } from '@material-ui/core';
 
 class AdminUserCreate extends Component {
   constructor() {
@@ -27,14 +27,16 @@ class AdminUserCreate extends Component {
     const address = this.state.address;
     evt.preventDefault();
 
-    this.props.addUser({
-      firstName,
-      lastName,
-      userName,
-      password,
-      email,
-      address,
-    });
+    this.props
+      .addUser({
+        firstName,
+        lastName,
+        userName,
+        password,
+        email,
+        address,
+      })
+      .then(() => this.props.history.push('/admins/users'));
   }
   onChange(evt) {
     this.setState({
@@ -58,93 +60,91 @@ class AdminUserCreate extends Component {
     };
 
     return (
-      <Grid container justify="center">
-        <Grid item xs>
-          <div>
-            <Grid container justify="center">
-              <Grid item>
-                <Paper elevation={1}>
-                  <form id="create-user">
-                    <Typography variant="title">Add A User</Typography>
+      <form onSubmit={handleSubmit}>
+        <Typography variant="h2" gutterBottom style={{ color: 'dodgerblue' }}>
+          Add A User
+        </Typography>
+        <TextField
+          required
+          name="firstName"
+          label="First Name"
+          variant="outlined"
+          margin="normal"
+          value={firstName}
+          onChange={onChange}
+          style={{ width: '700px' }}
+        />
 
-                    <TextField
-                      required
-                      name="firstName"
-                      label="First Name"
-                      variant="outlined"
-                      value={firstName}
-                      onChange={onChange}
-                    />
+        <TextField
+          required
+          name="lastName"
+          label="Last Name"
+          margin="normal"
+          variant="outlined"
+          value={lastName}
+          onChange={onChange}
+          style={{ width: '700px' }}
+        />
 
-                    <TextField
-                      required
-                      name="lastName"
-                      label="Last Name"
-                      variant="outlined"
-                      value={lastName}
-                      onChange={onChange}
-                    />
+        <TextField
+          required
+          name="userName"
+          label="Username"
+          variant="outlined"
+          margin="normal"
+          value={userName}
+          onChange={onChange}
+          style={{ width: '700px' }}
+        />
 
-                    <TextField
-                      required
-                      name="userName"
-                      label="Username"
-                      variant="outlined"
-                      value={userName}
-                      onChange={onChange}
-                    />
+        <TextField
+          required
+          name="password"
+          label="Password"
+          variant="outlined"
+          value={password}
+          margin="normal"
+          type="password"
+          onChange={onChange}
+          style={{ width: '700px' }}
+        />
 
-                    <TextField
-                      required
-                      name="password"
-                      label="Password"
-                      variant="outlined"
-                      value={password}
-                      type="password"
-                      onChange={onChange}
-                    />
+        <TextField
+          required
+          name="email"
+          label="Email"
+          variant="outlined"
+          margin="normal"
+          value={email}
+          onChange={onChange}
+          style={{ width: '700px' }}
+          error={email.length > 0 && !isValidEmail(email)}
+        />
 
-                    <TextField
-                      required
-                      name="email"
-                      label="Email"
-                      variant="outlined"
-                      value={email}
-                      onChange={onChange}
-                      error={email.length > 0 && !isValidEmail(email)}
-                    />
+        <TextField
+          required
+          multiline
+          rows="3"
+          name="address"
+          label="Address"
+          variant="outlined"
+          margin="normal"
+          value={address}
+          onChange={onChange}
+          style={{ width: '700px' }}
+        />
 
-                    <TextField
-                      required
-                      name="address"
-                      label="Address"
-                      variant="outlined"
-                      value={address}
-                      onChange={onChange}
-                    />
+        <Divider />
 
-                    <Button
-                      type="submit"
-                      disabled={
-                        !firstName ||
-                        !lastName ||
-                        !userName ||
-                        !password ||
-                        !email ||
-                        !address ||
-                        !isValidEmail(email)
-                      }
-                      onClick={handleSubmit}
-                    >
-                      Submit
-                    </Button>
-                  </form>
-                </Paper>
-              </Grid>
-            </Grid>
-          </div>
-        </Grid>
-      </Grid>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          style={{ width: '100px' }}
+        >
+          Submit
+        </Button>
+      </form>
     );
   }
 }
