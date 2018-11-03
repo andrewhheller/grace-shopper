@@ -22,6 +22,7 @@ class AdminProductUpdate extends Component {
       product: {
         title: '',
         description: '',
+        author: '',
         primaryImageUrl: '',
         images: [],
         price: '',
@@ -40,7 +41,17 @@ class AdminProductUpdate extends Component {
 
   componentDidMount() {
     const { product } = this.props;
+
     this.setState({ product } )
+  }
+  
+  componentDidUpdate(prevProps) {
+
+    const { product } = this.props;
+
+    if(prevProps !== this.props) {
+      this.setState({ product })
+    }
   }
 
   handleChange(event) {
@@ -82,10 +93,15 @@ class AdminProductUpdate extends Component {
 
   render() {
     const { handleChange, handleSubmit, handleDelete, handleImages } = this;
-    const { success, error } = this.state;
-    const { title, description, primaryImageUrl, images, price, inventory, categories } = this.state.product;
+    const { product, success, error } = this.state;
+    const { title, description, author, primaryImageUrl, images, price, inventory, categories } = this.state.product;
+
+    if(!product) {
+      return null
+    }
 
     return (
+
       <Fragment>
 
         <Typography
@@ -163,6 +179,7 @@ class AdminProductUpdate extends Component {
               src={ primaryImageUrl ? primaryImageUrl : null }
               style={{
                   width: "25%",
+                  height: "25%",
                   marginLeft: "10px",
                   border: primaryImageUrl ? "3px solid red" : ''
               }}
@@ -174,7 +191,7 @@ class AdminProductUpdate extends Component {
                   <img
                     key={ idx }
                     src={ image ? image : null }
-                    style={{ width: "25%", marginLeft: "10px" }}
+                    style={{ width: "25%", height: "25%", marginLeft: "10px" }}
                   />
   
                 )
@@ -198,8 +215,9 @@ class AdminProductUpdate extends Component {
               />
             </Grid>
 
-            {/* <Grid item>
+            <Grid item>
               <TextField
+                required
                 name="author"
                 label="author"
                 margin="normal"
@@ -208,7 +226,7 @@ class AdminProductUpdate extends Component {
                 value={ author }
                 style={{ width: "700px" }}
               />
-            </Grid> */}
+            </Grid>
 
             <Grid item>
               <TextField
@@ -339,6 +357,7 @@ class AdminProductUpdate extends Component {
 
       </Fragment>
     )
+
   }
 
 
@@ -346,7 +365,10 @@ class AdminProductUpdate extends Component {
 
 const mapStateToProps = ({ products }, { match }) => {
   const id = +match.params.id;
-  const product = getProductById(products, id);
+
+  const product = getProductById(products, id)
+  
+  // console.log(products)
 
   return {
     product
