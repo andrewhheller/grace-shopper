@@ -132,14 +132,35 @@ class Cart extends Component {
                         Shipping Details
                     </Typography>
                     
-                    <TextField required id="firstName" label="First Name" variant="outlined" style={styles.field} 
-                        value={firstName} onChange={handleChange('firstName')} /> 
+                    <TextField
+                        required
+                        id="firstName"
+                        label="First Name"
+                        variant="outlined"
+                        style={styles.field} 
+                        value={firstName}
+                        onChange={handleChange('firstName')}
+                    /> 
                     
-                    <TextField required id="lastName" label="Last Name" variant="outlined" style={styles.field} 
-                        value={lastName} onChange={handleChange('lastName')} />
+                    <TextField
+                        required
+                        id="lastName"
+                        label="Last Name"
+                        variant="outlined"
+                        style={styles.field} 
+                        value={lastName}
+                        onChange={handleChange('lastName')}
+                    />
                     
-                    <TextField required id="address" label="Address" variant="outlined" style={styles.field} 
-                        value={address} onChange={handleChange('address')} />
+                    <TextField
+                        required
+                        id="address"
+                        label="Address"
+                        variant="outlined"
+                        style={styles.field} 
+                        value={address}
+                        onChange={handleChange('address')}
+                    />
                     
                     <TextField required id="email" label="Email" variant="outlined" style={styles.field} 
                         value={email} onChange={handleChange('email')} />
@@ -150,6 +171,8 @@ class Cart extends Component {
 
         const orderDetails = () => {
             return (
+                <Fragment>
+
                 <Grid item>
                     <Typography
                         variant="h3"
@@ -161,36 +184,51 @@ class Cart extends Component {
 
                 <Grid item>
                     
-                    <Grid container justify="center" style={{display: "flex", flexDirection: "column"}}>
+                    <Grid
+                        container
+                        justify="center"
+                        direction="column"
+                    >
                         {
-                            cart.line_items.map((item, index) => <Grid container key={index}>
-
-                                <Grid item xs={6}>
-                                    <Typography
-                                        variant="h6"
+                            cart.line_items.map((item, index) => {
+                            
+                                return (
+                                
+                                    <Grid
+                                        container
+                                        key={index}
                                     >
-                                        {item.product.title}
-                                    </Typography>
-                                    <img src={item.product.primaryImageUrl} style={{ height: "15vh" }}/>
-                                </Grid>
 
-                                <Grid item xs={3}>
-                                    <Typography 
-                                        variant="subheading"
-                                    >
-                                        {`Qty: ${item.quantity}`}
-                                    </Typography>
-                                    
-                                    <Typography
-                                        variant="subheading"
-                                    >
-                                        {`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}
-                                    </Typography>
+                                        <Grid item xs={6}>
+                                            <Typography
+                                                variant="h6"
+                                            >
+                                                {item.product.title}
+                                            </Typography>
+                                            <img
+                                                src={item.product.primaryImageUrl} 
+                                                style={{ height: "15vh" }}
+                                            />
+                                        </Grid>
 
-                                    <br />
-                                </Grid>
+                                        <Grid item xs={3}>
+                                            <Typography 
+                                                variant="subheading"
+                                            >
+                                                {`Qty: ${item.quantity}`}
+                                            </Typography>
+                                            
+                                            <Typography
+                                                variant="subheading"
+                                            >
+                                                {`$ ${parseFloat(item.product.price * item.quantity).toFixed(2)}`}
+                                            </Typography>
 
-                            </Grid>
+                                            <br />
+                                        </Grid>
+
+                                    </Grid>
+                                )}
                             )
                         }
                     </Grid>
@@ -201,6 +239,7 @@ class Cart extends Component {
                     container
                     direction="column"
                     justify="center"
+                    style={{ width: "200px" }}
                 >
 
                     <Grid item>
@@ -225,7 +264,7 @@ class Cart extends Component {
 
                 </Grid>
 
-                    
+            </Fragment>
 
             )
         }
