@@ -367,7 +367,7 @@ const mapStateToProps = ({ products }, { match }) => {
 
   const product = getProductById(products, id)
   
-  // console.log(products)
+  console.log(products)
 
   return {
     product
