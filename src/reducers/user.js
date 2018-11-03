@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   GET_USERS,
   DELETE_USER,
@@ -7,8 +8,7 @@ import {
   _updateUser,
   _addUser,
   _getUsers,
-} from './UserActions';
-import axios from 'axios';
+} from './constants/userActions';
 
 const updateUser = user => {
   return dispatch => {
@@ -46,7 +46,7 @@ const getUsers = () => {
 
 const getUserById = (users, id) => users.find(user => user.id === id);
 
-const UserReducer = (state = [], action) => {
+const userReducer = (state = [], action) => {
   switch (action.type) {
     case GET_USERS:
       return action.users;
@@ -63,4 +63,4 @@ const UserReducer = (state = [], action) => {
   }
 };
 
-export { getUsers, updateUser, addUser, deleteUser, getUserById, UserReducer };
+export { getUsers, updateUser, addUser, deleteUser, getUserById, userReducer };

@@ -10,26 +10,41 @@ import {
   Divider,
 } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { getProductById } from './../utils';
+// import { getProduct } from './../../reducers/singleProducut';
+import { getProduct } from './../../utils';
 import {
   createCart,
   getCartWithItems,
   createLineItemInCart,
   updateLineItemInCart,
-} from '../store';
+} from './../../store';
 import ProductImageCarousel from './ProductImageCarousel';
-import ItemQuantity from './ItemQuantity';
-import Reviews from './Reviews';
+import ItemQuantity from './../ItemQuantity';
+import Reviews from './../Review/Reviews';
 
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      product: this.props.product,
-    };
+    this.state = this.props.product || {}
     this.handleAddToCart = this.handleAddToCart.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
+
+  componentDidMount(){
+    const { product, products } = this.props;
+    console.log('product ', product)
+    if(!product) {
+        return null;
+    }
+    this.setState(product)
+  }
+
+  // componentDidUpdate(prevProps){
+  //   console.log('prevProps ', prevProps)
+  //   if(!prevProps.product & this.props.product){
+  //     this.setState = this.props.product
+  //   }
+  // }
 
   handleChange(event, productId) {
     this.productQty[productId] = event.target.value;
@@ -66,8 +81,8 @@ class ProductDetail extends Component {
   }
 
   render() {
-    const { classes, reviews } = this.props;
-    const { product } = this.state;
+    const { classes, reviews, products } = this.props;
+    const product = this.state;
     const { handleAddToCart } = this;
     const findReviews = reviews.filter(
       review => review.productId === product.id
@@ -148,9 +163,9 @@ const mapStateToProps = (
   { orders, products, authenticatedUser, reviews, localCart },
   { match }
 ) => {
-  const id = parseInt(match.params.id);
   return {
-    product: getProductById(products, id),
+    products,
+    product: getProduct(match.params.id*1, products),
     cart: getCartWithItems(orders, products, localCart),
     userId: authenticatedUser.id,
     reviews,

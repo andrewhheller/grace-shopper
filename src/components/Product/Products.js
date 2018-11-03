@@ -28,7 +28,9 @@ const Products = ({ products, category, classes }) => {
             <div style={{ gridColumnEnd: 'span 12' }}>
                 <Paper className={classes.paper} elevation={1} >
                     <Typography variant="h5" component="h3">
-                    Category: {category}
+                    {
+                        category === 'Highly Recommended' ? `${category}` : `Category: ${category}`
+                    }
                     </Typography>
                 </Paper>
             </div>

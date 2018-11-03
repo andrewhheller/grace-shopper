@@ -2,13 +2,13 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { reviewsReducer, getReviews, createReview } from './reducers/reviews';
-import { UserReducer, getUsers, addUser } from './reducers/UserReducer';
+import { userReducer, getUsers, addUser } from './reducers/user';
+import { productCountReducer, getProductCount, getProductCountByCategory } from './reducers/productCount'
+import { userCountReducer, getUserCount } from './reducers/userCount';
 import {
   productReducer,
   getProducts,
-  getProduct,
-  getCategories,
-  getProductByCategory,
+  getPagedProducts
 } from './reducers/products';
 import {
   ordersReducer,
@@ -35,12 +35,14 @@ import { localCartReducer, createLineItemInLocalCart, deleteLineItemFromLocalCar
   from './reducers/localCart';
 
 const reducer = combineReducers({
-  users: UserReducer,
+  users: userReducer,
   products: productReducer,
   authenticatedUser: authenticatedUserReducer,
   orders: ordersReducer,
   reviews: reviewsReducer,
-  localCart: localCartReducer
+  localCart: localCartReducer,
+  productCount: productCountReducer,
+  userCount: userCountReducer
 });
 
 const store = createStore(reducer, applyMiddleware(thunk, logger));
@@ -158,10 +160,12 @@ export {
   createLineItemInCart,
   deleteLineItemFromCart,
   updateLineItemInCart,
-  getCategories,
-  getProductByCategory,
   getReviews,
   createReview,
   addUser,
-  mergeCartWithLocalCartOnLogin
+  mergeCartWithLocalCartOnLogin,
+  getProductCount,
+  getUserCount,
+  getPagedProducts,
+  getProductCountByCategory
 };
