@@ -54,13 +54,12 @@ class AdminTopNav extends Component {
         <div style={{ height: '50px' }} />
 
         {value === 0 && <AdminHome />}
-        {value === 1 && <AdminUsersMain location={location} />}
+        {value === 1 && <AdminUsersMain location={location} history={history} match={match}/>}
         {value === 2 && (
           <AdminProductMain
             location={location}
             history={history}
             match={match}
-            location={location}
           />
         )}
         {value === 3 && <AdminOrdersMain location={location} />}
