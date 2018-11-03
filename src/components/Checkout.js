@@ -307,7 +307,6 @@ class Cart extends Component {
                         <Paper
                             elevation={10}
                             style={{
-                                backgroundColor: 'lightgray',
                                 padding: '10px',
                                 width: "600px"
                             }}>
