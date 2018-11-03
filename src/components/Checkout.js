@@ -55,7 +55,7 @@ class Cart extends Component {
 
         const paymentDetails = () => {
             return (
-                <Grid item xs>
+                <Grid item>
                     <form
                         style={{
                             display: "flex",
@@ -174,8 +174,7 @@ class Cart extends Component {
                 <Grid
                     container
                     direction="column"
-                    spacing={2}
-                    style={{ border: "1px solid red", width: "600px" }}
+                    style={{ width: "600px" }}
                 >
                     <Grid item>
                         <Typography
@@ -293,7 +292,7 @@ class Cart extends Component {
                             container
                             spacing={32}
                             direction="column"
-                            style={ { border: "1px solid red", width: "600px" }}
+                            style={ { width: "600px" }}
                         >
                             <Grid item>
                                 { paymentDetails() }
