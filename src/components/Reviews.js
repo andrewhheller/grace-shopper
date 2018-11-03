@@ -12,8 +12,10 @@ import {
   Select,
   MenuItem,
   Button,
-  Divider
+  Divider,
+  withStyles
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import Review from './Review';
@@ -51,7 +53,7 @@ class Reviews extends Component {
   }
 
   render() {
-    const { id, reviews } = this.props;
+    const { id, reviews, classes } = this.props;
     const { handleSubmit, onChange } = this;
 
     const { text, userId, rating } = this.state;
@@ -116,8 +118,14 @@ class Reviews extends Component {
                 </Select>
               </FormControl>
               <Divider />
-              <Button type="submit" disabled={!text || !userId || !rating}>
-                Submit
+              <Button 
+                type="submit"
+                variant="outlined"
+                color="primary"
+                disabled={!text || !userId || !rating}
+                className={classes.submit}
+              >
+                Add review
               </Button>
             </form>
           </ExpansionPanelDetails>
@@ -138,7 +146,20 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const styles = theme => ({
+  submit: {
+    margin: theme.spacing.unit * 5,
+  },
+  divider: {
+    margin: `${theme.spacing.unit * 2}px 0`,
+  }
+});
+
+Reviews.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Reviews);
+)(withStyles(styles)(Reviews));

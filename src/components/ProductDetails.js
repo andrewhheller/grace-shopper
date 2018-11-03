@@ -92,7 +92,7 @@ class ProductDetail extends Component {
                 >
                   Price: ${product.price}
                 </Typography>
-                <Divider />
+                <Divider className={classes.divider}/>
                 <Typography paragraph variant="subheading">
                   Average Rating:{' '}
                   {findReviews.length === 0
