@@ -30,10 +30,6 @@ class ProductDetail extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(event, productId) {
-    this.productQty[productId] = event.target.value;
-  }
-
   handleAddToCart(productId, quantity, price) {
     const item = { productId, quantity, price };
     const {
