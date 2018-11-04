@@ -37,8 +37,7 @@ class AdminProductUpdate extends Component {
 
   componentDidMount() {
     const { product } = this.props;
-
-    this.setState({ product } )
+    this.setState({ product });
   }
   
   componentDidUpdate(prevProps) {
@@ -372,7 +371,7 @@ const mapStateToProps = ({ products }, { match }) => {
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     onUpdateProduct: product => dispatch(updateProduct(product)),
-    onDeleteProduct: product => dispatch(deleteProduct(product, history)),
+    onDeleteProduct: product => dispatch(deleteProduct(product, history)),fs
   };
 };
 
