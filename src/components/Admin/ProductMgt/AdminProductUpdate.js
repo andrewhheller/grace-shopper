@@ -62,8 +62,8 @@ class AdminProductUpdate extends Component {
     event.preventDefault();
     onUpdateProduct(product).then(() => {
       this.setState({ success: 'Product updated successfully!' });
-    });
-    //.catch(error => this.setState({ error: 'An error has occurred.' }));
+    })
+    .catch(error => this.setState({ error: 'An error has occurred.' }));
   }
 
   handleDelete(product) {
