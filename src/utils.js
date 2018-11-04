@@ -51,7 +51,7 @@ const getProduct = (id, products) => {
 }
 
 const getCategories = (products) => {
-  return products.reduce(
+  const categoriesList =  products.reduce(
     (result, product) => {
       product.categories.forEach(category => {
         if (!result.includes(category)) {
@@ -62,6 +62,8 @@ const getCategories = (products) => {
     },
     ['All']
   );
+  window.localStorage.setItem('categoriesList', categoriesList)
+  return categoriesList;
 };
 
 const getPageNum = (productsCount, limit) => {
@@ -70,7 +72,7 @@ const getPageNum = (productsCount, limit) => {
 
 const getRecommendedProducts = (reviews, products) => {
   const fiveStars = reviews.reduce((result, review) => {
-    if(review.rating > 4 && !result.includes(review.productId)){
+    if(review.rating > 4 && !result.includes(review.productId) && result.length < 10){
       result.push(review.productId)
     }
     return result;

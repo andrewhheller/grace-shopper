@@ -17,6 +17,7 @@ class Home extends Component {
 
     setCategory(category) {
         this.setState({ category });
+        window.sessionStorage.setItem('currCat', category)
     }
 
   componentDidMount(){
@@ -25,13 +26,16 @@ class Home extends Component {
 
   render() {
     const { products, recommendedProducts } = this.props
-    const categories = getCategories(products);
     const { setCategory } = this;
     const { category } = this.state;
+    if(!products && products.length === 0){
+        return null;
+    }
+    const categories = getCategories(products);
         return (
             <Grid container spacing={24}>
                 <Grid item sm={2} style={style.GridItem}>
-                    <ul>
+                    <List>
                     {
                         categories.map((categoryName, index) => 
                             <ListItem 
@@ -44,10 +48,10 @@ class Home extends Component {
                             </ListItem>
                         )
                     }
-                    </ul>
+                    </List>
                 </Grid>
                 <Grid item sm style={style.GridItem}> 
-                    <Products category={'Products with highest reviews'} products={recommendedProducts}/>
+                    <Products category={'Top 10 rated products'} products={recommendedProducts}/>
                 </Grid>
             </Grid>
         )

@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import { reviewsReducer, getReviews, createReview } from './reducers/reviews';
 import { productCountReducer, getProductCount, getProductCountByCategory } from './reducers/productCount'
 import { userCountReducer, getUserCount } from './reducers/userCount';
+import { getProduct } from './utils';
 import {
   userReducer,
   getUsers,

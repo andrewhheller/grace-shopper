@@ -10,7 +10,6 @@ import {
   Divider
 } from '@material-ui/core';
 import { connect } from 'react-redux';
-// import { getProduct } from './../../reducers/singleProducut';
 import { getProduct } from './../../utils';
 import {
   createCart,
@@ -27,7 +26,6 @@ class ProductDetail extends Component {
     super(props);
     this.state = this.props.product || {}
     this.handleAddToCart = this.handleAddToCart.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   handleAddToCart(productId, quantity, price) {
