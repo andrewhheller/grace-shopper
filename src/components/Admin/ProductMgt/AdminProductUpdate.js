@@ -18,6 +18,7 @@ class AdminProductUpdate extends Component {
       product: {
         title: '',
         description: '',
+        author: '',
         primaryImageUrl: '',
         images: [],
         price: '',
@@ -37,6 +38,14 @@ class AdminProductUpdate extends Component {
   componentDidMount() {
     const { product } = this.props;
     this.setState({ product });
+  }
+  
+  componentDidUpdate(prevProps) {
+    const { product } = this.props;
+
+    if(prevProps !== this.props) {
+      this.setState({ product })
+    }
   }
 
   handleChange(event) {
@@ -78,18 +87,15 @@ class AdminProductUpdate extends Component {
 
   render() {
     const { handleChange, handleSubmit, handleDelete, handleImages } = this;
-    const { success, error } = this.state;
-    const {
-      title,
-      description,
-      primaryImageUrl,
-      images,
-      price,
-      inventory,
-      categories,
-    } = this.state.product;
+    const { product, success, error } = this.state;
+    const { title, description, author, primaryImageUrl, images, price, inventory, categories } = this.state.product;
+
+    if(!product) {
+      return null
+    }
 
     return (
+
       <Fragment>
         <Typography variant="h2" gutterBottom style={{ color: 'dodgerblue' }}>
           Update Product
@@ -159,47 +165,53 @@ class AdminProductUpdate extends Component {
                       style={{ width: '700px' }}
                     />
                   </Grid>
-                );
-              })}
+                )
+              })
+            }
 
-              <img
-                src={primaryImageUrl ? primaryImageUrl : null}
-                style={{
-                  width: '25%',
-                  marginLeft: '10px',
-                  border: primaryImageUrl ? '3px solid red' : '',
-                }}
-              />
+            <img
+              src={ primaryImageUrl ? primaryImageUrl : null }
+              style={{
+                  width: "25%",
+                  height: "25%",
+                  marginLeft: "10px",
+                  border: primaryImageUrl ? "3px solid red" : ''
+              }}
+            />
 
-              {images.map((image, idx) => {
+            {
+              images.map((image, idx) => {
                 return (
                   <img
-                    key={idx}
-                    src={image ? image : null}
-                    style={{ width: '25%', marginLeft: '10px' }}
+                    key={ idx }
+                    src={ image ? image : null }
+                    style={{ width: "25%", height: "25%", marginLeft: "10px" }}
                   />
-                );
-              })}
+  
+                )
+              })
+            }
 
-              <br />
-              <br />
-              <br />
+            <br />
+            <br />
+            <br />
 
-              <Grid item>
-                <TextField
-                  required
-                  name="title"
-                  label="title"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={title}
-                  style={{ width: '700px' }}
-                />
-              </Grid>
-
-              {/* <Grid item>
+            <Grid item>
               <TextField
+                required
+                name="title"
+                label="title"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ title }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                required
                 name="author"
                 label="author"
                 margin="normal"
@@ -208,7 +220,7 @@ class AdminProductUpdate extends Component {
                 value={ author }
                 style={{ width: "700px" }}
               />
-            </Grid> */}
+            </Grid>
 
               <Grid item>
                 <TextField
@@ -346,7 +358,10 @@ class AdminProductUpdate extends Component {
 
 const mapStateToProps = ({ products }, { match }) => {
   const id = +match.params.id;
-  const product = getProductById(products, id);
+
+  const product = getProductById(products, id)
+  
+  console.log(products)
 
   return {
     product,
@@ -356,7 +371,7 @@ const mapStateToProps = ({ products }, { match }) => {
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     onUpdateProduct: product => dispatch(updateProduct(product)),
-    onDeleteProduct: product => dispatch(deleteProduct(product, history)),
+    onDeleteProduct: product => dispatch(deleteProduct(product, history)),fs
   };
 };
 

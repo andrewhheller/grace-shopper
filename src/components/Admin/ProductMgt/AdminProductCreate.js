@@ -15,6 +15,7 @@ const initialState = {
   product: {
     title: '',
     description: '',
+    author: '',
     primaryImageUrl: '',
     images: '',
     price: '',
@@ -36,6 +37,7 @@ class AdminProductCreate extends Component {
       product: {
         title: '',
         description: '',
+        author: '',
         primaryImageUrl: '',
         images: '',
         price: '',
@@ -75,8 +77,8 @@ class AdminProductCreate extends Component {
     onAddProduct(product).then(() => {
       this.setState({ success: 'Product added successfully!' });
       this.setState(initialState);
-    });
-    // .catch(error => this.setState({ error: 'An error has occurred.', success: '' }));
+    })
+    .catch(error => this.setState({ error: 'An error has occurred.', success: '' }));
   }
 
   handleImages() {
@@ -95,6 +97,7 @@ class AdminProductCreate extends Component {
     const {
       title,
       description,
+      author,
       primaryImageUrl,
       price,
       inventory,
@@ -157,7 +160,6 @@ class AdminProductCreate extends Component {
 
               <Grid item>
                 <TextField
-                  required
                   type="url"
                   id="image1"
                   name="image1"
@@ -172,7 +174,6 @@ class AdminProductCreate extends Component {
 
               <Grid item>
                 <TextField
-                  required
                   type="url"
                   id="image2"
                   name="image2"
@@ -187,7 +188,6 @@ class AdminProductCreate extends Component {
 
               <Grid item>
                 <TextField
-                  required
                   type="url"
                   id="image3"
                   name="image3"
@@ -203,54 +203,65 @@ class AdminProductCreate extends Component {
               <img
                 src={primaryImageUrl ? primaryImageUrl : null}
                 style={{
-                  width: '25%',
-                  marginLeft: '10px',
-                  border: primaryImageUrl ? '3px solid red' : '',
+                    width: "25%",
+                    height: "25%",
+                    marginLeft: "10px",
+                    border: primaryImageUrl ? "2px solid red" : 'none'
                 }}
               />
 
               <img
-                src={image1 ? image1 : null}
-                style={{ width: '25%', marginLeft: '10px' }}
+                src={ image1 ? image1 : null }
+                style={{
+                    width: "25%",
+                    height: "25%",
+                    marginLeft: "10px"
+                }}
               />
 
               <img
-                src={image2 ? image2 : null}
-                style={{ width: '25%', marginLeft: '10px' }}
+                src={ image2 ? image2 : null }
+                style={{
+                  width: "25%",
+                  height: "25%",
+                  marginLeft: "10px"
+                }}
               />
 
               <img
-                src={image3 ? image3 : null}
-                style={{ width: '25%', marginLeft: '10px' }}
+                src={ image3 ? image3 : null }
+                style={{
+                    width: "25%",
+                    height: "25%",
+                    marginLeft: "10px"
+                }}
               />
 
-              <br />
-              <br />
-              <br />
-
-              <Grid item>
-                <TextField
-                  required
-                  name="title"
-                  label="title"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={title}
-                  style={{ width: '700px' }}
-                />
-              </Grid>
-
-              {/* <Grid item>
+            <Grid item>
               <TextField
+                required
+                name="title"
+                label="title"
+                margin="normal"
+                variant="outlined"
+                onChange={ handleChange }
+                value={ title }
+                style={{ width: "700px" }}
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                required
                 name="author"
                 label="author"
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ author }
                 style={{ width: "700px" }}
               />
-            </Grid> */}
+            </Grid>
 
               <Grid item>
                 <TextField

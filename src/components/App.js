@@ -83,13 +83,11 @@ class App extends Component {
             <Route path="/admins/users/:id" component={AdminUserUpdate} />
 
             <Route
-              exact
-              path="/admins/product-create"
+              exact path="/admins/product-create"
               component={AdminTopNav}
             />
             <Route
-              exact
-              path="/admins/product-search"
+              exact path="/admins/product-search"
               component={AdminTopNav}
             />
             <Route exact path="/admins/products/:id" component={AdminTopNav} />
