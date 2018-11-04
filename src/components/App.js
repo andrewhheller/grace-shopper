@@ -17,7 +17,6 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminTopNav from './Admin/AdminTopNav';
-import AdminUserUpdate from './Admin/UserMgt/AdminUserUpdate';
 import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
 import RegistrationSuccessful from './RegistrationSuccessful';
@@ -86,6 +85,8 @@ class App extends Component {
             <Route exact path="/admins/products/:id" component={AdminTopNav} />
             <Route exact path="/admins/orders" component={AdminTopNav} />
             <Route exact path="/admins" component={AdminTopNav} />
+            <Route exact path="/admins/user-create" component={AdminTopNav} />
+            <Route exact path="/admins/users" component={AdminTopNav} />
 
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />

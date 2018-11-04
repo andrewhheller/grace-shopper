@@ -67,7 +67,7 @@ class AdminTopNav extends Component {
 
           <Tab label="Products" component={Link} to="/admins/product-create" />
 
-          <Tab label="Orders" component={Link} to="/admins/orders" />
+          {/* <Tab label="Orders" component={Link} to="/admins/orders" /> */}
         </Tabs>
 
         <div style={{ height: '50px' }} />
