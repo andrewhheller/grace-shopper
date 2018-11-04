@@ -93,7 +93,7 @@ class App extends Component {
               render={({ history }) => <AdminUserCreate history={history} />}
             />
             <Route exact path="/admins/users" component={AdminTopNav} />
-            <Route path="/admins/users/:id" component={AdminTopNav} />
+            <Route path="/admins/users/:id" component={AdminUserUpdate} />
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />
             <Route path="/cart" component={Cart} />
