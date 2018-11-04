@@ -77,8 +77,8 @@ class AdminProductCreate extends Component {
     onAddProduct(product).then(() => {
       this.setState({ success: 'Product added successfully!' });
       this.setState(initialState);
-    });
-    // .catch(error => this.setState({ error: 'An error has occurred.', success: '' }));
+    })
+    .catch(error => this.setState({ error: 'An error has occurred.', success: '' }));
   }
 
   handleImages() {
@@ -97,6 +97,7 @@ class AdminProductCreate extends Component {
     const {
       title,
       description,
+      author,
       primaryImageUrl,
       price,
       inventory,
@@ -159,7 +160,6 @@ class AdminProductCreate extends Component {
 
               <Grid item>
                 <TextField
-                  required
                   type="url"
                   id="image1"
                   name="image1"
@@ -174,7 +174,6 @@ class AdminProductCreate extends Component {
 
               <Grid item>
                 <TextField
-                  required
                   type="url"
                   id="image2"
                   name="image2"
@@ -189,7 +188,6 @@ class AdminProductCreate extends Component {
 
               <Grid item>
                 <TextField
-                  required
                   type="url"
                   id="image3"
                   name="image3"
@@ -260,6 +258,7 @@ class AdminProductCreate extends Component {
                 margin="normal"
                 variant="outlined"
                 onChange={ handleChange }
+                value={ author }
                 style={{ width: "700px" }}
               />
             </Grid>
