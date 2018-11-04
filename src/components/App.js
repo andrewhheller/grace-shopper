@@ -17,13 +17,13 @@ import Home from './Home';
 import Login from './Login';
 import RegisterUser from './RegisterUser';
 import AdminTopNav from './Admin/AdminTopNav';
-// import AdminProductMain from './Admin/ProductMgt/AdminProductMain';
 import AdminUserUpdate from './Admin/UserMgt/AdminUserUpdate';
 import Cart from './Cart';
 import OrderConfirmation from './OrderConfirmation';
 import RegistrationSuccessful from './RegistrationSuccessful';
 import Checkout from './Checkout';
-
+import AdminUserUpdate from './Admin/UserMgt/AdminUserUpdate';
+import AdminUserCreate from './Admin/UserMgt/AdminUserCreate';
 
 class App extends Component {
   componentDidMount() {
@@ -75,9 +75,6 @@ class App extends Component {
               )}
             />
 
-            <Route exact path="/admins/user-create" component={AdminTopNav} />
-            <Route exact path="/admins/users" component={AdminTopNav} />
-            <Route exact path="/admins/users/:id" component={AdminUserUpdate} />
             <Route
               exact path="/admins/product-create"
               component={AdminTopNav}
