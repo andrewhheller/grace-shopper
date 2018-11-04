@@ -205,21 +205,14 @@ class AdminProductCreate extends Component {
               <img
                 src={primaryImageUrl ? primaryImageUrl : null}
                 style={{
-<<<<<<< HEAD
                     width: "25%",
                     height: "25%",
                     marginLeft: "10px",
                     border: primaryImageUrl ? "2px solid red" : 'none'
-=======
-                  width: '25%',
-                  marginLeft: '10px',
-                  border: primaryImageUrl ? '3px solid red' : '',
->>>>>>> 6ff35dd8f81001f6482ba7fda1293eec466aacc2
                 }}
               />
 
               <img
-<<<<<<< HEAD
                 src={ image1 ? image1 : null }
                 style={{
                     width: "25%",
@@ -260,40 +253,6 @@ class AdminProductCreate extends Component {
             </Grid>
 
             <Grid item>
-=======
-                src={image1 ? image1 : null}
-                style={{ width: '25%', marginLeft: '10px' }}
-              />
-
-              <img
-                src={image2 ? image2 : null}
-                style={{ width: '25%', marginLeft: '10px' }}
-              />
-
-              <img
-                src={image3 ? image3 : null}
-                style={{ width: '25%', marginLeft: '10px' }}
-              />
-
-              <br />
-              <br />
-              <br />
-
-              <Grid item>
-                <TextField
-                  required
-                  name="title"
-                  label="title"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={title}
-                  style={{ width: '700px' }}
-                />
-              </Grid>
-
-              {/* <Grid item>
->>>>>>> 6ff35dd8f81001f6482ba7fda1293eec466aacc2
               <TextField
                 required
                 name="author"
