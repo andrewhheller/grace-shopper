@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import { getProductById } from '../utils';
@@ -77,7 +77,13 @@ const UserOrderLineItems = ({ order, products }) => {
                 </CustomTableCell>
 
                 <CustomTableCell style={{ textAlign: 'center' }} component="th" scope="row">
-                  <Button variant="outlined" color="primary" size="small">
+                  <Button
+                    component={ Link }
+                    to={ `/products/${ line_item.productId }` }
+                    variant="outlined"
+                    color="primary"
+                    size="small"
+                  >
                     Review
                   </Button>
                 </CustomTableCell>
