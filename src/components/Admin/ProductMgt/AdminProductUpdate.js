@@ -37,12 +37,8 @@ class AdminProductUpdate extends Component {
 
   componentDidMount() {
     const { product } = this.props;
-<<<<<<< HEAD
 
     this.setState({ product } )
-=======
-    this.setState({ product });
->>>>>>> 6ff35dd8f81001f6482ba7fda1293eec466aacc2
   }
   
   componentDidUpdate(prevProps) {
@@ -92,25 +88,12 @@ class AdminProductUpdate extends Component {
 
   render() {
     const { handleChange, handleSubmit, handleDelete, handleImages } = this;
-<<<<<<< HEAD
     const { product, success, error } = this.state;
     const { title, description, author, primaryImageUrl, images, price, inventory, categories } = this.state.product;
 
     if(!product) {
       return null
     }
-=======
-    const { success, error } = this.state;
-    const {
-      title,
-      description,
-      primaryImageUrl,
-      images,
-      price,
-      inventory,
-      categories,
-    } = this.state.product;
->>>>>>> 6ff35dd8f81001f6482ba7fda1293eec466aacc2
 
     return (
 
@@ -183,7 +166,6 @@ class AdminProductUpdate extends Component {
                       style={{ width: '700px' }}
                     />
                   </Grid>
-<<<<<<< HEAD
                 )
               })
             }
@@ -229,48 +211,6 @@ class AdminProductUpdate extends Component {
             </Grid>
 
             <Grid item>
-=======
-                );
-              })}
-
-              <img
-                src={primaryImageUrl ? primaryImageUrl : null}
-                style={{
-                  width: '25%',
-                  marginLeft: '10px',
-                  border: primaryImageUrl ? '3px solid red' : '',
-                }}
-              />
-
-              {images.map((image, idx) => {
-                return (
-                  <img
-                    key={idx}
-                    src={image ? image : null}
-                    style={{ width: '25%', marginLeft: '10px' }}
-                  />
-                );
-              })}
-
-              <br />
-              <br />
-              <br />
-
-              <Grid item>
-                <TextField
-                  required
-                  name="title"
-                  label="title"
-                  margin="normal"
-                  variant="outlined"
-                  onChange={handleChange}
-                  value={title}
-                  style={{ width: '700px' }}
-                />
-              </Grid>
-
-              {/* <Grid item>
->>>>>>> 6ff35dd8f81001f6482ba7fda1293eec466aacc2
               <TextField
                 required
                 name="author"
@@ -413,12 +353,7 @@ class AdminProductUpdate extends Component {
           <br />
         </form>
       </Fragment>
-<<<<<<< HEAD
-    )
-
-=======
     );
->>>>>>> 6ff35dd8f81001f6482ba7fda1293eec466aacc2
   }
 }
 
