@@ -75,14 +75,6 @@ class App extends Component {
             />
 
             <Route
-              exact
-              path="/admins/user-create"
-              render={({ history }) => <AdminUserCreate history={history} />}
-            />
-            <Route exact path="/admins/users" component={AdminTopNav} />
-            <Route path="/admins/users/:id" component={AdminUserUpdate} />
-
-            <Route
               exact path="/admins/product-create"
               component={AdminTopNav}
             />
@@ -93,6 +85,8 @@ class App extends Component {
             <Route exact path="/admins/products/:id" component={AdminTopNav} />
             <Route exact path="/admins/orders" component={AdminTopNav} />
             <Route exact path="/admins" component={AdminTopNav} />
+            <Route exact path="/admins/user-create" component={AdminTopNav} />
+            <Route exact path="/admins/users" component={AdminTopNav} />
 
             <Route exact path="/products" component={Products} />
             <Route path="/products/:id" component={ProductDetails} />

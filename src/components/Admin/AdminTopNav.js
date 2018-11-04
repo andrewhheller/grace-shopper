@@ -23,10 +23,28 @@ class AdminTopNav extends Component {
 
     if (location.pathname.includes('admins/user')) {
       this.setState({ value: 1 });
-    } else if (location.pathname.includes('admins/product')) {
+    } else if (location.pathname.includes('admins/product-create')) {
+      this.setState({ value: 2 });
+    } else if (location.pathname.includes('admins/product-search')) {
       this.setState({ value: 2 });
     } else if (location.pathname.includes('admins/orders')) {
       this.setState({ value: 3 });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+
+    if(prevProps !== this.props) {
+      if (location.pathname.includes('admins/user')) {
+        this.setState({ value: 1 });
+      } else if (location.pathname.includes('admins/product-create')) {
+        this.setState({ value: 2 });
+      } else if (location.pathname.includes('admins/product-search')) {
+        this.setState({ value: 2 });
+      } else if (location.pathname.includes('admins/orders')) {
+        this.setState({ value: 3 });
+      }
     }
   }
 
@@ -49,7 +67,7 @@ class AdminTopNav extends Component {
 
           <Tab label="Products" component={Link} to="/admins/product-create" />
 
-          <Tab label="Orders" component={Link} to="/admins/orders" />
+          {/* <Tab label="Orders" component={Link} to="/admins/orders" /> */}
         </Tabs>
 
         <div style={{ height: '50px' }} />

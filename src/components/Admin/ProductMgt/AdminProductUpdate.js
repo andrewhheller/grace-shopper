@@ -371,7 +371,7 @@ const mapStateToProps = ({ products }, { match }) => {
 const mapDispatchToProps = (dispatch, { history }) => {
   return {
     onUpdateProduct: product => dispatch(updateProduct(product)),
-    onDeleteProduct: product => dispatch(deleteProduct(product, history)),fs
+    onDeleteProduct: product => dispatch(deleteProduct(product, history)),
   };
 };
 
